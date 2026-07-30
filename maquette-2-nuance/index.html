@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monsieur Madame — Salon de coiffure à Gréoux-les-Bains</title>
+<meta name="description" content="Monsieur Madame, salon de coiffure familial à Gréoux-les-Bains, Provence. Balayage, coloration, coupe et conseil sur-mesure par Elodie. Réservation en ligne 24h/24." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --creme:#FBF7F1;
+    --lin:#F3EBDD;
+    --lin-deep:#EDE1CE;
+    --taupe:#8A7C6A;
+    --taupe-soft:#B4A794;
+    --terra:#C08457;
+    --terra-deep:#B9714F;
+    --sauge:#7C8A6E;
+    --brun:#3B332B;
+    --brun-soft:#5C5348;
+    --white:#FFFFFF;
+    --shadow-soft:0 24px 60px -30px rgba(59,51,43,.28);
+    --shadow-card:0 18px 46px -28px rgba(59,51,43,.22);
+    --radius-lg:40px;
+    --radius-md:28px;
+    --radius-sm:20px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+
+  body{
+    font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--creme);
+    color:var(--brun);
+    line-height:1.7;
+    font-weight:400;
+    letter-spacing:.005em;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Subtle grain overlay */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.08;letter-spacing:-.01em;color:var(--brun);}
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  ::selection{background:var(--terra);color:#fff;}
+
+  :focus-visible{outline:2.5px solid var(--terra-deep);outline-offset:3px;border-radius:6px;}
+
+  .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 22px;}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--terra-deep);
+  }
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--terra);border-radius:2px;opacity:.7;}
+
+  .pill{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.5rem 1rem;border-radius:100px;
+    font-size:.82rem;font-weight:600;
+    background:var(--white);color:var(--brun-soft);
+    box-shadow:0 6px 18px -12px rgba(59,51,43,.4);
+    border:1px solid rgba(138,124,106,.16);
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+    font-family:'Manrope',sans-serif;font-weight:600;font-size:.98rem;
+    padding:.95rem 1.7rem;border-radius:100px;
+    cursor:pointer;border:none;
+    transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .3s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--terra-deep);color:#fff;
+    box-shadow:0 14px 30px -12px rgba(185,113,79,.6);
+  }
+  .btn-primary:hover{background:#a9633f;transform:translateY(-3px);box-shadow:0 20px 38px -12px rgba(185,113,79,.7);}
+  .btn-ghost{
+    background:transparent;color:var(--brun);
+    border:1.5px solid rgba(138,124,106,.4);
+  }
+  .btn-ghost:hover{background:var(--white);border-color:var(--taupe);transform:translateY(-3px);box-shadow:var(--shadow-card);}
+  .btn-sm{padding:.7rem 1.3rem;font-size:.9rem;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease),backdrop-filter .4s;
+    padding:1.15rem 0;
+  }
+  header.scrolled{
+    background:rgba(251,247,241,.82);
+    backdrop-filter:blur(14px) saturate(1.4);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4);
+    box-shadow:0 1px 0 rgba(138,124,106,.14),0 12px 30px -22px rgba(59,51,43,.4);
+    padding:.7rem 0;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+  .logo{display:flex;align-items:center;gap:.62rem;font-family:'Fraunces',serif;font-size:1.32rem;letter-spacing:-.01em;color:var(--brun);}
+  .logo-mark{
+    width:38px;height:38px;border-radius:50%;flex:none;
+    background:radial-gradient(circle at 35% 30%,var(--terra) 0%,var(--terra-deep) 70%);
+    display:grid;place-items:center;color:#fff;font-size:1rem;
+    box-shadow:0 6px 16px -8px rgba(185,113,79,.7);
+  }
+  .logo small{display:block;font-family:'Manrope',sans-serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--taupe);font-weight:600;margin-top:1px;}
+  .nav-links{display:none;align-items:center;gap:2rem;}
+  .nav-links a{font-size:.94rem;font-weight:500;color:var(--brun-soft);position:relative;padding:.2rem 0;transition:color .3s;}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--terra);transition:width .35s var(--ease);border-radius:2px;}
+  .nav-links a:hover{color:var(--brun);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;align-items:center;gap:.6rem;}
+
+  .burger{display:inline-flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;}
+  .burger span{width:22px;height:2px;background:var(--brun);border-radius:2px;transition:.3s var(--ease);}
+  .mobile-menu{
+    position:fixed;inset:0;z-index:999;
+    background:rgba(251,247,241,.97);
+    backdrop-filter:blur(10px);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
+    opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+  }
+  .mobile-menu.open{opacity:1;visibility:visible;}
+  .mobile-menu a{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--brun);}
+  .mobile-menu .btn{margin-top:1rem;font-size:1.05rem;}
+  .mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:2rem;color:var(--brun);cursor:pointer;line-height:1;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:9.5rem 0 4.5rem;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;z-index:-2;background:
+     radial-gradient(120% 90% at 85% 0%,var(--lin) 0%,rgba(243,235,221,0) 55%),
+     radial-gradient(90% 80% at 5% 90%,rgba(124,138,110,.12) 0%,rgba(124,138,110,0) 50%),
+     var(--creme);}
+  .blob{position:absolute;z-index:-1;filter:blur(2px);opacity:.7;pointer-events:none;}
+  .blob-1{top:-6%;right:-8%;width:46vw;max-width:620px;}
+  .blob-2{bottom:-14%;left:-12%;width:38vw;max-width:480px;opacity:.55;}
+
+  .hero-grid{display:grid;gap:2.8rem;align-items:center;}
+  .hero-copy{max-width:620px;}
+  .hero h1{font-size:clamp(2.7rem,8vw,4.6rem);margin:1.4rem 0 1.3rem;}
+  .hero h1 em{font-style:italic;color:var(--terra-deep);}
+  .hero-sub{font-size:clamp(1.05rem,2.4vw,1.22rem);color:var(--brun-soft);max-width:520px;font-weight:400;}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2.1rem;}
+  .hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem;margin-top:2.4rem;color:var(--brun-soft);font-size:.9rem;}
+  .hero-meta .dot{width:5px;height:5px;border-radius:50%;background:var(--taupe-soft);}
+  .stars{color:var(--terra);letter-spacing:2px;font-size:.95rem;}
+
+  .hero-visual{position:relative;}
+  .hero-card{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;
+    aspect-ratio:4/5;
+    background-color:var(--lin-deep);
+    box-shadow:var(--shadow-soft);
+  }
+  .hero-card img{width:100%;height:100%;object-fit:cover;}
+  .hero-float{
+    position:absolute;bottom:1.3rem;left:1.3rem;right:1.3rem;
+    background:rgba(251,247,241,.9);
+    backdrop-filter:blur(8px);
+    border-radius:var(--radius-md);
+    padding:1rem 1.2rem;
+    display:flex;align-items:center;gap:.9rem;
+    box-shadow:var(--shadow-card);
+    border:1px solid rgba(255,255,255,.5);
+  }
+  .hero-float .av{width:44px;height:44px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,var(--sauge),#5f6d53);display:grid;place-items:center;color:#fff;font-family:'Fraunces',serif;font-size:1.15rem;}
+  .hero-float b{font-family:'Fraunces',serif;font-weight:500;font-size:1.02rem;}
+  .hero-float span{font-size:.82rem;color:var(--brun-soft);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;}
+  .section-pad{padding:5.5rem 0;}
+  .section-head{max-width:640px;margin-bottom:3rem;}
+  .section-head h2{font-size:clamp(2rem,5vw,3.1rem);margin:1rem 0 1rem;}
+  .section-head p{color:var(--brun-soft);font-size:1.06rem;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+  .center .eyebrow::before{display:none;}
+  .center .eyebrow{gap:0;}
+
+  /* ---------- SALON ---------- */
+  .salon-grid{display:grid;gap:2.6rem;align-items:center;}
+  .salon-visual{position:relative;}
+  .salon-photo{
+    border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:5/6;
+    background-color:var(--lin-deep);box-shadow:var(--shadow-soft);
+  }
+  .salon-photo img{width:100%;height:100%;object-fit:cover;}
+  .salon-badge{
+    position:absolute;top:-1.2rem;right:-.4rem;
+    background:var(--sauge);color:#fff;border-radius:100px;
+    padding:.7rem 1.2rem;font-size:.85rem;font-weight:600;
+    box-shadow:0 14px 30px -14px rgba(124,138,110,.8);
+    transform:rotate(3deg);
+  }
+  .values{display:grid;gap:1.1rem;margin-top:2rem;}
+  .value{display:flex;gap:1rem;align-items:flex-start;}
+  .value-ic{width:46px;height:46px;flex:none;border-radius:15px;background:var(--lin);display:grid;place-items:center;color:var(--terra-deep);box-shadow:inset 0 0 0 1px rgba(192,132,87,.2);}
+  .value h4{font-family:'Fraunces',serif;font-size:1.12rem;font-weight:500;margin-bottom:.15rem;}
+  .value p{font-size:.94rem;color:var(--brun-soft);line-height:1.6;}
+  .signature{margin-top:2rem;font-family:'Fraunces',serif;font-style:italic;font-size:1.35rem;color:var(--terra-deep);}
+
+  /* ---------- BENTO ---------- */
+  .bento{display:grid;grid-template-columns:1fr;gap:1.2rem;}
+  .bento-card{
+    background:var(--white);border-radius:var(--radius-md);padding:1.8rem;
+    box-shadow:var(--shadow-card);border:1px solid rgba(138,124,106,.1);
+    position:relative;overflow:hidden;
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+    display:flex;flex-direction:column;
+  }
+  .bento-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(59,51,43,.32);}
+  .bento-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:1.1rem;color:#fff;flex:none;}
+  .ic-femme{background:linear-gradient(135deg,var(--terra),var(--terra-deep));}
+  .ic-homme{background:linear-gradient(135deg,var(--taupe),#6f6353);}
+  .ic-couleur{background:linear-gradient(135deg,#c99a6a,var(--terra));}
+  .ic-soin{background:linear-gradient(135deg,var(--sauge),#5f6d53);}
+  .bento-card h3{font-size:1.4rem;font-weight:500;margin-bottom:.5rem;}
+  .bento-card p{font-size:.95rem;color:var(--brun-soft);margin-bottom:1.1rem;flex:1;}
+  .bento-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto;}
+  .tag{font-size:.78rem;font-weight:500;padding:.35rem .8rem;border-radius:100px;background:var(--lin);color:var(--brun-soft);}
+  .bento-price{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--terra-deep);font-weight:500;margin-top:1rem;}
+  .bento-decor{position:absolute;bottom:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:var(--lin);opacity:.5;z-index:0;}
+  .bento-card>*{position:relative;z-index:1;}
+
+  /* ---------- TARIFS ---------- */
+  .tarifs-wrap{background:var(--white);border-radius:var(--radius-lg);padding:clamp(1.6rem,4vw,3rem);box-shadow:var(--shadow-card);border:1px solid rgba(138,124,106,.1);}
+  .tarifs-cols{display:grid;gap:2.4rem;}
+  .tarif-group h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem;}
+  .tarif-group h3 .k{width:34px;height:34px;border-radius:11px;background:var(--lin);display:grid;place-items:center;color:var(--terra-deep);}
+  .tarif-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.72rem 0;border-bottom:1px dashed rgba(138,124,106,.28);}
+  .tarif-row:last-child{border-bottom:none;}
+  .tarif-name{font-weight:500;color:var(--brun);font-size:.98rem;}
+  .tarif-name small{display:block;font-weight:400;font-size:.8rem;color:var(--taupe);margin-top:1px;}
+  .tarif-price{font-family:'Fraunces',serif;font-weight:500;color:var(--terra-deep);white-space:nowrap;font-size:1rem;}
+  .tarif-note{margin-top:2rem;text-align:center;font-size:.92rem;color:var(--brun-soft);background:var(--lin);padding:1rem 1.2rem;border-radius:var(--radius-sm);}
+
+  /* ---------- AVIS ---------- */
+  .avis-top{display:flex;flex-direction:column;align-items:center;gap:.6rem;margin-bottom:2.6rem;text-align:center;}
+  .avis-score{font-family:'Fraunces',serif;font-size:3.4rem;color:var(--brun);line-height:1;}
+  .avis-grid{display:grid;gap:1.3rem;}
+  .avis-card{background:var(--white);border-radius:var(--radius-md);padding:1.9rem;box-shadow:var(--shadow-card);border:1px solid rgba(138,124,106,.1);display:flex;flex-direction:column;gap:1rem;}
+  .avis-card .stars{font-size:1rem;}
+  .avis-card blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;line-height:1.55;color:var(--brun);}
+  .avis-who{display:flex;align-items:center;gap:.75rem;margin-top:auto;}
+  .avis-av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:'Fraunces',serif;font-weight:500;flex:none;}
+  .avis-who b{font-weight:600;font-size:.95rem;}
+  .avis-who span{font-size:.82rem;color:var(--taupe);}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;gap:2rem;}
+  .contact-card{background:var(--white);border-radius:var(--radius-lg);padding:clamp(1.6rem,3vw,2.6rem);box-shadow:var(--shadow-card);border:1px solid rgba(138,124,106,.1);}
+  .info-row{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid rgba(138,124,106,.14);}
+  .info-row:last-child{border-bottom:none;}
+  .info-ic{width:44px;height:44px;flex:none;border-radius:14px;background:var(--lin);display:grid;place-items:center;color:var(--terra-deep);}
+  .info-row h4{font-family:'Manrope',sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);font-weight:600;margin-bottom:.2rem;}
+  .info-row p{font-size:1.02rem;color:var(--brun);}
+  .info-row .closed{color:var(--taupe);font-size:.9rem;}
+  .map-card{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);min-height:320px;background:var(--lin-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30h60M30 0v60' stroke='%23ddd0bb' stroke-width='1'/%3E%3C/svg%3E");position:relative;display:flex;align-items:flex-end;}
+  .map-card iframe{width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.15) sepia(.12) saturate(1.05);}
+  .map-fallback{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(--brun-soft);padding:2rem;text-align:center;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final{position:relative;overflow:hidden;border-radius:var(--radius-lg);margin:0 auto;max-width:1150px;padding:clamp(3rem,7vw,5rem) 1.5rem;text-align:center;background:
+     radial-gradient(90% 120% at 15% 0%,rgba(255,255,255,.25),transparent 55%),
+     linear-gradient(135deg,var(--terra) 0%,var(--terra-deep) 60%,#a05f3c 100%);
+     color:#fff;box-shadow:var(--shadow-soft);}
+  .final h2{color:#fff;font-size:clamp(2rem,5.5vw,3.2rem);margin-bottom:1rem;}
+  .final p{color:rgba(255,255,255,.9);max-width:520px;margin:0 auto 2rem;font-size:1.08rem;}
+  .final .btn-primary{background:#fff;color:var(--terra-deep);box-shadow:0 16px 34px -14px rgba(0,0,0,.4);}
+  .final .btn-primary:hover{background:var(--creme);}
+  .final-blob{position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.09);}
+  .fb1{top:-140px;right:-100px;}
+  .fb2{bottom:-160px;left:-120px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:3.5rem 0 2.5rem;color:var(--brun-soft);}
+  .foot-grid{display:grid;gap:2rem;padding-bottom:2.2rem;border-bottom:1px solid rgba(138,124,106,.18);}
+  .foot-about{max-width:340px;}
+  .foot-about .logo{margin-bottom:.9rem;}
+  .foot-about p{font-size:.92rem;line-height:1.65;}
+  .foot-col h5{font-family:'Manrope',sans-serif;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);font-weight:600;margin-bottom:1rem;}
+  .foot-col a,.foot-col p{display:block;font-size:.94rem;margin-bottom:.6rem;color:var(--brun-soft);transition:color .3s;}
+  .foot-col a:hover{color:var(--terra-deep);}
+  .foot-bottom{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;padding-top:1.6rem;font-size:.85rem;color:var(--taupe);}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal[data-d="1"]{transition-delay:.09s;}
+  .reveal[data-d="2"]{transition-delay:.18s;}
+  .reveal[data-d="3"]{transition-delay:.27s;}
+  .reveal[data-d="4"]{transition-delay:.36s;}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  .wave{display:block;width:100%;height:auto;line-height:0;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(min-width:720px){
+    .wrap{padding:0 32px;}
+    .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;}
+    .bento .span-2{grid-column:span 2;}
+    .tarifs-cols{grid-template-columns:1fr 1fr;gap:2.4rem 3.4rem;}
+    .avis-grid{grid-template-columns:repeat(3,1fr);}
+    .foot-grid{grid-template-columns:1.4fr 1fr 1fr;}
+  }
+  @media(min-width:960px){
+    .nav-links{display:flex;}
+    .burger{display:none;}
+    .hero-grid{grid-template-columns:1.05fr .95fr;gap:3.5rem;}
+    .salon-grid{grid-template-columns:.85fr 1.15fr;gap:3.5rem;}
+    .contact-grid{grid-template-columns:1fr 1fr;}
+    .section-pad{padding:6.5rem 0;}
+    .bento{grid-template-columns:repeat(3,1fr);}
+    .bento .tall{grid-row:span 2;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Monsieur Madame, accueil">
+      <span class="logo-mark" aria-hidden="true">✂</span>
+      <span>Monsieur Madame<small>Gréoux-les-Bains</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#salon">Le salon</a>
+      <a href="#prestations">Prestations</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navigation">
+  <button class="mobile-close" id="mobileClose" aria-label="Fermer le menu">×</button>
+  <a href="#salon">Le salon</a>
+  <a href="#prestations">Prestations</a>
+  <a href="#tarifs">Tarifs</a>
+  <a href="#avis">Avis</a>
+  <a href="#contact">Contact</a>
+  <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+</div>
+
+<span id="top"></span>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="blob blob-1" viewBox="0 0 600 600" aria-hidden="true"><path fill="#EAD9C0" d="M300,540Q180,540,110,450Q40,360,70,250Q100,140,210,90Q320,40,420,110Q520,180,540,300Q560,420,470,490Q380,560,300,540Z"/></svg>
+  <svg class="blob blob-2" viewBox="0 0 600 600" aria-hidden="true"><path fill="#CFDAC0" d="M300,530Q200,560,130,470Q60,380,90,270Q120,160,230,110Q340,60,440,130Q540,200,530,320Q520,440,420,480Q320,520,300,530Z"/></svg>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="pill" aria-label="Note 4,9 sur 5 sur 185 avis">
+        <span class="stars" aria-hidden="true">★★★★★</span> 4,9/5 · 185 avis
+      </span>
+      <h1>Votre coiffeur au cœur de la <em>Provence</em>.</h1>
+      <p class="hero-sub">Un salon familial à Gréoux-les-Bains, où l'on prend le temps de vous écouter. Balayage, coloration et conseil sur-mesure, dans la douceur de la lumière du Sud.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+        <a class="btn btn-ghost" href="#prestations">Découvrir nos prestations</a>
+      </div>
+      <div class="hero-meta">
+        <span>📍 Av. des Marronniers, Gréoux-les-Bains</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Réservation en ligne 24h/24</span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" data-d="2">
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80" alt="Intérieur lumineux et chaleureux du salon de coiffure Monsieur Madame" loading="eager" width="800" height="1000" />
+        <div class="hero-float">
+          <span class="av" aria-hidden="true">E</span>
+          <div>
+            <b>Elodie</b><br>
+            <span>+20 ans d'expérience · Balayage &amp; conseil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE SEPARATOR -->
+<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" style="color:var(--lin)"><path fill="currentColor" d="M0,40 C240,90 480,0 720,30 C960,60 1200,90 1440,45 L1440,90 L0,90 Z"></path></svg>
+
+<!-- LE SALON -->
+<section id="salon" style="background:var(--lin)">
+  <div class="wrap section-pad">
+    <div class="salon-grid">
+      <div class="salon-visual reveal">
+        <div class="salon-photo">
+          <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1600&q=80" alt="Elodie, coiffeuse, prenant soin d'une cliente dans une ambiance douce" loading="lazy" width="800" height="960" />
+        </div>
+        <span class="salon-badge" aria-hidden="true">Comme à la maison 🌿</span>
+      </div>
+
+      <div class="salon-copy reveal" data-d="2">
+        <span class="eyebrow">Le salon</span>
+        <h2 style="font-size:clamp(2rem,5vw,3rem);margin:1rem 0 1.2rem">Un lieu doux, où l'on se sent bien.</h2>
+        <p style="color:var(--brun-soft);font-size:1.06rem">Chez Monsieur Madame, Elodie vous accueille dans un cadre familial et apaisant. Plus de vingt ans d'expérience au service de votre beauté, avec une passion intacte pour le balayage et le conseil personnalisé.</p>
+
+        <div class="values">
+          <div class="value">
+            <span class="value-ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 0 1 18 0v3a3 3 0 0 1-3 3h-1v-6h3"/><path d="M6 17v-6H3"/></svg>
+            </span>
+            <div><h4>À votre écoute</h4><p>On prend le temps d'échanger pour comprendre vos envies avant chaque geste.</p></div>
+          </div>
+          <div class="value">
+            <span class="value-ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="3.4"/></svg>
+            </span>
+            <div><h4>Sur-mesure</h4><p>Chaque coupe et chaque couleur sont pensées pour vous, votre nature et votre style.</p></div>
+          </div>
+          <div class="value">
+            <span class="value-ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9-9.5C1.5 7 4 4 7 4c2 0 3.5 1.3 5 3 1.5-1.7 3-3 5-3 3 0 5.5 3 4 7.5-2 5-9 9.5-9 9.5Z"/></svg>
+            </span>
+            <div><h4>Cadre familial</h4><p>Un salon chaleureux et convivial, où l'on se sent comme à la maison.</p></div>
+          </div>
+        </div>
+
+        <p class="signature">« Prendre soin de vous, tout simplement. » — Elodie</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" style="color:var(--lin);transform:rotate(180deg)"><path fill="currentColor" d="M0,40 C240,90 480,0 720,30 C960,60 1200,90 1440,45 L1440,90 L0,90 Z"></path></svg>
+
+<!-- PRESTATIONS BENTO -->
+<section id="prestations">
+  <div class="wrap section-pad">
+    <div class="section-head reveal">
+      <span class="eyebrow">Prestations</span>
+      <h2>Nos univers de soin.</h2>
+      <p>Femme, homme, couleur ou soin — chaque prestation est réalisée avec attention, dans le respect de vos cheveux.</p>
+    </div>
+
+    <div class="bento">
+      <div class="bento-card tall span-2 reveal">
+        <span class="bento-decor" aria-hidden="true"></span>
+        <span class="bento-ic ic-femme" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M12 12c-3 0-5 2-5 5v3M12 12c3 0 5 2 5 5v3M8 8h8"/></svg>
+        </span>
+        <h3>Coiffure Femme</h3>
+        <p>Coupe, brushing et mise en forme pour révéler le mouvement naturel de vos cheveux. Un moment de détente sur-mesure, du diagnostic au coup de peigne final.</p>
+        <div class="bento-tags">
+          <span class="tag">Brushing</span>
+          <span class="tag">Coupe + brushing</span>
+          <span class="tag">Permanente</span>
+          <span class="tag">Chignon</span>
+        </div>
+        <div class="bento-price">Brushing dès 16 € · Coupe + brushing 35–45 €</div>
+      </div>
+
+      <div class="bento-card reveal" data-d="2">
+        <span class="bento-decor" aria-hidden="true"></span>
+        <span class="bento-ic ic-couleur" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4.5 0 8 3.2 8 7.5 0 2.5-2 3.5-3.5 3.5H15c-1 0-1.8.8-1.8 1.8 0 .5.2.9.5 1.3.3.4.5.8.5 1.2 0 1-1 1.7-2.2 1.7-4.4 0-8-3.6-8-8S7.5 3 12 3Z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+        </span>
+        <h3>Couleur &amp; Balayage</h3>
+        <p>La spécialité d'Elodie : des reflets lumineux et naturels, pensés pour sublimer votre teint.</p>
+        <div class="bento-tags">
+          <span class="tag">Coloration</span>
+          <span class="tag">Mèches</span>
+          <span class="tag">Balayage</span>
+        </div>
+        <div class="bento-price">Coloration dès 64 € · Balayage dès 76 €</div>
+      </div>
+
+      <div class="bento-card reveal" data-d="3">
+        <span class="bento-decor" aria-hidden="true"></span>
+        <span class="bento-ic ic-homme" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21v-1a6 6 0 0 1 12 0v1M9 8s1 1.5 3 1.5S15 8 15 8"/></svg>
+        </span>
+        <h3>Coiffure Homme</h3>
+        <p>Coupe précise, shampooing inclus, et taille de barbe soignée pour un style net.</p>
+        <div class="bento-tags">
+          <span class="tag">Coupe homme</span>
+          <span class="tag">Taille de barbe</span>
+        </div>
+        <div class="bento-price">Coupe 23 € · Barbe dès 10 €</div>
+      </div>
+
+      <div class="bento-card reveal" data-d="2">
+        <span class="bento-decor" aria-hidden="true"></span>
+        <span class="bento-ic ic-soin" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s5 3 5 8a5 5 0 0 1-10 0c0-5 5-8 5-8Z"/><path d="M12 22v-6"/></svg>
+        </span>
+        <h3>Soins &amp; Lissage</h3>
+        <p>Le lissage brésilien YBERA pour des cheveux souples, disciplinés et éclatants.</p>
+        <div class="bento-tags">
+          <span class="tag">Lissage YBERA</span>
+          <span class="tag">Soin profond</span>
+        </div>
+        <div class="bento-price">Lissage brésilien 40–150 €</div>
+      </div>
+
+      <div class="bento-card span-2 reveal" data-d="3" style="background:linear-gradient(135deg,var(--sauge),#66755a);color:#fff;border:none;">
+        <span class="bento-ic" style="background:rgba(255,255,255,.18)" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9-9.5C1.5 7 4 4 7 4c2 0 3.5 1.3 5 3 1.5-1.7 3-3 5-3 3 0 5.5 3 4 7.5-2 5-9 9.5-9 9.5Z"/></svg>
+        </span>
+        <h3 style="color:#fff">Enfant &amp; occasions</h3>
+        <p style="color:rgba(255,255,255,.9)">Coupe enfant tout en douceur, et prestations sur devis pour vos grands jours : mariage, extensions, chignons de fête.</p>
+        <div class="bento-tags">
+          <span class="tag" style="background:rgba(255,255,255,.22);color:#fff">Coupe enfant 18–30 €</span>
+          <span class="tag" style="background:rgba(255,255,255,.22);color:#fff">Mariage sur devis</span>
+          <span class="tag" style="background:rgba(255,255,255,.22);color:#fff">Extensions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section id="tarifs" style="background:var(--lin)">
+  <div class="wrap section-pad">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Tarifs</span>
+      <h2>Des prix clairs et justes.</h2>
+      <p>Nos tarifs varient selon la longueur et la nature de vos cheveux. Un devis précis vous est toujours proposé avant de commencer.</p>
+    </div>
+
+    <div class="tarifs-wrap reveal" data-d="2">
+      <div class="tarifs-cols">
+        <div class="tarif-group">
+          <h3><span class="k" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg>
+          </span>Femme</h3>
+          <div class="tarif-row"><span class="tarif-name">Brushing</span><span class="tarif-price">16 – 40 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Coupe + brushing</span><span class="tarif-price">35 – 45 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Coloration</span><span class="tarif-price">dès 64 € · jusqu'à 80 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Mèches / Balayage</span><span class="tarif-price">dès 76 € · jusqu'à 114 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Permanente</span><span class="tarif-price">55 – 70 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Lissage brésilien YBERA</span><span class="tarif-price">40 – 150 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3><span class="k" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M6 21v-1a6 6 0 0 1 12 0v1"/></svg>
+          </span>Homme &amp; Enfant</h3>
+          <div class="tarif-row"><span class="tarif-name">Coupe homme <small>Shampooing inclus</small></span><span class="tarif-price">23 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Taille de barbe</span><span class="tarif-price">dès 10 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Coupe enfant</span><span class="tarif-price">18 – 30 €</span></div>
+          <div class="tarif-row"><span class="tarif-name">Mariage <small>Coiffure & essai</small></span><span class="tarif-price">Sur devis</span></div>
+          <div class="tarif-row"><span class="tarif-name">Extensions</span><span class="tarif-price">Sur devis</span></div>
+          <div class="tarif-row"><span class="tarif-name">Chignons</span><span class="tarif-price">Sur devis</span></div>
+        </div>
+      </div>
+      <p class="tarif-note">✨ Prestations sur devis pour les mariages, extensions et chignons — parlons-en ensemble lors de votre rendez-vous.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis">
+  <div class="wrap section-pad">
+    <div class="avis-top reveal">
+      <span class="stars" aria-hidden="true" style="font-size:1.3rem">★★★★★</span>
+      <div class="avis-score">4,9<span style="font-size:1.4rem;color:var(--taupe)">/5</span></div>
+      <p style="color:var(--brun-soft)">Une note portée par <strong>185 avis</strong> de clientes et clients fidèles.</p>
+    </div>
+
+    <div class="avis-grid">
+      <figure class="avis-card reveal">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Un accueil vraiment chaleureux et un balayage magnifique. Elodie sait exactement ce qui nous met en valeur. »</blockquote>
+        <figcaption class="avis-who">
+          <span class="avis-av" style="background:linear-gradient(135deg,var(--terra),var(--terra-deep))" aria-hidden="true">S</span>
+          <span><b>Sophie L.</b><br><span>Cliente depuis 3 ans</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="avis-card reveal" data-d="2">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« On se sent tout de suite comme à la maison. À l'écoute, de bons conseils, et toujours ponctuelle. »</blockquote>
+        <figcaption class="avis-who">
+          <span class="avis-av" style="background:linear-gradient(135deg,var(--sauge),#5f6d53)" aria-hidden="true">M</span>
+          <span><b>Marc D.</b><br><span>Client régulier</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="avis-card reveal" data-d="3">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Ma coloration n'a jamais été aussi naturelle. Un salon doux et lumineux, je recommande les yeux fermés. »</blockquote>
+        <figcaption class="avis-who">
+          <span class="avis-av" style="background:linear-gradient(135deg,var(--taupe),#6f6353)" aria-hidden="true">C</span>
+          <span><b>Camille R.</b><br><span>Cliente fidèle</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--lin)">
+  <div class="wrap section-pad">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Infos pratiques</span>
+      <h2>Venez nous rencontrer.</h2>
+      <p>Au cœur de Gréoux-les-Bains, à deux pas des thermes. On vous attend avec le sourire.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="info-row">
+          <span class="info-ic" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div><h4>Adresse</h4><p>Av. des Marronniers<br>04800 Gréoux-les-Bains</p></div>
+        </div>
+        <div class="info-row">
+          <span class="info-ic" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </span>
+          <div><h4>Horaires</h4><p>Mardi – Samedi : 9h00 – 18h00</p><p class="closed">Dimanche &amp; Lundi : fermé</p></div>
+        </div>
+        <div class="info-row">
+          <span class="info-ic" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 8h18M8 4v4"/><circle cx="8.5" cy="13.5" r="1.3"/></svg>
+          </span>
+          <div><h4>Réservation</h4><p>En ligne 24h/24 via Planity</p></div>
+        </div>
+        <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener" style="width:100%;margin-top:1.4rem">Prendre rendez-vous</a>
+      </div>
+
+      <div class="map-card reveal" data-d="2">
+        <iframe
+          title="Carte de localisation du salon Monsieur Madame à Gréoux-les-Bains"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Gr%C3%A9oux-les-Bains,+Avenue+des+Marronniers,+04800&output=embed"></iframe>
+        <div class="map-fallback">
+          <span style="font-size:2rem" aria-hidden="true">📍</span>
+          <p><strong>Av. des Marronniers</strong><br>04800 Gréoux-les-Bains, Provence</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section-pad" style="padding-top:5rem">
+  <div class="wrap">
+    <div class="final reveal">
+      <span class="final-blob fb1" aria-hidden="true"></span>
+      <span class="final-blob fb2" aria-hidden="true"></span>
+      <span class="pill" style="background:rgba(255,255,255,.9);position:relative;z-index:1">🌿 Un moment rien qu'à vous</span>
+      <h2 style="position:relative;z-index:1;margin-top:1rem">Offrez-vous une parenthèse douceur.</h2>
+      <p style="position:relative;z-index:1">Réservez votre rendez-vous en quelques secondes, à toute heure. On a hâte de prendre soin de vous.</p>
+      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener" style="position:relative;z-index:1">Prendre rendez-vous sur Planity</a>
+      <p style="position:relative;z-index:1;margin-top:1.2rem;font-size:.9rem;color:rgba(255,255,255,.85)">Réservation en ligne 24h/24 · Sans frais</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="#top" class="logo">
+          <span class="logo-mark" aria-hidden="true">✂</span>
+          <span>Monsieur Madame<small>Gréoux-les-Bains</small></span>
+        </a>
+        <p>Salon de coiffure familial au cœur de la Provence. Coupe, couleur et conseil sur-mesure, dans une ambiance douce et chaleureuse.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Naviguer</h5>
+        <a href="#salon">Le salon</a>
+        <a href="#prestations">Prestations</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Nous trouver</h5>
+        <p>Av. des Marronniers<br>04800 Gréoux-les-Bains</p>
+        <p>Mardi – Samedi · 9h – 18h</p>
+        <a href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Réserver sur Planity →</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Monsieur Madame — Gréoux-les-Bains</span>
+      <span>Fait avec 🌿 en Provence</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('mobileClose');
+  const openMenu = () => { menu.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  const closeMenu = () => { menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  burger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Map fallback if iframe fails to load
+  (function(){
+    const iframe = document.querySelector('.map-card iframe');
+    const fb = document.querySelector('.map-fallback');
+    if(!iframe) return;
+    let loaded = false;
+    iframe.addEventListener('load', () => { loaded = true; });
+    setTimeout(() => { if(!loaded){ iframe.style.display='none'; fb.style.display='flex'; } }, 3500);
+  })();
+</script>
+</body>
+</html>
