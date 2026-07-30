@@ -195,6 +195,13 @@
   .light .overline::before{background:linear-gradient(90deg,transparent,#A8813A);}
   .light .num{color:#A8813A;}
   .light .sec-head h2 em{color:#A8813A;}
+  /* Surcharges lisibilité sur fond clair (section Contact) */
+  .light .info-block .lab{color:#A8813A;}
+  .light .info-block .val{color:var(--charbon);}
+  .light .hours-table td{border-bottom-color:rgba(20,17,15,.14);}
+  .light .hours-table td:first-child{color:#4A423B;}
+  .light .hours-table td:last-child{color:var(--charbon);}
+  .light .hours-table tr.closed td:last-child{color:#7A7168;}
 
   /* ---------- Le salon ---------- */
   .salon-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2.5rem,6vw,5rem);align-items:center;}
@@ -241,11 +248,11 @@
   .tarifs-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,4.5rem);}
   .tarif-block h3{font-family:var(--serif-2);font-style:italic;font-size:1.7rem;color:var(--or-clair);margin-bottom:1.4rem;letter-spacing:.02em;}
   .light .tarif-block h3{color:#A8813A;}
-  .tarif-line{display:flex;align-items:baseline;gap:.8rem;padding:.85rem 0;border-bottom:1px solid rgba(20,17,15,.1);}
-  .tarif-line .name{font-size:1rem;color:var(--charbon);font-weight:400;white-space:nowrap;}
-  .tarif-line .dots{flex:1;border-bottom:1px dotted rgba(20,17,15,.3);transform:translateY(-4px);}
-  .tarif-line .price{font-family:var(--serif);font-size:1.05rem;color:var(--charbon);white-space:nowrap;}
-  .tarif-line .price b{color:#A8813A;font-weight:500;}
+  .tarif-line{display:flex;align-items:baseline;gap:.8rem;padding:.85rem 0;border-bottom:1px solid rgba(245,240,230,.14);}
+  .tarif-line .name{font-size:1rem;color:var(--ivoire-2);font-weight:400;white-space:nowrap;}
+  .tarif-line .dots{flex:1;border-bottom:1px dotted rgba(245,240,230,.28);transform:translateY(-4px);}
+  .tarif-line .price{font-family:var(--serif);font-size:1.05rem;color:var(--ivoire);white-space:nowrap;}
+  .tarif-line .price b{color:var(--or-clair);font-weight:500;}
   .tarif-note{margin-top:2.5rem;padding:1.5rem 1.8rem;background:var(--charbon);color:var(--ivoire);border-left:2px solid var(--or);}
   .tarif-note .t{font-family:var(--serif-2);font-style:italic;font-size:1.25rem;color:var(--or-clair);}
   .tarif-note p{font-size:.9rem;color:var(--ivoire-2);margin-top:.3rem;}
