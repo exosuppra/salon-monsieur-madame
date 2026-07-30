@@ -1,6 +1,6 @@
-# Monsieur Madame — Site vitrine (maquettes)
+# Madame Monsieur — Site vitrine (maquettes)
 
-Trois maquettes de site premium pour le **salon de coiffure Monsieur Madame** à **Gréoux-les-Bains**, chacune reliée à la réservation en ligne **Planity**.
+Trois maquettes de site premium pour le **salon de coiffure Madame Monsieur** à **Gréoux-les-Bains**, chacune reliée à la réservation en ligne **Planity**.
 
 👉 **Page de présentation :** ouvrir `index.html` (ou l'URL GitHub Pages ci-dessous).
 
