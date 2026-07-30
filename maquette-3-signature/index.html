@@ -269,6 +269,19 @@
     .reveal{opacity:1;transform:none}
     .mesh{opacity:.5}
   }
+
+  /* ---------- GSAP enhancement layer (progressive, non-breaking) ---------- */
+  /* Only active once the CDNs load OK and body gets .gsap-ready.
+     Neutralizes the CSS-hidden .reveal state so GSAP can drive it without
+     fighting the existing transition. If a CDN fails, this never applies and
+     the existing IntersectionObserver keeps everything visible. */
+  body.gsap-ready .reveal{opacity:1;transform:none;transition:none}
+  body.gsap-ready .split-line{display:block;will-change:transform,opacity}
+  body.gsap-ready .hero-cta .btn-primary,
+  body.gsap-ready .cta-band .btn-primary{will-change:transform}
+  @media(prefers-reduced-motion:reduce){
+    body.gsap-ready .reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
@@ -579,6 +592,12 @@
   </div>
 </footer>
 
+<!-- Animation libraries (GSAP + Lenis) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -659,6 +678,140 @@
       card.addEventListener('pointerleave', function(){ card.style.transform=''; });
     });
   }
+})();
+</script>
+
+<!-- GSAP + Lenis enhancement layer (progressive, degrades gracefully) -->
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Bail out cleanly if reduced motion is requested, or if any CDN failed to
+     load. In either case the existing .reveal observer + counters keep the
+     page fully visible and functional. Nothing below runs. */
+  if(reduce) return;
+  if(!window.gsap || !window.ScrollTrigger || !window.Lenis) return;
+
+  var gsap = window.gsap;
+  gsap.registerPlugin(window.ScrollTrigger);
+  var hasSplit = !!window.SplitText;
+  if(hasSplit) gsap.registerPlugin(window.SplitText);
+  var canHover = window.matchMedia('(hover:hover)').matches;
+
+  /* From here on GSAP owns the reveal choreography: neutralize the CSS-hidden
+     state so gsap.set can drive it. Done synchronously before any paint. */
+  document.body.classList.add('gsap-ready');
+
+  /* ---------- Lenis smooth scroll ---------- */
+  var lenis = new Lenis({ lerp:0.09, smoothWheel:true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  /* Smooth-scroll internal anchors with header offset */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    var href = a.getAttribute('href');
+    if(!href || href === '#') return;
+    a.addEventListener('click', function(e){
+      var target = document.querySelector(href);
+      if(!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset:-80, duration:1.1 });
+    });
+  });
+
+  /* Map existing d1..d4 delay classes to a stagger offset (reuses markup) */
+  function dDelay(el){
+    if(el.classList.contains('d1')) return 0.10;
+    if(el.classList.contains('d2')) return 0.20;
+    if(el.classList.contains('d3')) return 0.30;
+    if(el.classList.contains('d4')) return 0.40;
+    return 0;
+  }
+
+  /* ---------- HERO — cinematic intro sequence ---------- */
+  var heroBadge = document.querySelector('.hero .badge');
+  var heroTitle = document.querySelector('.hero-title');
+  var heroSub   = document.querySelector('.hero-sub');
+  var heroCta   = document.querySelector('.hero-cta');
+  var heroMeta  = document.querySelector('.hero-meta');
+
+  var intro = gsap.timeline({ defaults:{ ease:'expo.out' } });
+
+  if(heroBadge){
+    gsap.set(heroBadge, { opacity:0, y:18 });
+    intro.to(heroBadge, { opacity:1, y:0, duration:0.8 }, 0.1);
+  }
+
+  if(heroTitle){
+    var splitDone = false;
+    if(hasSplit){
+      try{
+        var split = new SplitText(heroTitle, { type:'lines', mask:'lines', linesClass:'split-line' });
+        gsap.set(heroTitle, { opacity:1 });
+        intro.from(split.lines, {
+          yPercent:118, opacity:0, filter:'blur(14px)',
+          duration:1.15, stagger:0.12, clearProps:'filter'
+        }, 0.15);
+        splitDone = true;
+      }catch(err){ splitDone = false; }
+    }
+    if(!splitDone){
+      gsap.set(heroTitle, { opacity:1 });
+      intro.from(heroTitle, { opacity:0, y:30, filter:'blur(12px)', duration:1.1, clearProps:'filter' }, 0.15);
+    }
+  }
+
+  [heroSub, heroCta, heroMeta].forEach(function(el, i){
+    if(!el) return;
+    gsap.set(el, { opacity:0, y:22 });
+    intro.to(el, { opacity:1, y:0, duration:0.85 }, 0.5 + i * 0.12);
+  });
+
+  /* Depth: parallax the whole mesh container (keeps per-blob CSS float anims) */
+  gsap.to('.mesh', {
+    yPercent:18, ease:'none',
+    scrollTrigger:{ trigger:document.body, start:'top top', end:'bottom bottom', scrub:0.6 }
+  });
+
+  /* Hero glow reacts to scroll */
+  var heroSpot = document.getElementById('spot');
+  if(heroSpot){
+    gsap.to(heroSpot, {
+      opacity:0.35, ease:'none',
+      scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+    });
+  }
+
+  /* ---------- Section reveals via ScrollTrigger ---------- */
+  gsap.utils.toArray('.reveal').forEach(function(el){
+    if(el.closest('.hero')) return; /* hero handled above */
+    gsap.set(el, { opacity:0, y:42, scale:0.985 });
+    gsap.to(el, {
+      opacity:1, y:0, scale:1,
+      duration:0.95, ease:'power3.out', delay:dDelay(el),
+      scrollTrigger:{ trigger:el, start:'top 88%', once:true }
+    });
+  });
+
+  /* ---------- Magnetic primary buttons (pointer devices only) ---------- */
+  if(canHover){
+    document.querySelectorAll('.hero-cta .btn-primary, .cta-band .btn-primary').forEach(function(btn){
+      var strength = 0.35;
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        var mx = e.clientX - (r.left + r.width / 2);
+        var my = e.clientY - (r.top + r.height / 2);
+        gsap.to(btn, { x:mx * strength, y:my * strength, duration:0.4, ease:'power3.out' });
+      });
+      btn.addEventListener('pointerleave', function(){
+        gsap.to(btn, { x:0, y:0, duration:0.6, ease:'elastic.out(1,0.4)' });
+      });
+    });
+  }
+
+  /* Recalculate trigger positions once fonts/images have settled */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 })();
 </script>
 </body>

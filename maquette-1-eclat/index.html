@@ -351,6 +351,18 @@
     .hero-cta .btn{width:100%;}
     .tarif-line .name{white-space:normal;}
   }
+  /* ---------- GSAP / Lenis (activés seulement si JS prêt) ---------- */
+  /* État naturel visible + transitions CSS neutralisées : GSAP prend le relais.
+     Ces règles ne s'appliquent QUE si <html> reçoit .gsap-ready (donc si GSAP est chargé
+     et que l'utilisateur ne demande pas de mouvement réduit). Sans JS, .reveal reste géré
+     par l'IntersectionObserver de secours et le contenu reste toujours visible. */
+  html.gsap-ready .reveal{opacity:1;transform:none;transition:none;}
+  html.lenis, html.lenis body{height:auto;}
+  .lenis.lenis-smooth{scroll-behavior:auto !important;}
+  .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}
+  .lenis.lenis-stopped{overflow:hidden;}
+  .eclat-line{will-change:transform;}
+
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition-duration:.01ms!important;}
     .reveal{opacity:1;transform:none;}
@@ -652,6 +664,24 @@
   </div>
 </footer>
 
+<!-- ===== Librairies animations (CDN jsdelivr) — AVANT le script existant ===== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  /* Drapeau « animate-only-if-JS-ready » : on n'active les animations GSAP que si les
+     librairies essentielles sont bien chargées ET que l'utilisateur ne demande pas de
+     mouvement réduit. La classe .gsap-ready conditionne les états initiaux masqués (CSS)
+     et l'IntersectionObserver de secours saura, grâce à ce drapeau, laisser GSAP gérer
+     les .reveal (sinon il continue de les révéler lui-même). */
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.__eclatGsapReady = !!(window.gsap && window.ScrollTrigger && !reduce);
+    if(window.__eclatGsapReady){ document.documentElement.classList.add('gsap-ready'); }
+  })();
+</script>
+
 <script>
   // Header compact au scroll
   const header = document.getElementById('header');
@@ -677,7 +707,11 @@
       if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
     });
   }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.reveal, .gold-rule').forEach(el => io.observe(el));
+  // Si GSAP est prêt, il gère les .reveal ; l'IO ne garde que le repli (gold-rule + no-JS).
+  document.querySelectorAll('.reveal, .gold-rule').forEach(el => {
+    if(window.__eclatGsapReady && el.classList.contains('reveal')) return;
+    io.observe(el);
+  });
 
   // Sécurité iframe carte : masquer proprement si échec de chargement
   const mapFrame = document.querySelector('.map-card iframe');
@@ -686,6 +720,160 @@
     mapFrame.addEventListener('load', () => ok = true);
     setTimeout(() => { if(!ok) mapFrame.style.display = 'none'; }, 4000);
   }
+</script>
+
+<!-- ===== Animations premium GSAP + Lenis ===== -->
+<script>
+(function(){
+  // Rien ne s'exécute si GSAP n'est pas prêt (CDN indisponible ou mouvement réduit).
+  // Dans ce cas le contenu reste visible et statique (repli CSS + IntersectionObserver).
+  if(!window.__eclatGsapReady) return;
+
+  var gsap = window.gsap, ScrollTrigger = window.ScrollTrigger, SplitText = window.SplitText;
+  gsap.registerPlugin(ScrollTrigger);
+  if(SplitText){ try{ gsap.registerPlugin(SplitText); }catch(e){ SplitText = null; } }
+
+  /* ---------- Lenis : smooth scroll synchronisé avec ScrollTrigger ---------- */
+  var lenis = null;
+  if(window.Lenis){
+    lenis = new Lenis({ lerp:0.09, smoothWheel:true, wheelMultiplier:1 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ---------- Navigation par ancres pilotée par Lenis ---------- */
+  var mobileMenuEl = document.getElementById('mobileMenu');
+  var burgerEl = document.getElementById('burger');
+  function closeMobileMenu(){
+    if(mobileMenuEl && mobileMenuEl.classList.contains('open')){
+      mobileMenuEl.classList.remove('open');
+      if(burgerEl){
+        burgerEl.setAttribute('aria-expanded','false');
+        burgerEl.setAttribute('aria-label','Ouvrir le menu');
+      }
+      document.body.style.overflow = '';
+    }
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(!id || id.length < 2) return;            // ignore les "#" seuls
+      var target = document.querySelector(id);
+      if(!target) return;
+      e.preventDefault();
+      closeMobileMenu();
+      if(lenis){ lenis.scrollTo(target, {offset:-80}); }
+      else { target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  /* ---------- HERO : révélation cinématique ---------- */
+  // On masque tout de suite (inline, via gsap.set) pour éviter tout flash avant l'anim.
+  gsap.set('.hero .overline, .hero-sub, .rating-row, .hero-cta, .hero-scroll, .hero h1', {autoAlpha:0, y:26});
+  function heroIntro(){
+    var tl = gsap.timeline({defaults:{ease:'expo.out'}});
+    tl.to('.hero .overline', {autoAlpha:1, y:0, duration:.9}, 0);
+
+    var h1 = document.querySelector('.hero h1');
+    if(SplitText && h1){
+      gsap.set(h1, {autoAlpha:1, y:0});
+      var split = new SplitText(h1, {type:'lines', mask:'lines', linesClass:'eclat-line'});
+      gsap.set(split.lines, {yPercent:118, autoAlpha:0});
+      tl.to(split.lines, {yPercent:0, autoAlpha:1, duration:1.15, stagger:.13}, 0.15);
+    } else if(h1){
+      tl.to(h1, {autoAlpha:1, y:0, duration:1.1}, 0.15);
+    }
+
+    tl.to('.hero-sub',    {autoAlpha:1, y:0, duration:1.0}, '-=0.55')
+      .to('.rating-row',  {autoAlpha:1, y:0, duration:0.9}, '-=0.60')
+      .to('.hero-cta',    {autoAlpha:1, y:0, duration:0.9}, '-=0.65')
+      .to('.hero-scroll', {autoAlpha:1, y:0, duration:1.0}, '-=0.45');
+  }
+  // Attendre le chargement des polices pour un découpage de lignes correct.
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(heroIntro); }
+  else { heroIntro(); }
+
+  /* ---------- Parallaxes douces ---------- */
+  // Hero : léger sur-dimensionnement pour couvrir le déplacement (pas de bord visible).
+  gsap.set('.hero-photo', {scale:1.1, transformOrigin:'center center'});
+  gsap.fromTo('.hero-photo', {yPercent:-6}, {
+    yPercent:6, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+
+  var salonPhoto = document.querySelector('.salon-photo');
+  if(salonPhoto){
+    gsap.set(salonPhoto, {autoAlpha:0});
+    gsap.to(salonPhoto, {autoAlpha:1, duration:1.2, ease:'power3.out',
+      scrollTrigger:{trigger:salonPhoto, start:'top 85%', once:true}});
+    gsap.to(salonPhoto, {yPercent:-6, ease:'none',
+      scrollTrigger:{trigger:salonPhoto, start:'top bottom', end:'bottom top', scrub:true}});
+  }
+
+  /* ---------- Reveals de section (batch élégant + stagger) ---------- */
+  var revealEls = gsap.utils.toArray('.reveal').filter(function(el){
+    // Hero géré par la timeline ; salon-photo et tarif-block traités à part.
+    return !el.closest('.hero') && !el.matches('.salon-photo') && !el.matches('.tarif-block');
+  });
+  gsap.set(revealEls, {autoAlpha:0, y:42});
+  ScrollTrigger.batch(revealEls, {
+    start:'top 86%',
+    onEnter: function(batch){
+      batch.forEach(function(el){ el.classList.add('in-view'); }); // déclenche les .gold-rule
+      gsap.to(batch, {autoAlpha:1, y:0, duration:0.9, ease:'power3.out', stagger:0.1, overwrite:true});
+    }
+  });
+
+  /* ---------- Lignes de tarifs (stagger fin, ligne à ligne) ---------- */
+  var tarifItems = gsap.utils.toArray('.tarif-block h3, .tarif-line, .tarif-note');
+  gsap.set(tarifItems, {autoAlpha:0, y:24});
+  ScrollTrigger.batch(tarifItems, {
+    start:'top 88%',
+    onEnter: function(batch){
+      gsap.to(batch, {autoAlpha:1, y:0, duration:0.7, ease:'power3.out', stagger:0.06, overwrite:true});
+    }
+  });
+
+  /* ---------- Compteurs des statistiques (préserve le balisage <em>/<span>) ---------- */
+  document.querySelectorAll('.salon-stats .st .n').forEach(function(node){
+    var first = node.firstChild;                 // nœud texte : "20" / "4,9" / "185"
+    if(!first || first.nodeType !== 3) return;
+    var raw = first.textContent.trim();
+    var decimal = raw.indexOf(',') !== -1;
+    var target = parseFloat(raw.replace(',', '.'));
+    if(isNaN(target)) return;
+    var obj = {v:0};
+    gsap.to(obj, {
+      v:target, duration:1.6, ease:'power2.out',
+      scrollTrigger:{trigger:node, start:'top 90%', once:true},
+      onUpdate:function(){ first.textContent = decimal ? obj.v.toFixed(1).replace('.', ',') : Math.round(obj.v).toString(); },
+      onComplete:function(){ first.textContent = raw; }  // rétablit la valeur exacte
+    });
+  });
+
+  /* ---------- Boutons magnétiques (désactivés sur tactile / petits écrans) ---------- */
+  if(window.matchMedia('(hover:hover) and (pointer:fine)').matches && window.innerWidth > 820){
+    document.querySelectorAll('.btn-gold').forEach(function(btn){
+      var strength = 0.28;
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x:(e.clientX - r.left - r.width/2) * strength,
+          y:(e.clientY - r.top - r.height/2) * strength,
+          duration:0.5, ease:'power3.out'
+        });
+      });
+      btn.addEventListener('mouseleave', function(){
+        gsap.to(btn, {x:0, y:0, duration:0.9, ease:'elastic.out(1,0.3)'});
+      });
+    });
+  }
+
+  /* ---------- Recalibrage des déclencheurs après polices/chargement ---------- */
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); }
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
 </script>
 </body>
 </html>

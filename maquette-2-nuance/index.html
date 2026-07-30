@@ -314,6 +314,12 @@
   .reveal[data-d="4"]{transition-delay:.36s;}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
 
+  /* GSAP prend le relais : filet de sécurité anti-contenu-invisible.
+     Si les CDN chargent, le JS masque explicitement via gsap.set ;
+     sinon (ou si le JS échoue après cette classe) tout reste visible. */
+  html.gsap-ready .reveal{opacity:1;transform:none;transition:none;}
+  html.gsap-ready .split-line{overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em;}
+
   .wave{display:block;width:100%;height:auto;line-height:0;}
 
   /* ---------- RESPONSIVE ---------- */
@@ -720,6 +726,12 @@
   </div>
 </footer>
 
+<!-- Librairies d'animation : GSAP + plugins + Lenis -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
 <script>
   // Header scroll state
   const header = document.getElementById('header');
@@ -755,6 +767,135 @@
     iframe.addEventListener('load', () => { loaded = true; });
     setTimeout(() => { if(!loaded){ iframe.style.display='none'; fb.style.display='flex'; } }, 3500);
   })();
+</script>
+
+<!-- Animations douces : GSAP + Lenis (activées seulement si CDN OK & motion permis) -->
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP = window.gsap && window.ScrollTrigger;
+  // Garde-fou : si reduced-motion ou CDN indisponible, on ne touche à rien.
+  // Le .reveal (IntersectionObserver) existant garde tout visible.
+  if (reduce || !hasGSAP) return;
+
+  var html = document.documentElement;
+  html.classList.add('gsap-ready'); // filet CSS : reveal visible par défaut
+
+  gsap.registerPlugin(ScrollTrigger);
+  var hasSplit = !!window.SplitText;
+  if (hasSplit){ try { gsap.registerPlugin(SplitText); } catch(e){ hasSplit = false; } }
+
+  var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  var EXPO = 'expo.out', P3 = 'power3.out';
+
+  /* ---------- LENIS : smooth scroll doux ---------- */
+  var lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  /* ancres -> défilement doux avec offset header */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (!id || id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+    });
+  });
+
+  /* ---------- HERO : révélation en séquence ---------- */
+  var h1        = document.querySelector('.hero h1');
+  var pill      = document.querySelector('.hero-copy .pill');
+  var sub       = document.querySelector('.hero-sub');
+  var cta       = document.querySelector('.hero-cta');
+  var meta      = document.querySelector('.hero-meta');
+  var heroVis   = document.querySelector('.hero-visual');
+
+  gsap.set([pill, sub, cta, meta, heroVis].filter(Boolean), { opacity:0, y:26 });
+
+  var split = null;
+  if (hasSplit && h1){
+    try { split = new SplitText(h1, { type:'lines,words', linesClass:'split-line' }); }
+    catch(e){ split = null; }
+  }
+
+  var heroTl = gsap.timeline({ delay: 0.15, defaults:{ ease: EXPO } });
+
+  if (split && split.words && split.words.length){
+    gsap.set(h1, { opacity:1 });
+    gsap.set(split.words, { yPercent:110, opacity:0 });
+    heroTl.to(split.words, { yPercent:0, opacity:1, duration:1.1, stagger:0.055 }, 0);
+  } else if (h1){
+    gsap.set(h1, { opacity:0, y:30 });
+    heroTl.to(h1, { opacity:1, y:0, duration:1.1 }, 0);
+  }
+  if (pill)    heroTl.to(pill,    { opacity:1, y:0, duration:0.8 }, 0.08);
+  if (sub)     heroTl.to(sub,     { opacity:1, y:0, duration:0.9 }, '-=0.7');
+  if (cta)     heroTl.to(cta,     { opacity:1, y:0, duration:0.9 }, '-=0.7');
+  if (meta)    heroTl.to(meta,    { opacity:1, y:0, duration:0.9 }, '-=0.7');
+  if (heroVis) heroTl.to(heroVis, { opacity:1, y:0, duration:1.2 }, 0.28);
+
+  /* ---------- BLOBS : parallaxe très douce + flottement organique ---------- */
+  var blob1 = document.querySelector('.blob-1');
+  var blob2 = document.querySelector('.blob-2');
+  if (blob1){
+    gsap.to(blob1, { yPercent:16, ease:'none',
+      scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:1.2 } });
+    gsap.to(blob1, { xPercent:4, rotation:3, duration:12, ease:'sine.inOut', repeat:-1, yoyo:true });
+  }
+  if (blob2){
+    gsap.to(blob2, { yPercent:-12, ease:'none',
+      scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:1.5 } });
+    gsap.to(blob2, { xPercent:-5, rotation:-4, duration:14, ease:'sine.inOut', repeat:-1, yoyo:true });
+  }
+
+  /* ---------- REVEALS génériques (hors héros & bento) ---------- */
+  var generic = gsap.utils.toArray('.reveal').filter(function(el){
+    return !el.classList.contains('hero-copy')
+        && !el.classList.contains('hero-visual')
+        && !el.classList.contains('bento-card');
+  });
+  generic.forEach(function(el){
+    var d = parseInt(el.getAttribute('data-d') || '0', 10);
+    gsap.set(el, { opacity:0, y:34 });
+    gsap.to(el, {
+      opacity:1, y:0, duration:1.0, ease:P3, delay: d * 0.06,
+      scrollTrigger:{ trigger:el, start:'top 86%', once:true }
+    });
+  });
+
+  /* ---------- BENTO : apparition en stagger élégant ---------- */
+  var bentoCards = gsap.utils.toArray('.bento-card');
+  if (bentoCards.length){
+    gsap.set(bentoCards, { opacity:0, y:40, scale:0.98 });
+    ScrollTrigger.batch(bentoCards, {
+      start:'top 88%', once:true,
+      onEnter:function(batch){
+        gsap.to(batch, { opacity:1, y:0, scale:1, duration:0.9, ease:P3, stagger:0.12, overwrite:true });
+      }
+    });
+  }
+
+  /* ---------- BOUTONS MAGNÉTIQUES (désactivés sur tactile) ---------- */
+  if (!isTouch){
+    document.querySelectorAll('.btn-primary').forEach(function(btn){
+      var qx = gsap.quickTo(btn, 'x', { duration:0.5, ease:'power3.out' });
+      var qy = gsap.quickTo(btn, 'y', { duration:0.5, ease:'power3.out' });
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        qx((e.clientX - (r.left + r.width/2)) * 0.28);
+        qy((e.clientY - (r.top + r.height/2)) * 0.35);
+      });
+      btn.addEventListener('mouseleave', function(){ qx(0); qy(0); });
+    });
+  }
+
+  /* recalage après chargement des images (lazy) */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
 </script>
 </body>
 </html>
