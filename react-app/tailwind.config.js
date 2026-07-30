@@ -1,0 +1,65 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,jsx}'],
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        playfair: ['"Playfair Display"', 'Georgia', 'serif'],
+        fraunces: ['"Fraunces"', 'Georgia', 'serif'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        jost: ['"Jost"', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        // Signature (dark)
+        ink: '#0A0A0B',
+        ink2: '#111114',
+        champagne: '#E8C39E',
+        cuivre: '#C97B5A',
+        // Éclat (luxe)
+        charbon: '#14110F',
+        ivoire: '#F5F0E6',
+        or: '#C9A24B',
+        orclair: '#D9BE7E',
+        // Nuance (provençal)
+        lin: '#FBF7F1',
+        terra: '#B9714F',
+        terradeep: '#A0552F',
+        sauge: '#7C8A6E',
+        brun: '#3B332B',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-v': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+        },
+        aurora: {
+          '0%,100%': { transform: 'translate(0,0) scale(1)' },
+          '33%': { transform: 'translate(3%,-4%) scale(1.08)' },
+          '66%': { transform: 'translate(-3%,3%) scale(0.96)' },
+        },
+        spotlight: {
+          '0%': { opacity: 0, transform: 'translate(-72%,-62%) scale(0.5)' },
+          '100%': { opacity: 1, transform: 'translate(-50%,-40%) scale(1)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 3s linear infinite',
+        marquee: 'marquee var(--duration,40s) linear infinite',
+        'marquee-v': 'marquee-v var(--duration,40s) linear infinite',
+        aurora: 'aurora 18s ease-in-out infinite',
+        spotlight: 'spotlight 2s ease .3s forwards',
+      },
+    },
+  },
+  plugins: [],
+}

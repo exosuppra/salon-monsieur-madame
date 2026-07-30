@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light dark; }
+* { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+
+/* Masque le scroll horizontal accidentel des animations */
+#root { overflow-x: clip; }
+
+/* Utilitaire dégradé de texte */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Marquee pause au survol */
+.marquee-pause:hover [data-marquee] { animation-play-state: paused; }
+
+/* Keyframe spin (référencé en inline-style par ShimmerButton) */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  html { scroll-behavior: auto; }
+}
