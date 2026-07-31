@@ -4,814 +4,793 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Madame Monsieur — Salon de coiffure à Gréoux-les-Bains</title>
-<meta name="description" content="Madame Monsieur, salon de coiffure à Gréoux-les-Bains. Balayage contemporain, coupe, coloration et conseil personnalisé par Elodie. Réservation en ligne 24h/24 via Planity." />
+<meta name="description" content="Madame Monsieur, salon de coiffure à Gréoux-les-Bains. Coupe, coloration, balayage et lissage par Elodie, plus de 20 ans d'expérience. Réservation en ligne 24h/24 via Planity." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
+  /* =========================================================================
+     MADAME MONSIEUR — maquette 3 « Atelier »
+     Direction artistique : claire et chaude, à l'image du salon (bois brut,
+     cuir cognac, papier peint végétal, lumière du sud). Rien de sombre,
+     rien de « tech » : des matières, de l'espace, et des photos en grand.
+     Animations volontairement douces — fondus, parallaxe lente, révélations.
+     ========================================================================= */
   :root{
-    --bg:#0A0A0B;
-    --bg-2:#111114;
-    --surface:rgba(255,255,255,0.04);
-    --surface-2:rgba(255,255,255,0.06);
-    --border:rgba(255,255,255,0.10);
-    --border-strong:rgba(255,255,255,0.18);
-    --text:#F5F3EF;
-    --muted:#A1A1AA;
-    --muted-2:#8A8A94;
-    --c1:#E8C39E; /* champagne */
-    --c2:#C97B5A; /* cuivre */
-    --c3:#B98CC9; /* violet subtil */
-    --glow:rgba(232,195,158,0.35);
-    --maxw:1200px;
-    --radius:22px;
+    --lin:#F3EBDF;          /* fond principal, lin naturel */
+    --creme:#FBF6EF;        /* surfaces claires */
+    --sable:#E8DCCA;        /* séparateurs, aplats doux */
+    --bois:#B08968;         /* bois clair */
+    --cognac:#8A4B2A;       /* cuir du fauteuil Chesterfield */
+    --terracotta:#C0714E;   /* accent principal */
+    --terracotta-clair:#D89272;
+    --olive:#77835D;        /* accent secondaire, végétal */
+    --encre:#332A21;        /* texte */
+    --encre-doux:#6B5D4E;   /* texte secondaire */
+    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+    --sans:'Karla', system-ui, -apple-system, sans-serif;
+    --maxw:1180px;
+    --r:20px;
+    --r-lg:32px;
+    --shadow:0 24px 60px -34px rgba(51,42,33,.45);
+    --shadow-soft:0 12px 34px -22px rgba(51,42,33,.4);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Inter',system-ui,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.6;
+    font-family:var(--sans);
+    background:var(--lin);
+    color:var(--encre);
+    line-height:1.7;
+    font-weight:400;
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
-    position:relative;
   }
-  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.03em;line-height:1.05}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.12;letter-spacing:-0.01em}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
-  ::selection{background:var(--c2);color:#0A0A0B}
+  ::selection{background:var(--terracotta);color:var(--creme)}
 
-  /* Grain overlay */
+  /* Texture papier très légère — donne de la matière au fond uni */
   body::before{
-    content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.045;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem);position:relative;z-index:2}
+  section{position:relative;z-index:2}
+  .sec-pad{padding:clamp(4.5rem,10vw,8.5rem) 0}
+
   .eyebrow{
-    font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;
-    letter-spacing:0.28em;text-transform:uppercase;color:var(--c1);
-    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--sans);font-size:.72rem;font-weight:600;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--terracotta);
+    display:inline-flex;align-items:center;gap:.75rem;
   }
-  .eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--c1))}
-  .grad-text{
-    background:linear-gradient(120deg,#F5F3EF 0%,var(--c1) 40%,var(--c2) 75%,var(--c3) 110%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
-  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--terracotta);opacity:.55}
+  .sec-head{max-width:44rem;margin-bottom:clamp(2.5rem,5vw,4rem)}
+  .sec-head h2{font-size:clamp(2.1rem,5vw,3.4rem);margin-top:1.1rem}
+  .sec-head h2 em{font-style:italic;color:var(--cognac)}
+  .sec-head p{color:var(--encre-doux);margin-top:1.1rem;font-size:1.05rem;max-width:38rem}
 
-  /* ---------- Mesh gradient background ---------- */
-  .mesh{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(60px);opacity:0.65}
-  .mesh span{position:absolute;border-radius:50%;mix-blend-mode:screen;will-change:transform}
-  .m1{width:52vw;height:52vw;background:radial-gradient(circle at 30% 30%,rgba(201,123,90,0.55),transparent 60%);top:-8%;left:-6%;animation:float1 18s ease-in-out infinite}
-  .m2{width:46vw;height:46vw;background:radial-gradient(circle at 50% 50%,rgba(232,195,158,0.42),transparent 62%);top:6%;right:-10%;animation:float2 22s ease-in-out infinite}
-  .m3{width:44vw;height:44vw;background:radial-gradient(circle at 50% 50%,rgba(185,140,201,0.34),transparent 60%);bottom:-14%;left:22%;animation:float3 26s ease-in-out infinite}
-  @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,4vh) scale(1.12)}}
-  @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-5vw,6vh) scale(1.08)}}
-  @keyframes float3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4vw,-5vh) scale(1.15)}}
+  /* ---------- Boutons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+    font-family:var(--sans);font-weight:500;font-size:.92rem;
+    padding:.95rem 1.7rem;border-radius:100px;cursor:pointer;border:1px solid transparent;
+    transition:transform .4s cubic-bezier(.2,.7,.2,1), background .35s, color .35s, border-color .35s, box-shadow .4s;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--terracotta);color:var(--creme);box-shadow:var(--shadow-soft)}
+  .btn-primary:hover{background:var(--cognac);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--encre);border-color:rgba(51,42,33,.22)}
+  .btn-ghost:hover{border-color:var(--terracotta);color:var(--cognac);transform:translateY(-2px)}
+  .btn-sm{padding:.7rem 1.3rem;font-size:.86rem}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;border-radius:6px}
 
   /* ---------- Header ---------- */
-  header{position:sticky;top:0;z-index:50;transition:all .4s ease}
-  .nav{
-    display:flex;align-items:center;justify-content:space-between;gap:20px;
-    margin:14px auto;max-width:var(--maxw);padding:12px 22px;border-radius:18px;
-    background:rgba(17,17,20,0.55);backdrop-filter:blur(18px) saturate(140%);
-    -webkit-backdrop-filter:blur(18px) saturate(140%);
-    border:1px solid var(--border);transition:all .4s ease;
-  }
-  header.scrolled .nav{background:rgba(10,10,11,0.82);border-color:var(--border-strong);box-shadow:0 12px 40px rgba(0,0,0,0.45)}
-  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.12rem;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
-  .logo .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 12px var(--glow)}
-  .nav-links{display:flex;gap:30px;align-items:center}
-  .nav-links a{font-size:0.9rem;color:var(--muted);transition:color .25s;position:relative}
-  .nav-links a:hover{color:var(--text)}
-  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:linear-gradient(90deg,var(--c1),var(--c2));transition:width .3s}
+  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .5s ease, box-shadow .5s ease, padding .5s ease;padding:1.35rem 0}
+  header.scrolled{background:rgba(243,235,223,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:.7rem 0;box-shadow:0 1px 0 rgba(51,42,33,.08)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+  .logo{font-family:var(--serif);font-size:1.3rem;letter-spacing:.01em;display:flex;flex-direction:column;line-height:1.1}
+  .logo span{font-family:var(--sans);font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--terracotta);margin-top:.35rem;font-weight:600}
+  .nav-links{display:flex;gap:2rem;align-items:center;list-style:none}
+  .nav-links a{font-size:.9rem;color:var(--encre-doux);position:relative;padding:.15rem 0;transition:color .3s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:1px;width:0;background:var(--terracotta);transition:width .35s ease}
+  .nav-links a:hover{color:var(--encre)}
   .nav-links a:hover::after{width:100%}
+  .nav-actions{display:flex;align-items:center;gap:.7rem}
+  .burger{display:none;background:var(--creme);border:1px solid rgba(51,42,33,.14);border-radius:12px;width:44px;height:44px;cursor:pointer;color:var(--encre);align-items:center;justify-content:center}
 
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:9px;
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.92rem;
-    padding:13px 24px;border-radius:14px;cursor:pointer;border:1px solid transparent;
-    transition:transform .25s ease,box-shadow .3s ease,background .3s ease;white-space:nowrap;
+  .mobile-menu{
+    position:fixed;inset:0;z-index:60;background:var(--lin);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
   }
-  .btn-primary{
-    color:#160d07;background:linear-gradient(120deg,var(--c1),var(--c2));
-    box-shadow:0 8px 26px rgba(201,123,90,0.35),inset 0 1px 0 rgba(255,255,255,0.4);
-  }
-  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(201,123,90,0.55),0 0 30px var(--glow)}
-  .btn-ghost{color:var(--text);background:var(--surface);border:1px solid var(--border-strong);backdrop-filter:blur(8px)}
-  .btn-ghost:hover{transform:translateY(-3px);background:var(--surface-2);border-color:var(--c1)}
-  .btn-sm{padding:10px 18px;font-size:0.86rem}
-  .btn:focus-visible,a:focus-visible,.burger:focus-visible{outline:2px solid var(--c1);outline-offset:3px}
-
-  .burger{display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;width:44px;height:44px;cursor:pointer;color:var(--text);align-items:center;justify-content:center}
-  .burger svg{width:22px;height:22px}
-
-  /* ---------- Reveal ---------- */
-  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
-
-  section{position:relative;z-index:2}
-  .sec-pad{padding:110px 0}
+  .mobile-menu.open{opacity:1;pointer-events:auto}
+  .mobile-menu a{font-family:var(--serif);font-size:1.9rem;color:var(--encre)}
+  .mobile-menu .close{position:absolute;top:1.4rem;right:1.4rem;background:none;border:none;cursor:pointer;color:var(--encre);font-size:1.6rem;line-height:1}
 
   /* ---------- Hero ---------- */
-  .hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:120px 0 90px;overflow:hidden}
-  .hero-spot{position:absolute;inset:0;z-index:-1;background:radial-gradient(500px circle at var(--mx,50%) var(--my,35%),rgba(232,195,158,0.14),transparent 65%);transition:background .2s;pointer-events:none}
-  .badge{
-    display:inline-flex;align-items:center;gap:12px;padding:9px 16px;border-radius:100px;
-    background:var(--surface);border:1px solid var(--border-strong);backdrop-filter:blur(10px);
-    font-size:0.86rem;color:var(--text);margin-bottom:30px;
-  }
-  .stars{color:var(--c1);letter-spacing:2px;font-size:0.9rem}
-  .badge b{font-family:'Space Grotesk',sans-serif}
-  .badge .sep{width:1px;height:16px;background:var(--border-strong)}
-  .badge .muted{color:var(--muted)}
-  h1.hero-title{font-size:clamp(2.7rem,7vw,5.4rem);font-weight:700;margin-bottom:26px}
-  .hero-sub{font-size:clamp(1.02rem,1.7vw,1.22rem);color:var(--muted);max-width:560px;margin-bottom:38px}
-  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-  .hero-meta{margin-top:34px;display:flex;gap:26px;flex-wrap:wrap;color:var(--muted);font-size:0.88rem}
-  .hero-meta span{display:inline-flex;align-items:center;gap:8px}
-  .hero-meta .ic{color:var(--c1)}
+  .hero{min-height:100svh;display:flex;align-items:center;padding:8rem 0 4rem;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  .hero h1{font-size:clamp(2.9rem,7.2vw,5.1rem);line-height:1.02;margin-top:1.6rem}
+  .hero h1 em{font-style:italic;color:var(--cognac)}
+  .hero p.lead{font-size:clamp(1.02rem,1.6vw,1.18rem);color:var(--encre-doux);margin-top:1.6rem;max-width:32rem}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2.2rem}
+  .hero-note{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--encre-doux);opacity:.75;margin-top:1.6rem}
+  .rating-row{display:inline-flex;align-items:center;gap:.7rem;background:var(--creme);border:1px solid rgba(51,42,33,.1);border-radius:100px;padding:.5rem 1rem;font-size:.86rem}
+  .rating-row .stars{color:var(--terracotta);letter-spacing:1px}
 
-  /* ---------- Stats ---------- */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-  .stat{
-    text-align:center;padding:34px 18px;border-radius:var(--radius);
-    background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(10px);
-    position:relative;overflow:hidden;
+  /* Photos : composition en deux plans, l'une décalée sous l'autre */
+  .hero-photos{position:relative;aspect-ratio:4/4.6}
+  .ph{
+    position:absolute;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);
+    background-color:var(--sable);background-size:cover;background-position:center;
   }
-  .stat::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(140deg,var(--c1),transparent 45%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.5}
-  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1}
-  .stat .lbl{color:var(--muted);font-size:0.88rem;margin-top:10px}
-
-  .sec-head{max-width:640px;margin-bottom:56px}
-  .sec-head h2{font-size:clamp(2rem,4.3vw,3.1rem);font-weight:700;margin:18px 0 16px}
-  .sec-head p{color:var(--muted);font-size:1.04rem}
-
-  /* ---------- Salon / Elodie ---------- */
-  .salon-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-  .glass-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    backdrop-filter:blur(14px);position:relative;overflow:hidden;
+  .ph-main{inset:0 0 18% 22%}
+  .ph-sub{width:46%;aspect-ratio:1/1.15;left:0;bottom:0;border:6px solid var(--lin)}
+  .ph-tag{
+    position:absolute;right:6%;top:8%;background:var(--creme);border-radius:var(--r);
+    padding:.85rem 1.15rem;box-shadow:var(--shadow-soft);text-align:center;
   }
-  .elodie{padding:0;min-height:460px;display:flex;flex-direction:column;justify-content:flex-end}
-  .elodie .photo{position:absolute;inset:0;background:linear-gradient(160deg,#1a1410,#0e0c0d);background-size:cover;background-position:center;z-index:0}
-  .elodie .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,11,0.92) 8%,rgba(10,10,11,0.15) 60%,transparent)}
-  .elodie .content{position:relative;z-index:2;padding:34px}
-  .elodie .pill{display:inline-block;font-size:0.76rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--c1);background:rgba(232,195,158,0.12);border:1px solid rgba(232,195,158,0.25);padding:6px 12px;border-radius:100px;margin-bottom:16px}
-  .elodie h3{font-size:1.7rem;font-weight:700}
-  .elodie .role{color:var(--muted);margin-top:6px;font-size:0.95rem}
-  .feature-list{display:grid;gap:18px;margin-top:8px}
-  .feature{display:flex;gap:16px;padding:20px;border-radius:16px;background:var(--surface);border:1px solid var(--border);transition:transform .3s,border-color .3s}
-  .feature:hover{transform:translateX(6px);border-color:rgba(232,195,158,0.35)}
-  .feature .ic{flex:0 0 auto;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,195,158,0.2),rgba(201,123,90,0.2));border:1px solid var(--border-strong);color:var(--c1)}
-  .feature h4{font-family:'Space Grotesk',sans-serif;font-size:1.02rem;font-weight:600;margin-bottom:3px}
-  .feature p{color:var(--muted);font-size:0.9rem;line-height:1.5}
+  .ph-tag .n{font-family:var(--serif);font-size:1.6rem;color:var(--cognac);line-height:1}
+  .ph-tag .l{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--encre-doux);margin-top:.25rem}
+
+  /* ---------- Bandeau chiffres ---------- */
+  .stats{border-top:1px solid var(--sable);border-bottom:1px solid var(--sable);background:rgba(251,246,239,.55)}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;padding:clamp(2.2rem,4vw,3.2rem) 0;text-align:center}
+  .stat .n{font-family:var(--serif);font-size:clamp(2rem,4vw,2.9rem);color:var(--cognac);line-height:1}
+  .stat .l{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--encre-doux);margin-top:.6rem}
+
+  /* ---------- Le salon ---------- */
+  .salon-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  .salon-photo{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background-color:var(--sable);background-size:cover;background-position:center}
+  .salon-badge{position:absolute;left:1.2rem;bottom:1.2rem;background:rgba(251,246,239,.94);backdrop-filter:blur(6px);border-radius:var(--r);padding:.9rem 1.2rem}
+  .salon-badge .nm{font-family:var(--serif);font-size:1.3rem}
+  .salon-badge .rl{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terracotta);margin-top:.15rem}
+  .salon-list{list-style:none;margin-top:2rem;display:grid;gap:1rem}
+  .salon-list li{display:flex;gap:.9rem;align-items:flex-start;color:var(--encre-doux)}
+  .salon-list .mark{width:26px;height:26px;border-radius:50%;background:var(--sable);color:var(--cognac);display:grid;place-items:center;flex:none;font-size:.8rem;margin-top:.15rem}
 
   /* ---------- Prestations ---------- */
-  .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .serv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem}
   .serv-card{
-    padding:30px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);
-    backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
-    transform-style:preserve-3d;
+    background:var(--creme);border:1px solid rgba(51,42,33,.08);border-radius:var(--r-lg);
+    padding:2rem 1.8rem;transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s;
   }
-  .serv-card::after{content:"";position:absolute;top:-40%;left:-30%;width:80%;height:80%;background:radial-gradient(circle,var(--glow),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
-  .serv-card:hover{border-color:rgba(232,195,158,0.4);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
-  .serv-card:hover::after{opacity:.25}
-  .serv-card .icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,rgba(232,195,158,0.16),rgba(201,123,90,0.16));border:1px solid var(--border-strong);margin-bottom:20px}
-  .serv-card h3{font-size:1.22rem;font-weight:600;margin-bottom:10px}
-  .serv-card p{color:var(--muted);font-size:0.92rem;margin-bottom:16px}
-  .serv-card .tag{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;color:var(--c1);font-weight:500;display:inline-flex;align-items:center;gap:6px}
+  .serv-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .serv-card .ic{width:46px;height:46px;border-radius:14px;background:var(--sable);display:grid;place-items:center;font-size:1.25rem;margin-bottom:1.2rem}
+  .serv-card h3{font-size:1.45rem}
+  .serv-card p{color:var(--encre-doux);font-size:.95rem;margin-top:.7rem}
+  .serv-card .tag{display:inline-block;margin-top:1.2rem;font-size:.82rem;font-weight:500;color:var(--cognac);background:var(--sable);border-radius:100px;padding:.35rem .9rem}
 
   /* ---------- Tarifs ---------- */
-  .price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .price-col{padding:34px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(10px)}
-  .price-col h3{font-size:1.15rem;font-weight:600;display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-  .price-col h3 .d{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 10px var(--glow)}
-  .price-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px dashed rgba(255,255,255,0.07)}
+  .tarifs-card{background:var(--creme);border:1px solid rgba(51,42,33,.08);border-radius:var(--r-lg);padding:clamp(1.5rem,4vw,3rem);box-shadow:var(--shadow-soft)}
+  .tarifs-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:clamp(1.8rem,4vw,3rem);align-items:start}
+  .tarif-group h3{font-size:1.3rem;color:var(--cognac);padding-bottom:.7rem;border-bottom:2px solid var(--sable);margin-bottom:.5rem}
+  .price-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.72rem 0;border-bottom:1px dashed rgba(51,42,33,.16)}
   .price-row:last-child{border-bottom:none}
-  .price-row .name{font-size:0.98rem}
-  .price-row .name small{display:block;color:var(--muted-2);font-size:0.78rem}
-  .price-row .val{font-family:'Space Grotesk',sans-serif;font-weight:600;white-space:nowrap;color:var(--c1)}
-  .price-note{margin-top:26px;text-align:center;color:var(--muted);font-size:0.9rem}
+  .price-row .name{font-size:.93rem;color:var(--encre);line-height:1.45}
+  .price-row .name small{display:block;font-size:.74rem;letter-spacing:.06em;color:var(--encre-doux);opacity:.85;margin-top:1px}
+  .price-row .val{font-family:var(--serif);font-size:1.02rem;color:var(--cognac);white-space:nowrap;font-weight:500}
+  .tarif-foot{margin-top:2rem;font-size:.88rem;color:var(--encre-doux);font-style:italic}
+  .tarifs-cta{margin-top:2.6rem;display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
 
   /* ---------- Avis ---------- */
-  .reviews-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:44px}
-  .big-note{font-family:'Space Grotesk',sans-serif;font-size:3.2rem;font-weight:700;line-height:1}
-  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .review{padding:28px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(10px);transition:transform .3s,border-color .3s}
-  .review:hover{transform:translateY(-5px);border-color:rgba(232,195,158,0.3)}
-  .review .stars{margin-bottom:14px;font-size:1rem}
-  .review p{font-size:0.98rem;color:var(--text);margin-bottom:20px}
-  .review .who{display:flex;align-items:center;gap:12px}
-  .review .av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;color:#160d07;background:linear-gradient(135deg,var(--c1),var(--c2))}
-  .review .who b{font-size:0.92rem;font-weight:600;display:block}
-  .review .who span{font-size:0.8rem;color:var(--muted)}
+  .avis-head{text-align:center;margin-bottom:3rem}
+  .avis-score{font-family:var(--serif);font-size:clamp(3rem,7vw,4.4rem);color:var(--cognac);line-height:1}
+  .avis-score sub{font-size:.3em;color:var(--encre-doux);vertical-align:super;margin-left:.15rem}
+  .avis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem}
+  .avis-card{background:var(--creme);border:1px solid rgba(51,42,33,.08);border-radius:var(--r-lg);padding:1.9rem 1.7rem;display:flex;flex-direction:column;gap:1rem}
+  .avis-card .stars{color:var(--terracotta);letter-spacing:2px;font-size:.9rem}
+  .avis-card blockquote{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--encre);line-height:1.6}
+  .avis-card .who{margin-top:auto;display:flex;justify-content:space-between;gap:.8rem;font-size:.78rem;color:var(--encre-doux);border-top:1px solid var(--sable);padding-top:.9rem}
 
   /* ---------- Contact ---------- */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-  .info-list{display:grid;gap:16px}
-  .info{display:flex;gap:16px;padding:22px;border-radius:16px;background:var(--surface);border:1px solid var(--border)}
-  .info .ic{flex:0 0 auto;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,195,158,0.18),rgba(201,123,90,0.18));border:1px solid var(--border-strong);color:var(--c1)}
-  .info h4{font-family:'Space Grotesk',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-  .info p{font-size:1rem}
-  .info .closed{color:var(--muted-2)}
-  .map-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--bg-2);min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;background-image:linear-gradient(160deg,#171310,#0d0c0e)}
-  .map-card iframe{width:100%;height:100%;min-height:300px;border:0;filter:grayscale(0.4) invert(0.9) hue-rotate(180deg) contrast(0.9)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(1.6rem,4vw,3rem);align-items:stretch}
+  .contact-card{background:var(--creme);border:1px solid rgba(51,42,33,.08);border-radius:var(--r-lg);padding:clamp(1.6rem,3vw,2.4rem);display:flex;flex-direction:column}
+  .info-row{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--sable)}
+  .info-row:first-of-type{padding-top:0}
+  .info-row .ic{width:40px;height:40px;border-radius:12px;background:var(--sable);color:var(--cognac);display:grid;place-items:center;flex:none}
+  .info-row h4{font-size:1.05rem;margin-bottom:.15rem}
+  .info-row p{color:var(--encre-doux);font-size:.93rem}
+  .info-row a{color:var(--cognac);font-weight:500}
+  .info-row a:hover{text-decoration:underline}
+  .info-row .closed{opacity:.65;font-style:italic}
+  .contact-actions{margin-top:1.8rem;display:grid;gap:.7rem}
+  .map-card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(51,42,33,.08);min-height:380px;background:var(--sable);box-shadow:var(--shadow-soft)}
+  .map-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.85) sepia(.08)}
+  .map-overlay{position:absolute;left:0;right:0;bottom:0;padding:1.4rem;background:linear-gradient(to top,rgba(243,235,223,.96),transparent);display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline}
+  .map-overlay .addr{font-family:var(--serif);font-size:1.05rem}
+  .map-overlay a{font-size:.86rem;color:var(--cognac);font-weight:500}
 
-  /* ---------- CTA band ---------- */
-  .cta-band{position:relative;overflow:hidden;border-radius:32px;padding:70px 40px;text-align:center;background:linear-gradient(140deg,rgba(201,123,90,0.16),rgba(185,140,201,0.10));border:1px solid var(--border-strong)}
-  .cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(600px circle at 50% 0%,var(--glow),transparent 60%);opacity:.5}
-  .cta-band > *{position:relative;z-index:2}
-  .cta-band h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:700;margin-bottom:16px}
-  .cta-band p{color:var(--muted);max-width:520px;margin:0 auto 30px}
+  /* ---------- Bande CTA ---------- */
+  .cta-band{background:var(--cognac);color:var(--creme);border-radius:var(--r-lg);padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,5vw,3.5rem);text-align:center}
+  .cta-band h2{font-size:clamp(1.9rem,4.5vw,3rem);color:var(--creme)}
+  .cta-band h2 em{font-style:italic;color:var(--terracotta-clair)}
+  .cta-band p{color:rgba(251,246,239,.78);margin-top:1rem;max-width:34rem;margin-left:auto;margin-right:auto}
+  .cta-band .row{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;margin-top:2rem}
+  .cta-band .btn-primary{background:var(--creme);color:var(--cognac)}
+  .cta-band .btn-primary:hover{background:var(--terracotta-clair);color:var(--encre)}
+  .cta-band .btn-ghost{color:var(--creme);border-color:rgba(251,246,239,.45)}
+  .cta-band .btn-ghost:hover{border-color:var(--creme);color:var(--creme)}
 
   /* ---------- Footer ---------- */
-  footer{border-top:1px solid var(--border);padding:56px 0 40px;position:relative;z-index:2;margin-top:20px}
-  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
-  .foot-grid .muted{color:var(--muted);font-size:0.9rem;max-width:300px;margin-top:12px}
-  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
-  .foot-links a{color:var(--muted);font-size:0.9rem;transition:color .25s}
-  .foot-links a:hover{color:var(--c1)}
-  .foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted-2);font-size:0.84rem}
+  footer{border-top:1px solid var(--sable);padding:3.5rem 0 2.5rem;margin-top:clamp(3rem,7vw,6rem)}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2.5rem}
+  .foot-logo{font-family:var(--serif);font-size:1.35rem;display:flex;flex-direction:column;line-height:1.15}
+  .foot-logo span{font-family:var(--sans);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--terracotta);margin-top:.35rem;font-weight:600}
+  .foot-grid p{color:var(--encre-doux);font-size:.92rem;margin-top:1rem;max-width:22rem}
+  .foot-col h4{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--encre-doux);font-family:var(--sans);font-weight:600;margin-bottom:1rem}
+  .foot-col ul{list-style:none;display:grid;gap:.6rem}
+  .foot-col a{font-size:.93rem;color:var(--encre-doux);transition:color .3s}
+  .foot-col a:hover{color:var(--cognac)}
+  .foot-bottom{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--sable);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:.82rem;color:var(--encre-doux)}
+
+  /* ---------- Révélations au scroll (douces, jamais spectaculaires) ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation:none !important}
+  }
 
   /* ---------- Responsive ---------- */
-  @media(max-width:900px){
-    .nav-links{display:none}
+  @media (max-width:960px){
+    .hero-grid,.salon-grid,.contact-grid{grid-template-columns:1fr}
+    .hero-photos{aspect-ratio:4/3.4;margin-top:2.5rem}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:2.2rem}
+  }
+  @media (max-width:760px){
+    .nav-links,.nav-actions .btn{display:none}
     .burger{display:flex}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .salon-grid{grid-template-columns:1fr}
-    .serv-grid{grid-template-columns:1fr 1fr}
-    .price-wrap{grid-template-columns:1fr}
-    .reviews-grid{grid-template-columns:1fr}
-    .contact-grid{grid-template-columns:1fr}
-    .sec-pad{padding:80px 0}
-  }
-  @media(max-width:560px){
-    .stats{grid-template-columns:1fr}
-    .serv-grid{grid-template-columns:1fr}
-    .hero{padding-top:100px}
-    .cta-band{padding:50px 22px}
-    .nav{margin:10px 14px}
-    .wrap{padding:0 18px}
-  }
-
-  /* Mobile menu */
-  .mobile-menu{position:fixed;inset:0;z-index:60;background:rgba(10,10,11,0.96);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity .35s}
-  .mobile-menu.open{opacity:1;pointer-events:auto}
-  .mobile-menu a{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;color:var(--text)}
-  .mobile-menu .close{position:absolute;top:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;width:46px;height:46px;color:var(--text);cursor:pointer;font-size:1.4rem}
-
-  @media(prefers-reduced-motion:reduce){
-    *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
-    .reveal{opacity:1;transform:none}
-    .mesh{opacity:.5}
-  }
-
-  /* ---------- GSAP enhancement layer (progressive, non-breaking) ---------- */
-  /* Only active once the CDNs load OK and body gets .gsap-ready.
-     Neutralizes the CSS-hidden .reveal state so GSAP can drive it without
-     fighting the existing transition. If a CDN fails, this never applies and
-     the existing IntersectionObserver keeps everything visible. */
-  body.gsap-ready .reveal{opacity:1;transform:none;transition:none}
-  body.gsap-ready .split-line{display:block;will-change:transform,opacity}
-  body.gsap-ready .hero-cta .btn-primary,
-  body.gsap-ready .cta-band .btn-primary{will-change:transform}
-  @media(prefers-reduced-motion:reduce){
-    body.gsap-ready .reveal{opacity:1;transform:none}
+    .foot-grid{grid-template-columns:1fr}
+    .map-card{min-height:300px}
   }
 </style>
+<!-- Sans JS, les blocs .reveal resteraient invisibles : on les rétablit. -->
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body>
 
-<!-- Mesh gradient bg -->
-<div class="mesh" aria-hidden="true">
-  <span class="m1"></span><span class="m2"></span><span class="m3"></span>
-</div>
-
-<!-- Header -->
+<!-- ===== HEADER ===== -->
 <header id="header">
-  <nav class="nav wrap" aria-label="Navigation principale">
-    <a href="#top" class="logo"><span class="dot"></span>Monsieur&nbsp;Madame</a>
-    <div class="nav-links">
-      <a href="#salon">Le salon</a>
-      <a href="#prestations">Prestations</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#avis">Avis</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div style="display:flex;gap:12px;align-items:center">
-      <a class="btn btn-primary btn-sm" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
-      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  <div class="wrap nav">
+    <a class="logo" href="#top">Madame Monsieur<span>Gréoux-les-Bains</span></a>
+    <nav aria-label="Navigation principale">
+      <ul class="nav-links">
+        <li><a href="#salon">Le salon</a></li>
+        <li><a href="#prestations">Prestations</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm" href="tel:+33492780298">04 92 78 02 98</a>
+      <a class="btn btn-primary btn-sm" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Réserver</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
-  </nav>
+  </div>
 </header>
 
-<!-- Mobile menu -->
+<!-- ===== MENU MOBILE ===== -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="close" id="closeMenu" aria-label="Fermer le menu">&times;</button>
+  <button class="close" id="closeMenu" aria-label="Fermer le menu">✕</button>
   <a href="#salon">Le salon</a>
   <a href="#prestations">Prestations</a>
   <a href="#tarifs">Tarifs</a>
   <a href="#avis">Avis</a>
   <a href="#contact">Contact</a>
+  <a class="btn btn-ghost" href="tel:+33492780298" style="margin-top:.6rem">04 92 78 02 98</a>
   <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
 </div>
 
-<span id="top"></span>
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="rating-row reveal"><span class="stars" aria-hidden="true">★★★★★</span> 4,9/5 · 185 avis vérifiés</span>
+      <h1 class="reveal d1">Un salon<br>où l'on prend<br><em>le temps</em></h1>
+      <p class="lead reveal d2">
+        Coupe, couleur et balayage à Gréoux-les-Bains. Vingt ans de métier, une pièce chaleureuse
+        en bois et cuir, et une seule idée en tête : que vos cheveux vous ressemblent.
+      </p>
+      <div class="hero-cta reveal d2">
+        <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+        <a class="btn btn-ghost" href="#prestations">Découvrir le salon</a>
+      </div>
+      <p class="hero-note reveal d3">Réservation en ligne 24h/24 via Planity · 04 92 78 02 98</p>
+    </div>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-spot" id="spot" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="badge reveal">
-      <span class="stars" aria-hidden="true">★★★★★</span>
-      <span><b>4,9/5</b></span>
-      <span class="sep"></span>
-      <span class="muted">185 avis clients</span>
-    </div>
-    <h1 class="hero-title reveal d1">Votre style,<br><span class="grad-text">sublimé sur mesure.</span></h1>
-    <p class="hero-sub reveal d2">Salon de coiffure à Gréoux-les-Bains. Balayage contemporain, coupe signature et conseil personnalisé par Elodie — dans une ambiance familiale, comme à la maison.</p>
-    <div class="hero-cta reveal d3">
-      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">
-        Prendre rendez-vous
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a class="btn btn-ghost" href="#prestations">Découvrir les prestations</a>
-    </div>
-    <div class="hero-meta reveal d4">
-      <span><span class="ic" aria-hidden="true">◈</span> +20 ans d'expérience</span>
-      <span><span class="ic" aria-hidden="true">◈</span> Expert balayage &amp; coloration</span>
-      <span><span class="ic" aria-hidden="true">◈</span> Réservation en ligne 24h/24</span>
+    <!-- Photos du salon.
+         Déposez les fichiers dans maquette-3-signature/assets/ sous ces noms exacts :
+           salon-vitrine.jpg  — la devanture / la pièce vue depuis l'entrée
+           salon-fauteuil.jpg — le fauteuil Chesterfield en cuir cognac
+           salon-miroir.jpg   — le miroir bois et la console
+         Tant qu'un fichier manque, le bloc affiche l'aplat sable : rien ne casse. -->
+    <div class="hero-photos reveal d2">
+      <div class="ph ph-main" data-parallax="0.05" style="background-image:url('assets/salon-vitrine.jpg')" role="img" aria-label="La vitrine du salon Madame Monsieur"></div>
+      <div class="ph ph-sub" data-parallax="-0.03" style="background-image:url('assets/salon-fauteuil.jpg')" role="img" aria-label="Le fauteuil en cuir cognac de l'espace d'attente"></div>
+      <div class="ph-tag">
+        <div class="n">20</div>
+        <div class="l">ans de métier</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<section class="sec-pad" style="padding-top:20px" aria-label="Chiffres clés">
-  <div class="wrap">
-    <div class="stats">
-      <div class="stat reveal"><div class="num" data-count="20" data-suffix="+">0</div><div class="lbl">Ans d'expérience</div></div>
-      <div class="stat reveal d1"><div class="num" data-count="4.9" data-decimals="1">0</div><div class="lbl">Note moyenne / 5</div></div>
-      <div class="stat reveal d2"><div class="num" data-count="185" data-suffix="+">0</div><div class="lbl">Avis clients</div></div>
-      <div class="stat reveal d3"><div class="num" data-count="10" data-suffix="+">0</div><div class="lbl">Prestations</div></div>
-    </div>
+<!-- ===== CHIFFRES ===== -->
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat reveal"><div class="n" data-count="20" data-suffix="+">20+</div><div class="l">Années d'expertise</div></div>
+    <div class="stat reveal d1"><div class="n">4,9</div><div class="l">Note moyenne</div></div>
+    <div class="stat reveal d2"><div class="n" data-count="185" data-suffix="+">185+</div><div class="l">Avis vérifiés</div></div>
+    <div class="stat reveal d3"><div class="n">100%</div><div class="l">Sur-mesure</div></div>
   </div>
 </section>
 
-<!-- Le salon / Elodie -->
+<!-- ===== LE SALON ===== -->
 <section class="sec-pad" id="salon">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Le salon</span>
-      <h2>Un savoir-faire d'exception,<br><span class="grad-text">une attention singulière.</span></h2>
-      <p>Chez Madame Monsieur, chaque client est accueilli comme à la maison. Elodie met plus de vingt ans d'expérience au service de votre beauté, avec une exigence particulière pour le balayage contemporain et la couleur sur mesure.</p>
+  <div class="wrap salon-grid">
+    <div class="salon-photo reveal" data-parallax="0.04" style="background-image:url('assets/salon-miroir.jpg')" role="img" aria-label="Le miroir en bois et la console du salon">
+      <div class="salon-badge">
+        <div class="nm">Elodie</div>
+        <div class="rl">Coiffeuse · 20 ans d'expérience</div>
+      </div>
     </div>
-    <div class="salon-grid">
-      <div class="feature-list reveal d1">
-        <div class="feature">
-          <div class="ic">✂</div>
-          <div><h4>Coupe &amp; conseil personnalisé</h4><p>Une analyse de votre visage, de votre style de vie et de vos envies pour un résultat qui vous ressemble vraiment.</p></div>
-        </div>
-        <div class="feature">
-          <div class="ic">◐</div>
-          <div><h4>Balayage &amp; coloration contemporaine</h4><p>Techniques modernes de balayage et mèches pour une couleur lumineuse, naturelle et parfaitement fondue.</p></div>
-        </div>
-        <div class="feature">
-          <div class="ic">✦</div>
-          <div><h4>Soin &amp; lissage brésilien YBERA</h4><p>Des soins profonds et le lissage brésilien pour une chevelure disciplinée, souple et éclatante de santé.</p></div>
-        </div>
-        <div class="feature">
-          <div class="ic">♥</div>
-          <div><h4>Ambiance familiale &amp; chaleureuse</h4><p>Un salon convivial où l'on prend le temps, à l'écoute, pour un vrai moment de détente rien que pour vous.</p></div>
-        </div>
-      </div>
-      <div class="glass-card elodie reveal d2">
-        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80')"></div>
-        <div class="content">
-          <span class="pill">La coiffeuse</span>
-          <h3>Elodie</h3>
-          <p class="role">Coiffeuse coloriste · +20 ans d'expérience · experte balayage &amp; conseil personnalisé</p>
-        </div>
-      </div>
+    <div class="reveal d1">
+      <span class="eyebrow">Le salon</span>
+      <h2 style="font-size:clamp(2rem,4.5vw,3.1rem);margin-top:1rem">Une maison plus qu'un <em>salon</em></h2>
+      <p style="color:var(--encre-doux);margin-top:1.2rem">
+        Au cœur de Gréoux-les-Bains, village thermal de Haute-Provence, Madame Monsieur cultive
+        un art de recevoir aussi soigné que ses coupes. Du bois brut, un fauteuil de cuir patiné,
+        des paniers d'osier et beaucoup de lumière : on y pousse la porte pour une couleur,
+        on y revient pour l'accueil.
+      </p>
+      <ul class="salon-list">
+        <li><span class="mark" aria-hidden="true">✓</span><span><strong style="color:var(--encre)">Diagnostic avant chaque couleur</strong> — on regarde la matière, l'historique, l'entretien réaliste au quotidien.</span></li>
+        <li><span class="mark" aria-hidden="true">✓</span><span><strong style="color:var(--encre)">Femme, homme et enfant</strong> — toute la famille au même endroit, sans surcoût déguisé.</span></li>
+        <li><span class="mark" aria-hidden="true">✓</span><span><strong style="color:var(--encre)">Soins et lissage YBERA</strong> — pour discipliner sans alourdir, du soin express au lissage complet.</span></li>
+        <li><span class="mark" aria-hidden="true">✓</span><span><strong style="color:var(--encre)">Curistes bienvenus</strong> — beaucoup reviennent chaque saison, on connaît leurs cheveux.</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- Prestations -->
-<section class="sec-pad" id="prestations">
+<!-- ===== PRESTATIONS ===== -->
+<section class="sec-pad" id="prestations" style="background:rgba(251,246,239,.5);border-top:1px solid var(--sable);border-bottom:1px solid var(--sable)">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Prestations</span>
-      <h2>Des services pensés pour <span class="grad-text">chacun.</span></h2>
-      <p>Femme, homme, enfant : une gamme complète de prestations, du soin du quotidien aux transformations les plus créatives.</p>
+      <h2>Ce que l'on fait, <em>simplement</em></h2>
+      <p>Quatre familles de prestations, une grille de tarifs complète juste en dessous. Pas de mauvaise surprise en caisse.</p>
     </div>
     <div class="serv-grid">
-      <article class="serv-card tilt reveal">
-        <div class="icon">💇‍♀️</div>
-        <h3>Coupe &amp; Brushing femme</h3>
-        <p>Coupe façonnée sur mesure et brushing lumineux qui met votre coiffure en valeur au quotidien.</p>
-        <span class="tag">Dès 16 €</span>
+      <article class="serv-card reveal">
+        <div class="ic" aria-hidden="true">✂</div>
+        <h3>Coupe &amp; Brushing</h3>
+        <p>Coupe façonnée sur mesure et brushing lumineux, du court au très long.</p>
+        <span class="tag">Dès 28 €</span>
       </article>
-      <article class="serv-card tilt reveal d1">
-        <div class="icon">🎨</div>
+      <article class="serv-card reveal d1">
+        <div class="ic" aria-hidden="true">❋</div>
         <h3>Coloration</h3>
-        <p>Couleur riche et couvrante, nuancée selon votre carnation pour un rendu naturel et durable.</p>
+        <p>Couleurs profondes ou éclaircissantes, adaptées à votre base et à votre peau.</p>
         <span class="tag">Dès 64 €</span>
       </article>
-      <article class="serv-card tilt reveal d2">
-        <div class="icon">✨</div>
-        <h3>Mèches &amp; Balayage</h3>
-        <p>La spécialité du salon : un balayage contemporain fondu, lumineux et sur mesure.</p>
+      <article class="serv-card reveal d2">
+        <div class="ic" aria-hidden="true">✧</div>
+        <h3>Balayage &amp; Mèches</h3>
+        <p>La signature du salon : des reflets naturels qui repoussent sans démarcation.</p>
         <span class="tag">Dès 76 €</span>
       </article>
-      <article class="serv-card tilt reveal">
-        <div class="icon">🌀</div>
+      <article class="serv-card reveal d3">
+        <div class="ic" aria-hidden="true">❁</div>
+        <h3>Soins &amp; Lissage</h3>
+        <p>Le protocole YBERA, du soin botox express au lissage brésilien complet.</p>
+        <span class="tag">Dès 40 €</span>
+      </article>
+      <article class="serv-card reveal">
+        <div class="ic" aria-hidden="true">◈</div>
+        <h3>Homme</h3>
+        <p>Coupe nette, barbe taillée et tracée, shampooing compris.</p>
+        <span class="tag">Coupe 23 € · Forfait 32 €</span>
+      </article>
+      <article class="serv-card reveal d1">
+        <div class="ic" aria-hidden="true">☺</div>
+        <h3>Enfants</h3>
+        <p>Shampooing et coupe pour les moins de 10 ans, en douceur et sans stress.</p>
+        <span class="tag">18 € – 30 €</span>
+      </article>
+      <article class="serv-card reveal d2">
+        <div class="ic" aria-hidden="true">◐</div>
         <h3>Permanente</h3>
-        <p>Boucles souples ou volume durable, réalisés dans le respect de la fibre capillaire.</p>
-        <span class="tag">55 € – 70 €</span>
+        <p>Du mouvement durable, seul ou associé à une coupe.</p>
+        <span class="tag">Dès 55 €</span>
       </article>
-      <article class="serv-card tilt reveal d1">
-        <div class="icon">💫</div>
-        <h3>Lissage brésilien YBERA</h3>
-        <p>Discipline, brillance et souplesse pour une chevelure lisse et facile à coiffer.</p>
-        <span class="tag">40 € – 150 €</span>
-      </article>
-      <article class="serv-card tilt reveal d2">
-        <div class="icon">💈</div>
-        <h3>Homme &amp; Barbe</h3>
-        <p>Coupe homme shampooing inclus et taille de barbe précise pour un style net et soigné.</p>
-        <span class="tag">Coupe 23 € · Barbe dès 10 €</span>
+      <article class="serv-card reveal d3">
+        <div class="ic" aria-hidden="true">♡</div>
+        <h3>Mariage &amp; Événement</h3>
+        <p>Chignon, coiffure création, extensions : sur devis, avec essai.</p>
+        <span class="tag">Sur devis</span>
       </article>
     </div>
   </div>
 </section>
 
-<!-- Tarifs -->
+<!-- ===== TARIFS ===== -->
 <section class="sec-pad" id="tarifs">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Tarifs</span>
-      <h2>Une grille <span class="grad-text">claire et transparente.</span></h2>
-      <p>Les tarifs peuvent varier selon la longueur et l'épaisseur des cheveux. Devis gratuit en salon.</p>
+      <h2>La carte <em>complète</em></h2>
+      <p>Toutes les prestations du salon, avec leur durée. Exactement la grille que vous retrouverez au moment de réserver sur Planity.</p>
     </div>
-    <div class="price-wrap">
-      <div class="price-col reveal">
-        <h3><span class="d"></span>Femme</h3>
-        <div class="price-row"><span class="name">Brushing femme</span><span class="val">16 € – 40 €</span></div>
-        <div class="price-row"><span class="name">Coupe + brushing femme</span><span class="val">35 € – 45 €</span></div>
-        <div class="price-row"><span class="name">Coloration</span><span class="val">64 € – 80 €</span></div>
-        <div class="price-row"><span class="name">Mèches / Balayage</span><span class="val">76 € – 114 €</span></div>
-        <div class="price-row"><span class="name">Permanente</span><span class="val">55 € – 70 €</span></div>
-        <div class="price-row"><span class="name">Lissage brésilien YBERA</span><span class="val">40 € – 150 €</span></div>
+
+    <div class="tarifs-card reveal d1">
+      <div class="tarifs-cols">
+        <div class="tarif-group">
+          <h3>Brushing</h3>
+          <div class="price-row"><span class="name">Shampoing + brushing — courts<small>20 min</small></span><span class="val">28 €</span></div>
+          <div class="price-row"><span class="name">Shampoing + brushing — mi-longs<small>30 min</small></span><span class="val">34 €</span></div>
+          <div class="price-row"><span class="name">Shampoing + brushing — longs<small>45 min</small></span><span class="val">40 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Séchage</h3>
+          <div class="price-row"><span class="name">Shampoing + séchage — courts<small>10 min</small></span><span class="val">16 €</span></div>
+          <div class="price-row"><span class="name">Shampoing + séchage — mi-longs<small>10 min</small></span><span class="val">18 €</span></div>
+          <div class="price-row"><span class="name">Shampoing + séchage — longs<small>15 min</small></span><span class="val">20 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Coupe brushing</h3>
+          <div class="price-row"><span class="name">Shampoing coupe brushing — courts<small>30 min</small></span><span class="val">44 €</span></div>
+          <div class="price-row"><span class="name">Shampoing coupe brushing — mi-longs<small>30 min</small></span><span class="val">50 €</span></div>
+          <div class="price-row"><span class="name">Shampoing coupe brushing — longs<small>50 min</small></span><span class="val">56 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Coupe séchage</h3>
+          <div class="price-row"><span class="name">Shampoing coupe séchage — courts<small>20 min</small></span><span class="val">35 €</span></div>
+          <div class="price-row"><span class="name">Shampoing coupe séchage — mi-longs<small>25 min</small></span><span class="val">40 €</span></div>
+          <div class="price-row"><span class="name">Shampoing coupe séchage — longs<small>40 min</small></span><span class="val">45 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Coloration</h3>
+          <div class="price-row"><span class="name">Coloration + shampoing brushing — courts<small>1h30</small></span><span class="val">dès 76 €</span></div>
+          <div class="price-row"><span class="name">Coloration + shampoing brushing — mi-longs<small>1h30</small></span><span class="val">dès 80 €</span></div>
+          <div class="price-row"><span class="name">Coloration + shampoing brushing — longs<small>2h</small></span><span class="val">dès 64 €</span></div>
+          <div class="price-row"><span class="name">Coloration + shampoing coupe brushing — courts<small>1h30</small></span><span class="val">dès 74 €</span></div>
+          <div class="price-row"><span class="name">Coloration + shampoing coupe brushing — mi-longs<small>1h30</small></span><span class="val">dès 77 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Balayage · Ombré · Mèches</h3>
+          <div class="price-row"><span class="name">Balayage + shampoing brushing — courts<small>2h30</small></span><span class="val">dès 76 €</span></div>
+          <div class="price-row"><span class="name">Balayage + shampoing brushing — mi-longs<small>3h</small></span><span class="val">dès 95 €</span></div>
+          <div class="price-row"><span class="name">Balayage + shampoing brushing — longs<small>3h30</small></span><span class="val">dès 114 €</span></div>
+          <div class="price-row"><span class="name">Balayage + shampoing coupe brushing — courts<small>2h30</small></span><span class="val">dès 90 €</span></div>
+          <div class="price-row"><span class="name">Balayage + shampoing coupe brushing — mi-longs<small>3h</small></span><span class="val">dès 95 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Coloration et mèches</h3>
+          <div class="price-row"><span class="name">Coloration + mèches + brushing — courts<small>2h15</small></span><span class="val">dès 95 €</span></div>
+          <div class="price-row"><span class="name">Coloration + mèches + brushing — mi-longs<small>3h</small></span><span class="val">dès 100 €</span></div>
+          <div class="price-row"><span class="name">Coloration + mèches + brushing — longs<small>3h30</small></span><span class="val">dès 100 €</span></div>
+          <div class="price-row"><span class="name">Coloration + mèches + coupe brushing — courts<small>2h15</small></span><span class="val">dès 100 €</span></div>
+          <div class="price-row"><span class="name">Coloration + mèches + coupe brushing — mi-longs<small>3h</small></span><span class="val">dès 135 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Permanente</h3>
+          <div class="price-row"><span class="name">Permanente — courts<small>1h30</small></span><span class="val">dès 55 €</span></div>
+          <div class="price-row"><span class="name">Permanente — mi-longs<small>1h30</small></span><span class="val">dès 60 €</span></div>
+          <div class="price-row"><span class="name">Permanente — longs<small>2h</small></span><span class="val">dès 70 €</span></div>
+          <div class="price-row"><span class="name">Permanente + coupe — courts<small>1h30</small></span><span class="val">dès 70 €</span></div>
+          <div class="price-row"><span class="name">Permanente + coupe — mi-longs<small>1h30</small></span><span class="val">dès 80 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Homme</h3>
+          <div class="price-row"><span class="name">Coupe homme<small>30 min</small></span><span class="val">23 €</span></div>
+          <div class="price-row"><span class="name">Barbe<small>30 min</small></span><span class="val">dès 10 €</span></div>
+          <div class="price-row"><span class="name">Forfait shampooing + coupe + traçage/barbe<small>45 min</small></span><span class="val">32 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Enfants</h3>
+          <div class="price-row"><span class="name">Shampoing + coupe — 10 ans, garçon<small>30 min</small></span><span class="val">18 €</span></div>
+          <div class="price-row"><span class="name">Shampoing + coupe — 10 ans, fille<small>30 min</small></span><span class="val">30 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>Lissage &amp; soins YBERA</h3>
+          <div class="price-row"><span class="name">Lissage YBERA<small>3h</small></span><span class="val">dès 150 €</span></div>
+          <div class="price-row"><span class="name">Soin bot Express YBERA<small>45 min</small></span><span class="val">dès 40 €</span></div>
+          <div class="price-row"><span class="name">Soin bot Profond YBERA<small>2h30</small></span><span class="val">dès 90 €</span></div>
+        </div>
+
+        <div class="tarif-group">
+          <h3>À la carte</h3>
+          <div class="price-row"><span class="name">Chignon et coiffure création<small>30 min</small></span><span class="val">Sur devis</span></div>
+          <div class="price-row"><span class="name">Forfait mariée<small>2h</small></span><span class="val">Sur devis</span></div>
+          <div class="price-row"><span class="name">Extension<small>30 min</small></span><span class="val">Sur devis</span></div>
+          <div class="price-row"><span class="name">Supplément patine<small>20 min</small></span><span class="val">18 €</span></div>
+        </div>
       </div>
-      <div class="price-col reveal d1">
-        <h3><span class="d"></span>Homme &amp; Enfant</h3>
-        <div class="price-row"><span class="name">Coupe homme <small>shampooing inclus</small></span><span class="val">23 €</span></div>
-        <div class="price-row"><span class="name">Taille de barbe</span><span class="val">dès 10 €</span></div>
-        <div class="price-row"><span class="name">Coupe enfant</span><span class="val">18 € – 30 €</span></div>
-        <div class="price-row"><span class="name">Mariage <small>coiffure &amp; essai</small></span><span class="val">Sur devis</span></div>
-        <div class="price-row"><span class="name">Extensions</span><span class="val">Sur devis</span></div>
-        <div class="price-row"><span class="name">Chignons</span><span class="val">Sur devis</span></div>
-      </div>
+      <p class="tarif-foot">Tarifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
     </div>
-    <p class="price-note reveal d2">
-      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener" style="margin-bottom:12px">Réserver ma prestation</a><br>
-      Réservation en ligne 24h/24 via Planity
-    </p>
+
+    <div class="tarifs-cta reveal">
+      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Réserver un créneau</a>
+      <a class="btn btn-ghost" href="tel:+33492780298">Une question ? 04 92 78 02 98</a>
+    </div>
   </div>
 </section>
 
-<!-- Avis -->
-<section class="sec-pad" id="avis">
+<!-- ===== AVIS ===== -->
+<section class="sec-pad" id="avis" style="background:rgba(251,246,239,.5);border-top:1px solid var(--sable);border-bottom:1px solid var(--sable)">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Avis clients</span>
-      <h2>Ils repartent <span class="grad-text">rayonnants.</span></h2>
+    <div class="avis-head reveal">
+      <span class="eyebrow" style="justify-content:center">Avis clients</span>
+      <div class="avis-score" style="margin-top:1rem">4,9<sub>/5</sub></div>
+      <div style="color:var(--terracotta);letter-spacing:3px" aria-hidden="true">★★★★★</div>
+      <p style="color:var(--encre-doux);margin-top:.6rem">185 avis vérifiés sur Planity</p>
     </div>
-    <div class="reviews-head reveal d1">
-      <div class="big-note grad-text">4,9</div>
-      <div>
-        <div class="stars" style="font-size:1.2rem" aria-hidden="true">★★★★★</div>
-        <div style="color:var(--muted);font-size:0.92rem;margin-top:4px">Basé sur 185 avis clients vérifiés</div>
-      </div>
-    </div>
-    <div class="reviews-grid">
-      <article class="review reveal">
-        <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>« Accueil chaleureux et Elodie à l'écoute. Mon balayage est exactement ce que je voulais, un rendu naturel et lumineux. Je recommande à 100 % ! »</p>
-        <div class="who"><span class="av">C</span><div><b>Camille</b><span>Cliente depuis 3 ans</span></div></div>
-      </article>
-      <article class="review reveal d1">
-        <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>« Salon convivial, comme à la maison. Toujours ponctuelle et très professionnelle. On se sent bien conseillé et on repart avec le sourire. »</p>
-        <div class="who"><span class="av">S</span><div><b>Sophie</b><span>Avis vérifié</span></div></div>
-      </article>
-      <article class="review reveal d2">
-        <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>« Coupe homme impeccable et taille de barbe parfaite. Un vrai savoir-faire et beaucoup de gentillesse. Je ne changerais de salon pour rien au monde. »</p>
-        <div class="who"><span class="av">T</span><div><b>Thomas</b><span>Avis vérifié</span></div></div>
-      </article>
+    <div class="avis-grid">
+      <figure class="avis-card reveal">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« 2<sup>e</sup> année que je viens pendant mon séjour en cure. Elodie est une coiffeuse très agréable et très compétente. Elle sait tout de suite ce qu'il faut à vos cheveux et vous fait une coupe au top ! »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>24/07/2026</span></figcaption>
+      </figure>
+      <figure class="avis-card reveal d1">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Elodie sait accueillir avec le sourire ! Elle est énergique et à l'écoute des souhaits, on sent tout de suite son professionnalisme. De plus elle connaît sa région en donnant de très bons conseils. »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>05/06/2026</span></figcaption>
+      </figure>
+      <figure class="avis-card reveal d2">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Comme d'habitude rien à dire, sauf qu'Élodie nous reçoit toujours avec le sourire, ponctuelle. Toujours contente quand je sors du salon, prestation à la hauteur de mes attentes, je recommande à 100 %. »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>04/06/2026</span></figcaption>
+      </figure>
+      <figure class="avis-card reveal">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Superbe coiffeuse, très professionnelle et coup de ciseau magique. Merci beaucoup. »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>14/06/2026</span></figcaption>
+      </figure>
+      <figure class="avis-card reveal d1">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Très bon accueil, très satisfaite de la prestation. Je recommande ce salon. »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>07/06/2026</span></figcaption>
+      </figure>
+      <figure class="avis-card reveal d2">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <blockquote>« Toujours très satisfaite, merci Elodie pour tous les conseils. »</blockquote>
+        <figcaption class="who"><span>Avis vérifié · Planity</span><span>20/06/2026</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- Contact -->
+<!-- ===== CONTACT ===== -->
 <section class="sec-pad" id="contact">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Infos pratiques</span>
-      <h2>Nous <span class="grad-text">rendre visite.</span></h2>
-      <p>Au cœur de Gréoux-les-Bains, en Provence. Réservez en ligne à tout moment ou passez nous voir.</p>
+      <h2>Venir au <em>salon</em></h2>
+      <p>Avenue des Marronniers, à deux pas des thermes. Stationnement facile devant le salon.</p>
     </div>
     <div class="contact-grid">
-      <div class="info-list reveal">
-        <div class="info">
-          <div class="ic">📍</div>
-          <div><h4>Adresse</h4><p>Av. des Marronniers,<br>04800 Gréoux-les-Bains</p></div>
+      <div class="contact-card reveal">
+        <div class="info-row">
+          <span class="ic" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div><h4>Adresse</h4><p>Av. des Marronniers<br>04800 Gréoux-les-Bains</p></div>
         </div>
-        <div class="info">
-          <div class="ic">🕑</div>
-          <div><h4>Horaires</h4><p>Mardi – Samedi : 9h00 – 18h00<br><span class="closed">Dimanche &amp; Lundi : fermé</span></p></div>
+        <div class="info-row">
+          <span class="ic" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          </span>
+          <div><h4>Téléphone</h4><p><a href="tel:+33492780298">04 92 78 02 98</a></p></div>
         </div>
-        <div class="info">
-          <div class="ic">✦</div>
-          <div><h4>Réservation</h4><p>En ligne 24h/24 via Planity</p>
-          <a class="btn btn-primary btn-sm" style="margin-top:12px" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a></div>
+        <div class="info-row">
+          <span class="ic" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </span>
+          <div>
+            <h4>Horaires</h4>
+            <p>Mardi – Samedi : 9h00 – 18h00</p>
+            <p class="closed">Dimanche &amp; Lundi : fermé</p>
+          </div>
+        </div>
+        <div class="info-row" style="border-bottom:none">
+          <span class="ic" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 8h18M8 4v4"/><circle cx="8.5" cy="13.5" r="1.3"/></svg>
+          </span>
+          <div><h4>Réservation</h4><p>En ligne 24h/24 via Planity</p></div>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+          <a class="btn btn-ghost" href="tel:+33492780298">Appeler le salon</a>
         </div>
       </div>
+
       <div class="map-card reveal d1">
         <iframe title="Localisation du salon Madame Monsieur à Gréoux-les-Bains" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=Gr%C3%A9oux-les-Bains%20Avenue%20des%20Marronniers&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+          src="https://maps.google.com/maps?q=43.7582631,5.8876745&t=&z=18&ie=UTF8&iwloc=&output=embed"></iframe>
+        <div class="map-overlay">
+          <span class="addr">Madame Monsieur — Gréoux-les-Bains</span>
+          <a href="https://www.google.com/maps?cid=14567232486715601681" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA band -->
-<section class="sec-pad" style="padding-top:0">
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <span class="eyebrow" style="justify-content:center">Prêt·e pour un nouveau look ?</span>
-      <h2 style="margin-top:16px">Offrez-vous le style qui<br><span class="grad-text">vous ressemble.</span></h2>
-      <p>Prenez rendez-vous en quelques clics et laissez Elodie sublimer votre chevelure.</p>
-      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">
-        Prendre rendez-vous
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <p style="margin-top:18px;font-size:0.86rem">Réservation en ligne 24h/24 via Planity</p>
+<!-- ===== BANDE CTA ===== -->
+<section class="wrap" style="padding-bottom:clamp(2rem,5vw,4rem)">
+  <div class="cta-band reveal">
+    <h2>Offrez à vos cheveux<br>le temps qu'ils <em>méritent</em></h2>
+    <p>Elodie vous accueille du mardi au samedi, au cœur de Gréoux-les-Bains. Réservez en quelques clics, à toute heure.</p>
+    <div class="row">
+      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+      <a class="btn btn-ghost" href="tel:+33492780298">04 92 78 02 98</a>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="#top" class="logo"><span class="dot"></span>Monsieur&nbsp;Madame</a>
-        <p class="muted">Salon de coiffure à Gréoux-les-Bains. Balayage contemporain, coupe signature et conseil personnalisé, dans une ambiance familiale.</p>
+        <div class="foot-logo">Madame Monsieur<span>Coiffure · Gréoux-les-Bains</span></div>
+        <p>Un salon familial où l'on prend le temps. Coupe, couleur, balayage et soins, pour toute la famille.</p>
       </div>
-      <div class="foot-links">
-        <a href="#salon">Le salon</a>
-        <a href="#prestations">Prestations</a>
-        <a href="#tarifs">Tarifs</a>
-        <a href="#avis">Avis</a>
-        <a href="#contact">Contact</a>
-        <a href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Réserver</a>
+      <div class="foot-col">
+        <h4>Le salon</h4>
+        <ul>
+          <li><a href="#salon">À propos</a></li>
+          <li><a href="#prestations">Prestations</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#avis">Avis clients</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Nous joindre</h4>
+        <ul>
+          <li><a href="tel:+33492780298">04 92 78 02 98</a></li>
+          <li><a href="https://www.google.com/maps?cid=14567232486715601681" target="_blank" rel="noopener">Av. des Marronniers</a></li>
+          <li><a href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Réserver sur Planity</a></li>
+        </ul>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© 2026 Madame Monsieur — Gréoux-les-Bains</span>
-      <span>Av. des Marronniers, 04800 Gréoux-les-Bains · Mardi–Samedi 9h–18h</span>
+      <span>Mardi au samedi, 9h – 18h</span>
     </div>
   </div>
 </footer>
 
-<!-- Animation libraries (GSAP + Lenis) -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-
 <script>
 (function(){
+  'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Header scroll state */
+  /* ---------- Header au scroll ---------- */
   var header = document.getElementById('header');
-  window.addEventListener('scroll', function(){
-    if(window.scrollY > 20){ header.classList.add('scrolled'); }
-    else { header.classList.remove('scrolled'); }
-  }, {passive:true});
+  function onScroll(){
+    if(window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
 
-  /* Mobile menu */
+  /* ---------- Menu mobile ---------- */
   var burger = document.getElementById('burger');
   var menu = document.getElementById('mobileMenu');
   var closeBtn = document.getElementById('closeMenu');
-  function openMenu(){ menu.classList.add('open'); burger.setAttribute('aria-expanded','true'); }
-  function closeMenu(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  function openMenu(){
+    menu.classList.add('open');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
   burger.addEventListener('click', openMenu);
   closeBtn.addEventListener('click', closeMenu);
   menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
 
-  /* Reveal on scroll */
-  var reveals = document.querySelectorAll('.reveal');
-  if(reduce){ reveals.forEach(function(r){ r.classList.add('in'); }); }
-  else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
-    reveals.forEach(function(r){ io.observe(r); });
-  }
-
-  /* Animated counters */
-  function animateCount(el){
-    var target = parseFloat(el.getAttribute('data-count'));
-    var decimals = parseInt(el.getAttribute('data-decimals')||'0',10);
-    var suffix = el.getAttribute('data-suffix')||'';
-    if(reduce){ el.textContent = target.toFixed(decimals).replace('.',',') + suffix; return; }
-    var dur = 1600, start = null;
-    function step(ts){
-      if(!start) start = ts;
-      var p = Math.min((ts-start)/dur, 1);
-      var eased = 1 - Math.pow(1-p, 3);
-      var val = (target*eased).toFixed(decimals).replace('.',',');
-      el.textContent = val + suffix;
-      if(p<1) requestAnimationFrame(step);
-      else el.textContent = target.toFixed(decimals).replace('.',',') + suffix;
-    }
-    requestAnimationFrame(step);
-  }
-  var counters = document.querySelectorAll('[data-count]');
-  var cio = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); }
-    });
-  }, {threshold:0.5});
-  counters.forEach(function(c){ cio.observe(c); });
-
-  /* Hero spotlight + tilt (skip if reduced motion or touch) */
-  if(!reduce && window.matchMedia('(hover:hover)').matches){
-    var hero = document.querySelector('.hero');
-    var spot = document.getElementById('spot');
-    hero.addEventListener('pointermove', function(e){
-      var r = hero.getBoundingClientRect();
-      spot.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
-      spot.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
-    });
-
-    /* Tilt cards */
-    document.querySelectorAll('.tilt').forEach(function(card){
-      card.addEventListener('pointermove', function(e){
-        var r = card.getBoundingClientRect();
-        var rx = ((e.clientY-r.top)/r.height - 0.5) * -6;
-        var ry = ((e.clientX-r.left)/r.width - 0.5) * 6;
-        card.style.transform = 'perspective(800px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-4px)';
-      });
-      card.addEventListener('pointerleave', function(){ card.style.transform=''; });
-    });
-  }
-})();
-</script>
-
-<!-- GSAP + Lenis enhancement layer (progressive, degrades gracefully) -->
-<script>
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Bail out cleanly if reduced motion is requested, or if any CDN failed to
-     load. In either case the existing .reveal observer + counters keep the
-     page fully visible and functional. Nothing below runs. */
-  if(reduce) return;
-  if(!window.gsap || !window.ScrollTrigger || !window.Lenis) return;
-
-  var gsap = window.gsap;
-  gsap.registerPlugin(window.ScrollTrigger);
-  var hasSplit = !!window.SplitText;
-  if(hasSplit) gsap.registerPlugin(window.SplitText);
-  var canHover = window.matchMedia('(hover:hover)').matches;
-
-  /* From here on GSAP owns the reveal choreography: neutralize the CSS-hidden
-     state so gsap.set can drive it. Done synchronously before any paint. */
-  document.body.classList.add('gsap-ready');
-
-  /* ---------- Lenis smooth scroll ---------- */
-  var lenis = new Lenis({ lerp:0.09, smoothWheel:true });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-  gsap.ticker.lagSmoothing(0);
-
-  /* Smooth-scroll internal anchors with header offset */
+  /* ---------- Ancres : scroll doux avec compensation du header fixe ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    var href = a.getAttribute('href');
-    if(!href || href === '#') return;
     a.addEventListener('click', function(e){
-      var target = document.querySelector(href);
+      var id = a.getAttribute('href');
+      if(!id || id.length < 2) return;               // ignore les "#" seuls
+      var target = document.querySelector(id);
       if(!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset:-80, duration:1.1 });
+      closeMenu();
+      var top = target.getBoundingClientRect().top + window.scrollY - 76;
+      window.scrollTo({top: top, behavior: reduce ? 'auto' : 'smooth'});
     });
   });
 
-  /* Map existing d1..d4 delay classes to a stagger offset (reuses markup) */
-  function dDelay(el){
-    if(el.classList.contains('d1')) return 0.10;
-    if(el.classList.contains('d2')) return 0.20;
-    if(el.classList.contains('d3')) return 0.30;
-    if(el.classList.contains('d4')) return 0.40;
-    return 0;
-  }
-
-  /* ---------- HERO — cinematic intro sequence ---------- */
-  var heroBadge = document.querySelector('.hero .badge');
-  var heroTitle = document.querySelector('.hero-title');
-  var heroSub   = document.querySelector('.hero-sub');
-  var heroCta   = document.querySelector('.hero-cta');
-  var heroMeta  = document.querySelector('.hero-meta');
-
-  var intro = gsap.timeline({ defaults:{ ease:'expo.out' } });
-
-  if(heroBadge){
-    gsap.set(heroBadge, { opacity:0, y:18 });
-    intro.to(heroBadge, { opacity:1, y:0, duration:0.8 }, 0.1);
-  }
-
-  if(heroTitle){
-    var splitDone = false;
-    if(hasSplit){
-      try{
-        var split = new SplitText(heroTitle, { type:'lines', mask:'lines', linesClass:'split-line' });
-        gsap.set(heroTitle, { opacity:1 });
-        intro.from(split.lines, {
-          yPercent:118, opacity:0, filter:'blur(14px)',
-          duration:1.15, stagger:0.12, clearProps:'filter'
-        }, 0.15);
-        splitDone = true;
-      }catch(err){ splitDone = false; }
-    }
-    if(!splitDone){
-      gsap.set(heroTitle, { opacity:1 });
-      intro.from(heroTitle, { opacity:0, y:30, filter:'blur(12px)', duration:1.1, clearProps:'filter' }, 0.15);
-    }
-  }
-
-  [heroSub, heroCta, heroMeta].forEach(function(el, i){
-    if(!el) return;
-    gsap.set(el, { opacity:0, y:22 });
-    intro.to(el, { opacity:1, y:0, duration:0.85 }, 0.5 + i * 0.12);
-  });
-
-  /* Depth: parallax the whole mesh container (keeps per-blob CSS float anims) */
-  gsap.to('.mesh', {
-    yPercent:18, ease:'none',
-    scrollTrigger:{ trigger:document.body, start:'top top', end:'bottom bottom', scrub:0.6 }
-  });
-
-  /* Hero glow reacts to scroll */
-  var heroSpot = document.getElementById('spot');
-  if(heroSpot){
-    gsap.to(heroSpot, {
-      opacity:0.35, ease:'none',
-      scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
-    });
-  }
-
-  /* ---------- Section reveals via ScrollTrigger ---------- */
-  gsap.utils.toArray('.reveal').forEach(function(el){
-    if(el.closest('.hero')) return; /* hero handled above */
-    gsap.set(el, { opacity:0, y:42, scale:0.985 });
-    gsap.to(el, {
-      opacity:1, y:0, scale:1,
-      duration:0.95, ease:'power3.out', delay:dDelay(el),
-      scrollTrigger:{ trigger:el, start:'top 88%', once:true }
-    });
-  });
-
-  /* ---------- Magnetic primary buttons (pointer devices only) ---------- */
-  if(canHover){
-    document.querySelectorAll('.hero-cta .btn-primary, .cta-band .btn-primary').forEach(function(btn){
-      var strength = 0.35;
-      btn.addEventListener('pointermove', function(e){
-        var r = btn.getBoundingClientRect();
-        var mx = e.clientX - (r.left + r.width / 2);
-        var my = e.clientY - (r.top + r.height / 2);
-        gsap.to(btn, { x:mx * strength, y:my * strength, duration:0.4, ease:'power3.out' });
+  /* ---------- Révélations au scroll ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
       });
-      btn.addEventListener('pointerleave', function(){
-        gsap.to(btn, { x:0, y:0, duration:0.6, ease:'elastic.out(1,0.4)' });
-      });
-    });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
   }
 
-  /* Recalculate trigger positions once fonts/images have settled */
-  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  /* ---------- Compteurs (une seule fois, à l'apparition) ---------- */
+  var counters = document.querySelectorAll('[data-count]');
+  if('IntersectionObserver' in window && !reduce){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var el = en.target;
+        cio.unobserve(el);
+        var end = parseFloat(el.getAttribute('data-count'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var start = null, dur = 1400;
+        function step(ts){
+          if(!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(end * eased) + suffix;
+          if(p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, {threshold:0.5});
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  /* ---------- Parallaxe lente sur les photos ----------
+     Volontairement discrète (coefficients ≤ 0.05) : la photo respire,
+     elle ne glisse pas. Désactivée si l'utilisateur réduit les animations. */
+  var parallaxEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  if(parallaxEls.length && !reduce){
+    var ticking = false;
+    function updateParallax(){
+      var vh = window.innerHeight;
+      parallaxEls.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.bottom < 0 || r.top > vh) return;
+        var coef = parseFloat(el.getAttribute('data-parallax')) || 0;
+        var offset = (r.top + r.height / 2 - vh / 2) * coef;
+        el.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if(!ticking){ requestAnimationFrame(updateParallax); ticking = true; }
+    }, {passive:true});
+    window.addEventListener('resize', updateParallax);
+    updateParallax();
+  }
 })();
 </script>
 </body>

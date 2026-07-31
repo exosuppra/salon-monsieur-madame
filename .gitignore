@@ -4,3 +4,6 @@ desktop.ini
 node_modules/
 *.log
 .claude/
+
+# Build intermédiaire de Vite : le bundle publié vit dans app/, pas ici.
+react-app/dist/

@@ -245,14 +245,24 @@
   .card li span{color:#A8813A;font-weight:400;white-space:nowrap;}
 
   /* ---------- Tarifs ---------- */
-  .tarifs-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,4.5rem);}
+  .tarifs-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,6vw,4.5rem);row-gap:clamp(2.2rem,4vw,3.2rem);align-items:start;}
+  .tarif-block{break-inside:avoid;}
   .tarif-block h3{font-family:var(--serif-2);font-style:italic;font-size:1.7rem;color:var(--or-clair);margin-bottom:1.4rem;letter-spacing:.02em;}
   .light .tarif-block h3{color:#A8813A;}
-  .tarif-line{display:flex;align-items:baseline;gap:.8rem;padding:.85rem 0;border-bottom:1px solid rgba(245,240,230,.14);}
-  .tarif-line .name{font-size:1rem;color:var(--ivoire-2);font-weight:400;white-space:nowrap;}
-  .tarif-line .dots{flex:1;border-bottom:1px dotted rgba(245,240,230,.28);transform:translateY(-4px);}
+  /* La grille Planity complète : les libellés sont longs, on laisse la place au texte
+     et on garde le prix aligné à droite plutôt qu'un leader pointillé qui casserait. */
+  .tarif-line{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.85rem 0;border-bottom:1px solid rgba(245,240,230,.14);}
+  .tarif-line .name{font-size:.95rem;color:var(--ivoire-2);font-weight:400;line-height:1.45;}
+  .tarif-line .name .dur{font-style:normal;font-size:.74rem;letter-spacing:.08em;color:var(--gris);margin-left:.5rem;white-space:nowrap;}
+  .light .tarif-line .name .dur{color:#9A9086;}
+  .tarif-line .dots{display:none;}
   .tarif-line .price{font-family:var(--serif);font-size:1.05rem;color:var(--ivoire);white-space:nowrap;}
   .tarif-line .price b{color:var(--or-clair);font-weight:500;}
+  .light .tarif-line .price{color:var(--charbon);}
+  .light .tarif-line .price b{color:#A8813A;}
+  .light .tarif-line{border-bottom-color:rgba(20,17,15,.12);}
+  .light .tarif-line .name{color:rgba(20,17,15,.82);}
+  .tarif-disclaimer{margin-top:2.6rem;font-size:.82rem;color:var(--gris);font-style:italic;}
   .tarif-note{margin-top:2.5rem;padding:1.5rem 1.8rem;background:var(--charbon);color:var(--ivoire);border-left:2px solid var(--or);}
   .tarif-note .t{font-family:var(--serif-2);font-style:italic;font-size:1.25rem;color:var(--or-clair);}
   .tarif-note p{font-size:.9rem;color:var(--ivoire-2);margin-top:.3rem;}
@@ -468,8 +478,8 @@
         <h3>Femme</h3>
         <p>Coupes, brushings et mises en beauté pensés pour révéler votre style, du quotidien à l'exception.</p>
         <ul>
-          <li>Brushing <span>16–40 €</span></li>
-          <li>Coupe + brushing <span>35–45 €</span></li>
+          <li>Brushing <span>28–40 €</span></li>
+          <li>Coupe + brushing <span>44–56 €</span></li>
           <li>Permanente <span>55–70 €</span></li>
         </ul>
       </article>
@@ -478,8 +488,9 @@
         <h3>Homme</h3>
         <p>Coupes nettes et taille de barbe précise, shampooing inclus, pour une allure toujours soignée.</p>
         <ul>
-          <li>Coupe (shampooing) <span>23 €</span></li>
-          <li>Taille de barbe <span>dès 10 €</span></li>
+          <li>Coupe homme <span>23 €</span></li>
+          <li>Barbe <span>dès 10 €</span></li>
+          <li>Forfait coupe + barbe <span>32 €</span></li>
           <li>Coupe enfant <span>18–30 €</span></li>
         </ul>
       </article>
@@ -488,8 +499,9 @@
         <h3>Couleur & Balayage</h3>
         <p>La signature du salon : colorations lumineuses et balayages contemporains, tout en nuances et naturel.</p>
         <ul>
-          <li>Coloration <span>dès 64 €</span></li>
-          <li>Mèches / Balayage <span>dès 76 €</span></li>
+          <li>Coloration + brushing <span>dès 64 €</span></li>
+          <li>Balayage + brushing <span>dès 76 €</span></li>
+          <li>Coloration + mèches <span>dès 95 €</span></li>
         </ul>
       </article>
       <article class="card reveal d3">
@@ -497,7 +509,9 @@
         <h3>Soins & Lissage</h3>
         <p>Discipliner, sublimer, protéger : le lissage brésilien YBERA pour une chevelure souple et éclatante.</p>
         <ul>
-          <li>Lissage YBERA <span>40–150 €</span></li>
+          <li>Lissage YBERA <span>dès 150 €</span></li>
+          <li>Soin bot Express <span>dès 40 €</span></li>
+          <li>Soin bot Profond <span>dès 90 €</span></li>
           <li>Sur devis <span>mariage, chignon</span></li>
         </ul>
       </article>
@@ -514,25 +528,87 @@
     </div>
     <div class="tarifs-grid">
       <div class="tarif-block reveal">
-        <h3>Femme</h3>
-        <div class="tarif-line"><span class="name">Brushing</span><span class="dots"></span><span class="price"><b>16</b> à <b>40 €</b></span></div>
-        <div class="tarif-line"><span class="name">Coupe + brushing</span><span class="dots"></span><span class="price"><b>35</b> à <b>45 €</b></span></div>
-        <div class="tarif-line"><span class="name">Coloration</span><span class="dots"></span><span class="price">dès <b>64 €</b> · 80 €</span></div>
-        <div class="tarif-line"><span class="name">Mèches / Balayage</span><span class="dots"></span><span class="price">dès <b>76 €</b> · 114 €</span></div>
-        <div class="tarif-line"><span class="name">Permanente</span><span class="dots"></span><span class="price"><b>55</b> à <b>70 €</b></span></div>
-        <div class="tarif-line"><span class="name">Lissage brésilien YBERA</span><span class="dots"></span><span class="price"><b>40</b> à <b>150 €</b></span></div>
+        <h3>Brushing</h3>
+        <div class="tarif-line"><span class="name">Shampoing + brushing — courts <em class="dur">20 min</em></span><span class="dots"></span><span class="price"><b>28 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing + brushing — mi-longs <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>34 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing + brushing — longs <em class="dur">45 min</em></span><span class="dots"></span><span class="price"><b>40 €</b></span></div>
       </div>
-      <div class="tarif-block reveal d2">
-        <h3>Homme & Enfant</h3>
-        <div class="tarif-line"><span class="name">Coupe homme <em style="font-style:normal;font-size:.8rem;color:#8A8178">(shampooing inclus)</em></span><span class="dots"></span><span class="price"><b>23 €</b></span></div>
-        <div class="tarif-line"><span class="name">Taille de barbe</span><span class="dots"></span><span class="price">dès <b>10 €</b></span></div>
-        <div class="tarif-line"><span class="name">Coupe enfant</span><span class="dots"></span><span class="price"><b>18</b> à <b>30 €</b></span></div>
-        <div class="tarif-note">
-          <div class="t">Prestations sur devis</div>
-          <p>Mariage, extensions, chignons : un accompagnement sur-mesure pour vos grands jours. Contactez le salon pour une estimation personnalisée.</p>
-        </div>
+      <div class="tarif-block reveal d1">
+        <h3>Séchage</h3>
+        <div class="tarif-line"><span class="name">Shampoing + séchage — courts <em class="dur">10 min</em></span><span class="dots"></span><span class="price"><b>16 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing + séchage — mi-longs <em class="dur">10 min</em></span><span class="dots"></span><span class="price"><b>18 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing + séchage — longs <em class="dur">15 min</em></span><span class="dots"></span><span class="price"><b>20 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal">
+        <h3>Coupe brushing</h3>
+        <div class="tarif-line"><span class="name">Shampoing coupe brushing — courts <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>44 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing coupe brushing — mi-longs <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>50 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing coupe brushing — longs <em class="dur">50 min</em></span><span class="dots"></span><span class="price"><b>56 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal d1">
+        <h3>Coupe séchage</h3>
+        <div class="tarif-line"><span class="name">Shampoing coupe séchage — courts <em class="dur">20 min</em></span><span class="dots"></span><span class="price"><b>35 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing coupe séchage — mi-longs <em class="dur">25 min</em></span><span class="dots"></span><span class="price"><b>40 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing coupe séchage — longs <em class="dur">40 min</em></span><span class="dots"></span><span class="price"><b>45 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal">
+        <h3>Coloration</h3>
+        <div class="tarif-line"><span class="name">Coloration + shampoing brushing — courts <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>76 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + shampoing brushing — mi-longs <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>80 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + shampoing brushing — longs <em class="dur">2h</em></span><span class="dots"></span><span class="price">dès <b>64 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + shampoing coupe brushing — courts <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>74 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + shampoing coupe brushing — mi-longs <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>77 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal d1">
+        <h3>Balayage · Ombré hair · Mèches</h3>
+        <div class="tarif-line"><span class="name">Balayage + shampoing brushing — courts <em class="dur">2h30</em></span><span class="dots"></span><span class="price">dès <b>76 €</b></span></div>
+        <div class="tarif-line"><span class="name">Balayage + shampoing brushing — mi-longs <em class="dur">3h</em></span><span class="dots"></span><span class="price">dès <b>95 €</b></span></div>
+        <div class="tarif-line"><span class="name">Balayage + shampoing brushing — longs <em class="dur">3h30</em></span><span class="dots"></span><span class="price">dès <b>114 €</b></span></div>
+        <div class="tarif-line"><span class="name">Balayage + shampoing coupe brushing — courts <em class="dur">2h30</em></span><span class="dots"></span><span class="price">dès <b>90 €</b></span></div>
+        <div class="tarif-line"><span class="name">Balayage + shampoing coupe brushing — mi-longs <em class="dur">3h</em></span><span class="dots"></span><span class="price">dès <b>95 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal">
+        <h3>Coloration et mèches</h3>
+        <div class="tarif-line"><span class="name">Coloration + mèches + brushing — courts <em class="dur">2h15</em></span><span class="dots"></span><span class="price">dès <b>95 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + mèches + brushing — mi-longs <em class="dur">3h</em></span><span class="dots"></span><span class="price">dès <b>100 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + mèches + brushing — longs <em class="dur">3h30</em></span><span class="dots"></span><span class="price">dès <b>100 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + mèches + coupe brushing — courts <em class="dur">2h15</em></span><span class="dots"></span><span class="price">dès <b>100 €</b></span></div>
+        <div class="tarif-line"><span class="name">Coloration + mèches + coupe brushing — mi-longs <em class="dur">3h</em></span><span class="dots"></span><span class="price">dès <b>135 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal d1">
+        <h3>Permanente</h3>
+        <div class="tarif-line"><span class="name">Permanente — courts <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>55 €</b></span></div>
+        <div class="tarif-line"><span class="name">Permanente — mi-longs <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>60 €</b></span></div>
+        <div class="tarif-line"><span class="name">Permanente — longs <em class="dur">2h</em></span><span class="dots"></span><span class="price">dès <b>70 €</b></span></div>
+        <div class="tarif-line"><span class="name">Permanente + coupe — courts <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>70 €</b></span></div>
+        <div class="tarif-line"><span class="name">Permanente + coupe — mi-longs <em class="dur">1h30</em></span><span class="dots"></span><span class="price">dès <b>80 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal">
+        <h3>Homme</h3>
+        <div class="tarif-line"><span class="name">Coupe homme <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>23 €</b></span></div>
+        <div class="tarif-line"><span class="name">Barbe <em class="dur">30 min</em></span><span class="dots"></span><span class="price">dès <b>10 €</b></span></div>
+        <div class="tarif-line"><span class="name">Forfait shampooing + coupe + traçage/barbe <em class="dur">45 min</em></span><span class="dots"></span><span class="price"><b>32 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal d1">
+        <h3>Enfants</h3>
+        <div class="tarif-line"><span class="name">Shampoing + coupe — 10 ans, garçon <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>18 €</b></span></div>
+        <div class="tarif-line"><span class="name">Shampoing + coupe — 10 ans, fille <em class="dur">30 min</em></span><span class="dots"></span><span class="price"><b>30 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal">
+        <h3>Lissage &amp; soins YBERA</h3>
+        <div class="tarif-line"><span class="name">Lissage YBERA <em class="dur">3h</em></span><span class="dots"></span><span class="price">dès <b>150 €</b></span></div>
+        <div class="tarif-line"><span class="name">Soin bot Express YBERA <em class="dur">45 min</em></span><span class="dots"></span><span class="price">dès <b>40 €</b></span></div>
+        <div class="tarif-line"><span class="name">Soin bot Profond YBERA <em class="dur">2h30</em></span><span class="dots"></span><span class="price">dès <b>90 €</b></span></div>
+      </div>
+      <div class="tarif-block reveal d1">
+        <h3>À la carte</h3>
+        <div class="tarif-line"><span class="name">Chignon et coiffure création <em class="dur">30 min</em></span><span class="dots"></span><span class="price">Sur devis</span></div>
+        <div class="tarif-line"><span class="name">Forfait mariée <em class="dur">2h</em></span><span class="dots"></span><span class="price">Sur devis</span></div>
+        <div class="tarif-line"><span class="name">Extension <em class="dur">30 min</em></span><span class="dots"></span><span class="price">Sur devis</span></div>
+        <div class="tarif-line"><span class="name">Supplément patine <em class="dur">20 min</em></span><span class="dots"></span><span class="price"><b>18 €</b></span></div>
       </div>
     </div>
+    <p class="tarif-disclaimer reveal">Tarifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
     <div class="tarifs-cta reveal">
       <a class="btn btn-gold" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
       <div class="planity-note">Réservation en ligne 24h/24 via Planity</div>
@@ -554,20 +630,38 @@
       <article class="avis reveal">
         <div class="quote" aria-hidden="true">”</div>
         <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>Un accueil chaleureux et un vrai sens du conseil. Elodie a compris exactement ce que je voulais, mon balayage est sublime et tellement naturel. Je ne vais plus ailleurs.</p>
-        <div class="who"><span class="av" aria-hidden="true">S</span><div><div class="nm">Sophie M.</div><div class="st">Gréoux-les-Bains</div></div></div>
+        <p>2<sup>e</sup> année que je viens pendant mon séjour en cure. Elodie est une coiffeuse très agréable et très compétente. Elle sait tout de suite ce qu'il faut à vos cheveux et vous fait une coupe au top !</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">24/07/2026</div></div></div>
       </article>
       <article class="avis reveal d1">
         <div class="quote" aria-hidden="true">”</div>
         <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>Toujours à l'écoute, ponctuelle et d'un professionnalisme rare. On se sent vraiment comme à la maison. Ma coloration tient parfaitement, semaine après semaine.</p>
-        <div class="who"><span class="av" aria-hidden="true">C</span><div><div class="nm">Christine D.</div><div class="st">Valensole</div></div></div>
+        <p>Elodie sait accueillir avec le sourire ! Elle est énergique et à l'écoute des souhaits, on sent tout de suite son professionnalisme. De plus elle connaît sa région en donnant de très bons conseils.</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">05/06/2026</div></div></div>
       </article>
       <article class="avis reveal d2">
         <div class="quote" aria-hidden="true">”</div>
         <div class="stars" aria-hidden="true">★★★★★</div>
-        <p>Salon adorable et ambiance familiale. Mon mari et moi y allons ensemble, coupe homme impeccable et barbe soignée. Un vrai moment de détente à chaque visite.</p>
-        <div class="who"><span class="av" aria-hidden="true">L</span><div><div class="nm">Laurent P.</div><div class="st">Manosque</div></div></div>
+        <p>Comme d'habitude rien à dire, sauf qu'Élodie nous reçoit toujours avec le sourire, ponctuelle. Toujours contente quand je sors du salon, prestation à la hauteur de mes attentes, je recommande à 100 %.</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">04/06/2026</div></div></div>
+      </article>
+      <article class="avis reveal">
+        <div class="quote" aria-hidden="true">”</div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Superbe coiffeuse, très professionnelle et coup de ciseau magique. Merci beaucoup.</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">14/06/2026</div></div></div>
+      </article>
+      <article class="avis reveal d1">
+        <div class="quote" aria-hidden="true">”</div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Très bon accueil, très satisfaite de la prestation. Je recommande ce salon.</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">07/06/2026</div></div></div>
+      </article>
+      <article class="avis reveal d2">
+        <div class="quote" aria-hidden="true">”</div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>Toujours très satisfaite, merci Elodie pour tous les conseils.</p>
+        <div class="who"><div><div class="nm">Avis vérifié · Planity</div><div class="st">20/06/2026</div></div></div>
       </article>
     </div>
   </div>
@@ -587,6 +681,10 @@
           <div class="val">Av. des Marronniers<br>04800 Gréoux-les-Bains</div>
         </div>
         <div class="info-block">
+          <div class="lab">Téléphone</div>
+          <div class="val"><a href="tel:+33492780298">04 92 78 02 98</a></div>
+        </div>
+        <div class="info-block">
           <div class="lab">Horaires</div>
           <table class="hours-table">
             <tbody>
@@ -596,15 +694,18 @@
             </tbody>
           </table>
         </div>
-        <a class="btn btn-dark" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener" style="margin-top:.5rem;">Prendre rendez-vous</a>
+        <div style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.5rem;">
+          <a class="btn btn-dark" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+          <a class="btn btn-dark" href="tel:+33492780298">Appeler le salon</a>
+        </div>
         <div style="font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:#8A8178;margin-top:1rem;">Réservation en ligne 24h/24 via Planity</div>
       </div>
       <div class="map-card reveal d2" role="img" aria-label="Localisation du salon à Gréoux-les-Bains">
-        <iframe title="Carte — Madame Monsieur, Gréoux-les-Bains" loading="lazy" src="https://www.google.com/maps?q=Av.+des+Marronniers+04800+Gr%C3%A9oux-les-Bains&output=embed" aria-hidden="true"></iframe>
+        <iframe title="Carte — Madame Monsieur, Gréoux-les-Bains" loading="lazy" src="https://www.google.com/maps?q=43.7582631,5.8876745&z=18&output=embed" aria-hidden="true"></iframe>
         <div class="overlay">
           <span class="pin" aria-hidden="true">📍</span>
           <div class="addr">Madame Monsieur — Gréoux-les-Bains</div>
-          <a href="https://www.google.com/maps?q=Av.+des+Marronniers+04800+Gr%C3%A9oux-les-Bains" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+          <a href="https://www.google.com/maps?cid=14567232486715601681" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
         </div>
       </div>
     </div>
@@ -618,8 +719,9 @@
     <span class="overline center reveal">Votre prochain rendez-vous</span>
     <h2 id="cta-title" class="reveal d1">Offrez à vos cheveux<br>l'<em>éclat</em> qu'ils méritent</h2>
     <p class="reveal d2">Réservez en quelques clics, à toute heure. Elodie et son équipe vous accueillent du mardi au samedi, au cœur de Gréoux-les-Bains.</p>
-    <div class="reveal d2">
+    <div class="reveal d2" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
       <a class="btn btn-gold" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+      <a class="btn btn-ghost" href="tel:+33492780298">04 92 78 02 98</a>
     </div>
     <div class="planity-note reveal d3" style="font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-top:1.4rem;">Réservation en ligne 24h/24 via Planity</div>
   </div>
@@ -634,8 +736,8 @@
         <p style="margin-top:1.4rem;max-width:22rem;">Un salon familial où l'élégance provençale rencontre le savoir-faire. Coupe, couleur, balayage & soins d'exception.</p>
         <div class="socials">
           <a href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener" aria-label="Réserver sur Planity">✦</a>
-          <a href="#" aria-label="Instagram du salon">◎</a>
-          <a href="#" aria-label="Facebook du salon">f</a>
+          <a href="https://www.google.com/maps?cid=14567232486715601681" target="_blank" rel="noopener" aria-label="Voir le salon sur Google Maps">◎</a>
+          <a href="tel:+33492780298" aria-label="Appeler le salon au 04 92 78 02 98">☎</a>
         </div>
       </div>
       <div class="foot-col">

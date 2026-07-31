@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Scissors, Sparkles as SparklesIcon, User, Droplet, Star, MapPin, Clock, ArrowRight, Calendar, Menu, X, ArrowLeft } from 'lucide-react'
+import { Scissors, Sparkles as SparklesIcon, User, Droplet, Star, MapPin, Phone, Clock, ArrowRight, Calendar, Menu, X, ArrowLeft } from 'lucide-react'
 import { SALON, STATS, SERVICES, PRICING, REVIEWS } from '../data'
 import { PLANITY_URL } from '../lib/utils'
 import SmoothScroll from '../components/SmoothScroll'
@@ -200,29 +200,27 @@ export default function Nuance() {
           <span className="inline-block rounded-full bg-sauge/20 px-4 py-1 text-xs uppercase tracking-[0.25em] text-sauge">03 — Tarifs</span>
           <h2 className="mt-4 font-fraunces text-4xl font-semibold text-brun md:text-5xl">La carte des prestations</h2>
         </SectionReveal>
-        <div className="grid gap-8 md:grid-cols-2">
-          {[['Femme', PRICING.femme], ['Homme & Enfant', PRICING.homme]].map(([title, list]) => (
-            <SectionReveal key={title} className="rounded-[2rem] border border-brun/10 bg-white/60 p-8 shadow-[0_20px_45px_-30px_rgba(59,51,43,.5)]">
-              <h3 className="mb-5 font-fraunces text-2xl italic text-terradeep">{title}</h3>
+        <div className="md:columns-2 md:gap-8">
+          {PRICING.map((cat) => (
+            <SectionReveal key={cat.group} className="mb-8 break-inside-avoid rounded-[2rem] border border-brun/10 bg-white/60 p-8 shadow-[0_20px_45px_-30px_rgba(59,51,43,.5)]">
+              <h3 className="mb-5 font-fraunces text-2xl italic text-terradeep">{cat.group}</h3>
               <ul className="divide-y divide-brun/10">
-                {list.map((it) => (
+                {cat.rows.map((it) => (
                   <li key={it.n} className="flex items-baseline justify-between gap-4 py-3.5">
                     <span className="text-brun/85">
-                      {it.n} {it.sub && <span className="text-xs text-brun/50">({it.sub})</span>}
+                      {it.n} {it.d && <span className="text-xs text-brun/50">· {it.d}</span>}
                     </span>
-                    <span className="whitespace-nowrap font-fraunces font-semibold text-terradeep">{it.p}</span>
+                    <span className="whitespace-nowrap font-fraunces font-semibold text-terradeep">
+                      {it.from && <span className="mr-1 text-xs font-normal uppercase tracking-wider text-brun/50">dès</span>}
+                      {it.p}
+                    </span>
                   </li>
                 ))}
               </ul>
-              {title.startsWith('Homme') && (
-                <div className="mt-6 rounded-2xl border-l-2 border-terra bg-terra/5 p-5">
-                  <div className="font-fraunces text-lg italic text-terradeep">Prestations sur devis</div>
-                  <p className="mt-1 text-sm text-brun/65">Mariage, extensions, chignons : un accompagnement sur-mesure pour vos grands jours.</p>
-                </div>
-              )}
             </SectionReveal>
           ))}
         </div>
+        <p className="mt-2 text-sm text-brun/55">Tarifs indicatifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
         <div className="mt-12 text-center"><Reserve /></div>
       </section>
 
@@ -252,6 +250,13 @@ export default function Nuance() {
                 <div><div className="text-xs uppercase tracking-[0.2em] text-brun/50">Adresse</div><div className="mt-1 font-fraunces text-lg text-brun">{SALON.address}</div></div>
               </div>
               <div className="flex items-start gap-3">
+                <Phone className="mt-1 text-terra" size={20} />
+                <div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-brun/50">Téléphone</div>
+                  <a href={SALON.phoneHref} className="mt-1 block font-fraunces text-lg text-brun transition-colors hover:text-terradeep">{SALON.phone}</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
                 <Clock className="mt-1 text-terra" size={20} />
                 <div className="w-full">
                   <div className="text-xs uppercase tracking-[0.2em] text-brun/50">Horaires</div>
@@ -277,10 +282,10 @@ export default function Nuance() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full"
                 style={{ border: 0 }}
-                src={`https://www.google.com/maps?q=${SALON.mapsQuery}&output=embed`}
+                src={`https://www.google.com/maps?q=${SALON.mapsQuery}&z=18&output=embed`}
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-lin to-transparent p-6">
-                <a href={`https://www.google.com/maps?q=${SALON.mapsQuery}`} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-sm font-medium text-terradeep">
+                <a href={SALON.mapsLink} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-sm font-medium text-terradeep">
                   Ouvrir dans Google Maps <ArrowRight size={15} />
                 </a>
               </div>

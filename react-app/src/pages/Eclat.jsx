@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Scissors, Sparkles as SparklesIcon, User, Droplet, Star, MapPin, Clock, ArrowRight, Calendar, Menu, X, ArrowLeft } from 'lucide-react'
+import { Scissors, Sparkles as SparklesIcon, User, Droplet, Star, MapPin, Phone, Clock, ArrowRight, Calendar, Menu, X, ArrowLeft } from 'lucide-react'
 import { SALON, STATS, SERVICES, PRICING, REVIEWS } from '../data'
 import { PLANITY_URL } from '../lib/utils'
 import SmoothScroll from '../components/SmoothScroll'
@@ -191,29 +191,27 @@ export default function Eclat() {
           <span className="text-xs uppercase tracking-[0.32em] text-or">03 — Tarifs</span>
           <h2 className="mt-5 font-playfair text-4xl font-medium text-charbon md:text-5xl">La carte des prestations</h2>
         </SectionReveal>
-        <div className="grid gap-12 md:grid-cols-2">
-          {[['Femme', PRICING.femme], ['Homme & Enfant', PRICING.homme]].map(([title, list]) => (
-            <SectionReveal key={title} className="border-t-2 border-or pt-8">
-              <h3 className="mb-6 font-serif text-2xl italic text-or">{title}</h3>
+        <div className="md:columns-2 md:gap-12">
+          {PRICING.map((cat) => (
+            <SectionReveal key={cat.group} className="mb-12 break-inside-avoid border-t-2 border-or pt-8">
+              <h3 className="mb-6 font-serif text-2xl italic text-or">{cat.group}</h3>
               <ul className="divide-y divide-charbon/12">
-                {list.map((it) => (
+                {cat.rows.map((it) => (
                   <li key={it.n} className="flex items-baseline justify-between gap-4 py-4">
                     <span className="text-charbon/85">
-                      {it.n} {it.sub && <span className="text-xs text-charbon/45">({it.sub})</span>}
+                      {it.n} {it.d && <span className="text-xs text-charbon/45">· {it.d}</span>}
                     </span>
-                    <span className="whitespace-nowrap font-playfair text-lg text-or">{it.p}</span>
+                    <span className="whitespace-nowrap font-playfair text-lg text-or">
+                      {it.from && <span className="mr-1 font-sans text-xs uppercase tracking-wider text-charbon/45">dès</span>}
+                      {it.p}
+                    </span>
                   </li>
                 ))}
               </ul>
-              {title.startsWith('Homme') && (
-                <div className="mt-8 border-l-2 border-or bg-[#efe8da] p-6">
-                  <div className="font-serif text-lg italic text-or">Prestations sur devis</div>
-                  <p className="mt-2 text-sm leading-relaxed text-charbon/65">Mariage, extensions, chignons : un accompagnement sur-mesure pour vos grands jours.</p>
-                </div>
-              )}
             </SectionReveal>
           ))}
         </div>
+        <p className="mt-4 text-sm text-charbon/50">Tarifs indicatifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
         <div className="mt-14 text-center"><Reserve /></div>
       </section>
 
@@ -243,6 +241,13 @@ export default function Eclat() {
                 <div><div className="text-[0.65rem] uppercase tracking-[0.24em] text-charbon/45">Adresse</div><div className="mt-1.5 font-playfair text-lg text-charbon">{SALON.address}</div></div>
               </div>
               <div className="flex items-start gap-4">
+                <Phone className="mt-1 text-or" size={20} />
+                <div>
+                  <div className="text-[0.65rem] uppercase tracking-[0.24em] text-charbon/45">Téléphone</div>
+                  <a href={SALON.phoneHref} className="mt-1.5 block font-playfair text-lg text-charbon transition-colors hover:text-or">{SALON.phone}</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
                 <Clock className="mt-1 text-or" size={20} />
                 <div className="w-full">
                   <div className="text-[0.65rem] uppercase tracking-[0.24em] text-charbon/45">Horaires</div>
@@ -268,10 +273,10 @@ export default function Eclat() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full"
                 style={{ filter: 'grayscale(.25) contrast(.95)', border: 0 }}
-                src={`https://www.google.com/maps?q=${SALON.mapsQuery}&output=embed`}
+                src={`https://www.google.com/maps?q=${SALON.mapsQuery}&z=18&output=embed`}
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ivoire to-transparent p-6">
-                <a href={`https://www.google.com/maps?q=${SALON.mapsQuery}`} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-sm font-medium text-or">
+                <a href={SALON.mapsLink} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-sm font-medium text-or">
                   Ouvrir dans Google Maps <ArrowRight size={15} />
                 </a>
               </div>
