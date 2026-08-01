@@ -129,7 +129,7 @@ export default function Nuance() {
           <SectionReveal>
             <div
               className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-brun/10 shadow-[0_30px_60px_-30px_rgba(59,51,43,.45)]"
-              style={{ backgroundColor: '#E9DFD2', backgroundImage: "url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1200&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundColor: '#E9DFD2', backgroundImage: `url('${import.meta.env.BASE_URL}photos/salon-terrasse.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-brun/45 via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 rounded-3xl border border-white/40 bg-lin/85 px-5 py-3 backdrop-blur">

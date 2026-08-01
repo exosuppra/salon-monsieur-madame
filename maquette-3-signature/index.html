@@ -145,7 +145,7 @@
 
   /* ---------- Le salon ---------- */
   .salon-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
-  .salon-photo{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background-color:var(--sable);background-size:cover;background-position:center}
+  .salon-photo{position:relative;aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background-color:var(--sable);background-size:cover;background-position:center}
   .salon-badge{position:absolute;left:1.2rem;bottom:1.2rem;background:rgba(251,246,239,.94);backdrop-filter:blur(6px);border-radius:var(--r);padding:.9rem 1.2rem}
   .salon-badge .nm{font-family:var(--serif);font-size:1.3rem}
   .salon-badge .rl{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terracotta);margin-top:.15rem}
@@ -164,6 +164,26 @@
   .serv-card h3{font-size:1.45rem}
   .serv-card p{color:var(--encre-doux);font-size:.95rem;margin-top:.7rem}
   .serv-card .tag{display:inline-block;margin-top:1.2rem;font-size:.82rem;font-weight:500;color:var(--cognac);background:var(--sable);border-radius:100px;padding:.35rem .9rem}
+
+  /* ---------- Réalisations ----------
+     Grille en briques : la première photo occupe deux colonnes, les autres
+     suivent. Les images sont en <img> (et non en fond CSS) pour rester
+     accessibles et profiter du lazy-loading natif. */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  .gallery figure{position:relative;overflow:hidden;border-radius:var(--r-lg);background:var(--sable);box-shadow:var(--shadow-soft)}
+  .gallery figure:first-child{grid-column:span 2;grid-row:span 2}
+  .gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .gallery figure:first-child img{aspect-ratio:auto}
+  .gallery figure:hover img{transform:scale(1.04)}
+  .gallery figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:1.5rem 1.1rem .9rem;
+    background:linear-gradient(to top,rgba(51,42,33,.78),transparent);
+    color:var(--creme);font-size:.82rem;letter-spacing:.04em;
+  }
+  @media (max-width:760px){
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .gallery figure:first-child{grid-column:span 2;grid-row:auto}
+  }
 
   /* ---------- Tarifs ---------- */
   .tarifs-card{background:var(--creme);border:1px solid rgba(51,42,33,.08);border-radius:var(--r-lg);padding:clamp(1.5rem,4vw,3rem);box-shadow:var(--shadow-soft)}
@@ -266,6 +286,7 @@
       <ul class="nav-links">
         <li><a href="#salon">Le salon</a></li>
         <li><a href="#prestations">Prestations</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
         <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#avis">Avis</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -286,6 +307,7 @@
   <button class="close" id="closeMenu" aria-label="Fermer le menu">✕</button>
   <a href="#salon">Le salon</a>
   <a href="#prestations">Prestations</a>
+  <a href="#realisations">Réalisations</a>
   <a href="#tarifs">Tarifs</a>
   <a href="#avis">Avis</a>
   <a href="#contact">Contact</a>
@@ -310,15 +332,12 @@
       <p class="hero-note reveal d3">Réservation en ligne 24h/24 via Planity · 04 92 78 02 98</p>
     </div>
 
-    <!-- Photos du salon.
-         Déposez les fichiers dans maquette-3-signature/assets/ sous ces noms exacts :
-           salon-vitrine.jpg  — la devanture / la pièce vue depuis l'entrée
-           salon-fauteuil.jpg — le fauteuil Chesterfield en cuir cognac
-           salon-miroir.jpg   — le miroir bois et la console
-         Tant qu'un fichier manque, le bloc affiche l'aplat sable : rien ne casse. -->
+    <!-- Photos fournies par le salon (assets/). Les originaux iPhone ont été
+         redressés, dépouillés de leurs métadonnées EXIF — dont les coordonnées
+         GPS — puis recompressés. Voir ../assets/README.md. -->
     <div class="hero-photos reveal d2">
-      <div class="ph ph-main" data-parallax="0.05" style="background-image:url('assets/salon-vitrine.jpg')" role="img" aria-label="La vitrine du salon Madame Monsieur"></div>
-      <div class="ph ph-sub" data-parallax="-0.03" style="background-image:url('assets/salon-fauteuil.jpg')" role="img" aria-label="Le fauteuil en cuir cognac de l'espace d'attente"></div>
+      <div class="ph ph-main" data-parallax="0.05" style="background-image:url('../assets/realisation-balayage-blond.jpg')" role="img" aria-label="Balayage blond réalisé au salon"></div>
+      <div class="ph ph-sub" data-parallax="-0.03" style="background-image:url('../assets/realisation-contraste-racines.jpg')" role="img" aria-label="Coloration contrastée avec racines fondues"></div>
       <div class="ph-tag">
         <div class="n">20</div>
         <div class="l">ans de métier</div>
@@ -340,7 +359,7 @@
 <!-- ===== LE SALON ===== -->
 <section class="sec-pad" id="salon">
   <div class="wrap salon-grid">
-    <div class="salon-photo reveal" data-parallax="0.04" style="background-image:url('assets/salon-miroir.jpg')" role="img" aria-label="Le miroir en bois et la console du salon">
+    <div class="salon-photo reveal" data-parallax="0.04" style="background-image:url('../assets/salon-terrasse.jpg')" role="img" aria-label="La terrasse devant le salon Madame Monsieur, avenue des Marronniers">
       <div class="salon-badge">
         <div class="nm">Elodie</div>
         <div class="rl">Coiffeuse · 20 ans d'expérience</div>
@@ -426,8 +445,45 @@
   </div>
 </section>
 
+<!-- ===== RÉALISATIONS ===== -->
+<section class="sec-pad" id="realisations">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Réalisations</span>
+      <h2>Le travail d'<em>Elodie</em></h2>
+      <p>Des couleurs faites au salon, photographiées telles quelles, sans retouche. C'est le meilleur argument qu'on puisse donner.</p>
+    </div>
+    <div class="gallery reveal d1">
+      <figure>
+        <img src="../assets/realisation-balayage-blond.jpg" alt="Balayage blond aux reflets sable sur carré long ondulé" loading="lazy" width="1125" height="1500">
+        <figcaption>Balayage blond, reflets sable</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/realisation-contraste-racines.jpg" alt="Coloration blonde très claire avec racines fondues" loading="lazy" width="1050" height="1400">
+        <figcaption>Racines fondues, blond lumineux</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/realisation-brushing-ondule.jpg" alt="Brushing ondulé sur base blond doré" loading="lazy" width="1050" height="1400">
+        <figcaption>Brushing ondulé</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/realisation-cheveux-longs.jpg" alt="Cheveux longs châtain clair travaillés en vagues souples" loading="lazy" width="1050" height="1400">
+        <figcaption>Longueurs et vagues souples</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/realisation-carre-blond.jpg" alt="Carré blond polaire structuré" loading="lazy" width="1050" height="1400">
+        <figcaption>Carré blond polaire</figcaption>
+      </figure>
+    </div>
+    <div class="tarifs-cta reveal">
+      <a class="btn btn-primary" href="https://www.planity.com/madame-monsieur-04800-greoux-les-bains" target="_blank" rel="noopener">Prendre rendez-vous</a>
+      <a class="btn btn-ghost" href="#tarifs">Voir les tarifs</a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== TARIFS ===== -->
-<section class="sec-pad" id="tarifs">
+<section class="sec-pad" id="tarifs" style="background:rgba(251,246,239,.5);border-top:1px solid var(--sable);border-bottom:1px solid var(--sable)">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Tarifs</span>
@@ -540,7 +596,7 @@
 </section>
 
 <!-- ===== AVIS ===== -->
-<section class="sec-pad" id="avis" style="background:rgba(251,246,239,.5);border-top:1px solid var(--sable);border-bottom:1px solid var(--sable)">
+<section class="sec-pad" id="avis">
   <div class="wrap">
     <div class="avis-head reveal">
       <span class="eyebrow" style="justify-content:center">Avis clients</span>
@@ -664,6 +720,7 @@
         <ul>
           <li><a href="#salon">À propos</a></li>
           <li><a href="#prestations">Prestations</a></li>
+          <li><a href="#realisations">Réalisations</a></li>
           <li><a href="#tarifs">Tarifs</a></li>
           <li><a href="#avis">Avis clients</a></li>
         </ul>

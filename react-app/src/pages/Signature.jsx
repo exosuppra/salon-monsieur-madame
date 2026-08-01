@@ -127,7 +127,7 @@ export default function Signature() {
         <div className="grid items-center gap-12 md:grid-cols-2">
           <SectionReveal>
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/10 bg-ink2"
-              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1200&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              style={{ backgroundImage: `url('${import.meta.env.BASE_URL}photos/realisation-balayage-blond.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 rounded-2xl border border-white/10 bg-ink/70 px-5 py-3 backdrop-blur">
                 <div className="font-display text-xl">{SALON.stylist}</div>

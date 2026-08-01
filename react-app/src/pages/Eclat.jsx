@@ -129,7 +129,7 @@ export default function Eclat() {
         <div className="grid items-center gap-14 md:grid-cols-2">
           <SectionReveal>
             <div className="relative aspect-[4/5] overflow-hidden border border-charbon/10"
-              style={{ backgroundColor: '#e6ddcd', backgroundImage: "url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1200&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              style={{ backgroundColor: '#e6ddcd', backgroundImage: `url('${import.meta.env.BASE_URL}photos/realisation-balayage-blond.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-charbon/70 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 border-l-2 border-or bg-ivoire/90 px-6 py-4 backdrop-blur">
                 <div className="font-playfair text-xl text-charbon">{SALON.stylist}</div>
