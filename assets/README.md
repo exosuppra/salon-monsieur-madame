@@ -16,6 +16,27 @@ La version React lit les mêmes fichiers depuis `../react-app/public/photos/` �
 | `realisation-cheveux-longs.jpg` | Longueurs châtain clair en vagues souples |
 | `realisation-carre-blond.jpg` | Carré blond polaire |
 
+## Ajouter de nouvelles photos
+
+Un script fait tout le travail — rotation, suppression des métadonnées,
+redimensionnement, compression — et écrit dans les **deux** emplacements à la
+fois :
+
+```bash
+python tools/prepare-photos.py chemin/IMG_1234.jpeg=salon-poste-coiffage
+```
+
+Plusieurs paires `source=nom` peuvent être passées d'un coup. Options `--max`
+(plus grand côté, 1600 px par défaut) et `--quality` (82 par défaut).
+
+Ensuite, pour que la version React voie les nouvelles images :
+
+```bash
+cd react-app && npm run build
+```
+
+puis recopier `react-app/dist/` vers `app/`.
+
 ## Traitement appliqué
 
 Les originaux (JPEG iPhone, ~2 Mo chacun) ont été :
@@ -33,16 +54,18 @@ Total : 11,9 Mo → 2,0 Mo.
 
 ## Ce qui manque encore
 
-Aucune photo de **l'intérieur** du salon (poste de coiffage, espace d'attente,
-le fauteuil Chesterfield en entier, le miroir en bois). Ce sont elles qui
-donneraient le plus de chaleur aux sections « Le salon ». À demander à Elodie.
+Les photos de **l'intérieur** du salon (poste de coiffage, espace d'attente, le
+fauteuil Chesterfield en entier, le miroir en bois). Elodie doit les envoyer.
+Ce sont elles qui donneront de la chaleur aux sections « Le salon » des trois
+maquettes, aujourd'hui illustrées par la terrasse ou une réalisation.
+
+Noms à utiliser quand elles arriveront, pour rester cohérent :
+`salon-poste-coiffage`, `salon-attente`, `salon-fauteuil`, `salon-miroir`,
+`salon-vitrine`.
 
 ## Droit à l'image
 
-`realisation-carre-blond.jpg` laisse voir le profil d'une cliente (lunettes,
-joue). Les autres réalisations sont cadrées de dos ou de dessus, sans visage
-identifiable. Vérifier l'accord de la personne avant mise en ligne, ou retirer
-ce fichier et sa `<figure>` dans `../maquette-3-signature/index.html`.
-
-Idem pour `salon-terrasse.jpg`, où Elodie est reconnaissable — c'est elle qui a
-fourni la photo, mais autant que ce soit dit explicitement.
+Accord obtenu pour les personnes reconnaissables sur les photos actuelles
+(Elodie sur `salon-terrasse.jpg`, la cliente de profil sur
+`realisation-carre-blond.jpg`). À revérifier pour toute nouvelle photo où
+une cliente serait identifiable.
