@@ -308,6 +308,10 @@ export default function Signature() {
           <div className="text-sm text-white/50">© 2026 {SALON.name} — {SALON.city}</div>
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-champagne"><ArrowLeft size={15} /> Retour aux maquettes</Link>
         </div>
+        <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-white/40">
+          Site développé par{' '}
+          <a href="https://logiqia.fr" target="_blank" rel="noopener" className="font-medium text-champagne/80 underline-offset-4 transition-colors hover:text-champagne hover:underline">Logiq IA</a>
+        </div>
       </footer>
     </div>
   )
