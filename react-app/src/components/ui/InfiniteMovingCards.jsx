@@ -6,7 +6,7 @@ import { Star } from 'lucide-react'
 // groupe se translate de sa propre largeur → boucle parfaitement fluide.
 // Les avis viennent de Planity (publiés sans nom d'auteur) : on affiche la note
 // et la date de dépôt plutôt qu'une identité qu'on ne connaît pas.
-export default function InfiniteMovingCards({ items, speed = 'slow', card = '' }) {
+export default function InfiniteMovingCards({ items, speed = 'slow', card = '', starClass = '' }) {
   const duration = speed === 'fast' ? '26s' : speed === 'normal' ? '40s' : '60s'
   const GAP = '1.25rem'
 
@@ -20,7 +20,7 @@ export default function InfiniteMovingCards({ items, speed = 'slow', card = '' }
       {items.map((it, i) => (
         <li key={i} className={cn('flex w-[300px] shrink-0 flex-col rounded-2xl p-6 sm:w-[380px]', card)}>
           <div className="mb-3 flex items-center gap-2">
-            <div className="flex gap-0.5" aria-hidden="true">
+            <div className={cn('flex gap-0.5', starClass)} aria-hidden="true">
               {[0, 1, 2, 3, 4].map((s) => (
                 <Star key={s} size={14} className={s < Math.round(it.rating) ? 'fill-current' : 'opacity-25'} />
               ))}
