@@ -22,9 +22,9 @@ const NAV = [
 ]
 
 const SERVICES = [
-  { ic: '✂', t: 'Coupe & Brushing', d: 'Coupe façonnée sur mesure et brushing lumineux, du court au très long.', tag: 'Dès 28 €' },
+  { ic: '✂', t: 'Coupe & Brushing', d: 'Coupe façonnée sur mesure et brushing lumineux, du court au très long.', tag: 'Dès 32 €' },
   { ic: '❋', t: 'Coloration', d: 'Couleurs profondes ou éclaircissantes, adaptées à votre base et à votre peau.', tag: 'Dès 64 €' },
-  { ic: '✧', t: 'Balayage & Mèches', d: 'La signature du salon : des reflets naturels qui repoussent sans démarcation.', tag: 'Dès 76 €' },
+  { ic: '✧', t: 'Balayage & Mèches', d: 'La signature du salon : des reflets naturels qui repoussent sans démarcation.', tag: 'Dès 90 €' },
   { ic: '❁', t: 'Soins & Lissage', d: 'Le protocole YBERA, du soin botox express au lissage brésilien complet.', tag: 'Dès 40 €' },
   { ic: '◈', t: 'Homme', d: 'Coupe nette, barbe taillée et tracée, shampooing compris.', tag: 'Coupe 23 € · Forfait 32 €' },
   { ic: '☺', t: 'Enfants', d: 'Shampooing et coupe pour les moins de 10 ans, en douceur et sans stress.', tag: '18 € – 30 €' },
@@ -42,6 +42,10 @@ const GALLERY = [
 
 const SHADOW = 'shadow-[0_24px_60px_-34px_rgba(51,42,33,.45)]'
 const SHADOW_SOFT = 'shadow-[0_12px_34px_-22px_rgba(51,42,33,.4)]'
+
+// Titres manuscrits (Caveat) + corps en italique serif : identité « bohème »
+const TITLE = 'font-hand font-semibold leading-[1.02]'
+const LEAD = 'font-newsreader italic'
 
 function Reserve({ children = 'Prendre rendez-vous', className = '' }) {
   return (
@@ -75,7 +79,7 @@ function Ghost({ href, anchor, tel, children, className = '' }) {
 function Eyebrow({ children, center = false }) {
   return (
     <span className={cn('inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.26em] text-terracotta', center && 'justify-center')}>
-      <span className="h-px w-7 bg-terracotta/60" /> {children}
+      <span className="h-px w-7 bg-gradient-to-r from-terracotta to-rose" /> {children}
     </span>
   )
 }
@@ -104,8 +108,8 @@ export default function Nuance() {
       {/* HEADER */}
       <header className={cn('fixed inset-x-0 top-0 z-50 transition-all', scrolled ? 'bg-lin/90 py-2.5 shadow-[0_1px_0_rgba(51,42,33,.08)] backdrop-blur-xl' : 'py-5')}>
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-8 px-6">
-          <Link to="/nuance" className="flex flex-col leading-tight">
-            <span className="font-newsreader text-xl">{SALON.name}</span>
+          <Link to="/nuance" className="flex flex-col leading-none">
+            <span className="font-hand text-[1.7rem] font-bold leading-none">{SALON.name}</span>
             <span className="mt-1 text-[0.56rem] font-semibold uppercase tracking-[0.32em] text-terracotta">Gréoux-les-Bains</span>
           </Link>
           <nav className="hidden items-center gap-8 lg:flex">
@@ -128,10 +132,10 @@ export default function Nuance() {
 
       {/* MENU MOBILE */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-6 bg-lin">
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-5 bg-lin">
           <button className="absolute right-6 top-6 text-encre" onClick={() => setOpen(false)} aria-label="Fermer le menu"><X size={26} /></button>
           {NAV.map(([href, label]) => (
-            <a key={href} href={href} data-anchor={href} onClick={() => setOpen(false)} className="font-newsreader text-3xl text-encre">{label}</a>
+            <a key={href} href={href} data-anchor={href} onClick={() => setOpen(false)} className="font-hand text-4xl font-semibold text-encre">{label}</a>
           ))}
           <div className="mt-2 flex flex-col items-center gap-3">
             <a href={SALON.phoneHref} className="rounded-full border border-encre/20 px-6 py-3 text-sm">{SALON.phone}</a>
@@ -142,8 +146,13 @@ export default function Nuance() {
 
       <main className="relative z-10">
         {/* HERO */}
-        <section className="flex min-h-screen items-center px-6 pb-16 pt-32">
-          <div className="mx-auto grid max-w-[1180px] items-center gap-10 md:grid-cols-[1.05fr_.95fr]">
+        <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-32">
+          {/* Halos rose poudré + terracotta */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+            <div className="absolute -right-24 top-16 h-[38vw] w-[38vw] rounded-full bg-rose/35 blur-[130px]" />
+            <div className="absolute -left-20 bottom-0 h-[30vw] w-[30vw] rounded-full bg-terracotta/12 blur-[120px]" />
+          </div>
+          <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 md:grid-cols-[1.05fr_.95fr]">
             <div>
               <SectionReveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-encre/10 bg-creme px-4 py-2 text-sm">
@@ -151,12 +160,12 @@ export default function Nuance() {
                 </span>
               </SectionReveal>
               <SectionReveal delay={0.08}>
-                <h1 className="mt-6 font-newsreader text-[clamp(2.9rem,7.2vw,5.1rem)] leading-[1.02]">
-                  Un salon<br />où l'on prend<br /><em className="italic text-cognac">le temps</em>
+                <h1 className={cn(TITLE, 'mt-5 text-[clamp(3.6rem,9.5vw,6.6rem)]')}>
+                  Un salon<br />où l'on prend<br /><span className="text-terracotta">le temps</span>
                 </h1>
               </SectionReveal>
               <SectionReveal delay={0.16}>
-                <p className="mt-6 max-w-lg text-[1.05rem] text-encre-doux">
+                <p className={cn(LEAD, 'mt-5 max-w-lg text-[1.2rem] text-encre-doux')}>
                   Coupe, couleur et balayage à {SALON.city}. Vingt ans de métier, une pièce chaleureuse en bois et cuir, et une seule idée en tête : que vos cheveux vous ressemblent.
                 </p>
               </SectionReveal>
@@ -184,10 +193,10 @@ export default function Nuance() {
                 />
                 <motion.div
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}
-                  className={cn('absolute right-[6%] top-[8%] rounded-[20px] bg-creme px-[1.15rem] py-[0.85rem] text-center', SHADOW_SOFT)}
+                  className={cn('absolute right-[6%] top-[8%] rounded-[20px] bg-creme px-[1.15rem] py-[0.7rem] text-center ring-1 ring-rose/50', SHADOW_SOFT)}
                 >
-                  <div className="font-newsreader text-[1.6rem] leading-none text-cognac">20</div>
-                  <div className="mt-1 text-[0.62rem] uppercase tracking-[0.18em] text-encre-doux">ans de métier</div>
+                  <div className="font-hand text-[2.4rem] font-bold leading-none text-cognac">20</div>
+                  <div className="text-[0.62rem] uppercase tracking-[0.18em] text-encre-doux">ans de métier</div>
                 </motion.div>
               </div>
             </SectionReveal>
@@ -199,10 +208,10 @@ export default function Nuance() {
           <div className="mx-auto grid max-w-[1180px] grid-cols-2 gap-8 px-6 py-12 text-center md:grid-cols-4">
             {STATS.map((s, i) => (
               <SectionReveal key={s.label} delay={i * 0.08}>
-                <div className="font-newsreader text-4xl leading-none text-cognac md:text-5xl">
+                <div className="font-hand text-5xl font-bold leading-none text-cognac md:text-6xl">
                   <NumberTicker value={s.value} decimals={s.decimals || 0} suffix={s.suffix || ''} />
                 </div>
-                <div className="mt-2 text-xs uppercase tracking-[0.14em] text-encre-doux">{s.label}</div>
+                <div className="mt-1.5 text-xs uppercase tracking-[0.14em] text-encre-doux">{s.label}</div>
               </SectionReveal>
             ))}
           </div>
@@ -217,27 +226,27 @@ export default function Nuance() {
                 className={cn('relative aspect-[4/3] overflow-hidden rounded-[32px] bg-sable bg-cover bg-center', SHADOW)}
                 style={{ backgroundImage: `url('${P}salon-terrasse.jpg')` }}
               >
-                <div className="absolute bottom-5 left-5 rounded-[20px] bg-creme/95 px-5 py-3 backdrop-blur">
-                  <div className="font-newsreader text-xl">Elodie</div>
-                  <div className="mt-0.5 text-[0.66rem] uppercase tracking-[0.16em] text-terracotta">Coiffeuse · 20 ans d'expérience</div>
+                <div className="absolute bottom-5 left-5 rounded-[20px] bg-creme/95 px-5 py-2.5 backdrop-blur">
+                  <div className="font-hand text-2xl font-bold leading-none">Elodie</div>
+                  <div className="mt-1 text-[0.66rem] uppercase tracking-[0.16em] text-terracotta">Coiffeuse · 20 ans d'expérience</div>
                 </div>
               </div>
             </SectionReveal>
             <SectionReveal delay={0.1}>
               <Eyebrow>Le salon</Eyebrow>
-              <h2 className="mt-4 font-newsreader text-[clamp(2rem,4.5vw,3.1rem)] leading-tight">Une maison plus qu'un <em className="italic text-cognac">salon</em></h2>
-              <p className="mt-5 text-encre-doux">
+              <h2 className={cn(TITLE, 'mt-3 text-[clamp(2.7rem,5.5vw,4.1rem)]')}>Une maison plus qu'un <span className="text-terracotta">salon</span></h2>
+              <p className={cn(LEAD, 'mt-4 text-[1.12rem] text-encre-doux')}>
                 Au cœur de {SALON.city}, village thermal de Haute-Provence, {SALON.name} cultive un art de recevoir aussi soigné que ses coupes. Du bois brut, un fauteuil de cuir patiné, des paniers d'osier et beaucoup de lumière : on y pousse la porte pour une couleur, on y revient pour l'accueil.
               </p>
-              <ul className="mt-8 grid gap-4">
+              <ul className="mt-7 grid gap-4">
                 {[
                   ['Diagnostic avant chaque couleur', "on regarde la matière, l'historique, l'entretien réaliste au quotidien."],
                   ['Femme, homme et enfant', 'toute la famille au même endroit, sans surcoût déguisé.'],
                   ['Soins et lissage YBERA', 'pour discipliner sans alourdir, du soin express au lissage complet.'],
                   ['Curistes bienvenus', 'beaucoup reviennent chaque saison, on connaît leurs cheveux.'],
-                ].map(([t, d]) => (
+                ].map(([t, d], i) => (
                   <li key={t} className="flex items-start gap-3.5 text-encre-doux">
-                    <span className="mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-full bg-sable text-xs text-cognac">✓</span>
+                    <span className={cn('mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-full text-xs text-cognac', i % 2 ? 'bg-rose-soft' : 'bg-sable')}>✓</span>
                     <span><strong className="text-encre">{t}</strong> — {d}</span>
                   </li>
                 ))}
@@ -251,16 +260,16 @@ export default function Nuance() {
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Prestations</Eyebrow>
-              <h2 className="mt-4 font-newsreader text-[clamp(2.1rem,5vw,3.4rem)]">Ce que l'on fait, <em className="italic text-cognac">simplement</em></h2>
-              <p className="mt-4 text-[1.05rem] text-encre-doux">Huit familles de prestations, une grille de tarifs complète juste en dessous. Pas de mauvaise surprise en caisse.</p>
+              <h2 className={cn(TITLE, 'mt-3 text-[clamp(2.8rem,6vw,4.4rem)]')}>Ce que l'on fait, <span className="text-terracotta">simplement</span></h2>
+              <p className={cn(LEAD, 'mt-3 text-[1.12rem] text-encre-doux')}>Huit familles de prestations, une grille de tarifs complète juste en dessous. Pas de mauvaise surprise en caisse.</p>
             </SectionReveal>
             <StaggerGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {SERVICES.map((s) => (
+              {SERVICES.map((s, i) => (
                 <StaggerItem key={s.t}>
-                  <div className={cn('h-full rounded-[28px] border border-encre/10 bg-creme p-7 transition-all hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-34px_rgba(51,42,33,.45)]')}>
-                    <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-sable text-xl" aria-hidden="true">{s.ic}</div>
-                    <h3 className="font-newsreader text-2xl">{s.t}</h3>
-                    <p className="mt-2 text-sm text-encre-doux">{s.d}</p>
+                  <div className="h-full rounded-[28px] border border-encre/10 bg-creme p-7 transition-all hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-34px_rgba(51,42,33,.45)]">
+                    <div className={cn('mb-4 grid h-12 w-12 place-items-center rounded-2xl text-xl', i % 2 ? 'bg-rose-soft' : 'bg-sable')} aria-hidden="true">{s.ic}</div>
+                    <h3 className="font-hand text-[1.85rem] font-semibold leading-none">{s.t}</h3>
+                    <p className={cn(LEAD, 'mt-2 text-[0.98rem] text-encre-doux')}>{s.d}</p>
                     <span className="mt-5 inline-block rounded-full bg-sable px-4 py-1.5 text-sm font-medium text-cognac">{s.tag}</span>
                   </div>
                 </StaggerItem>
@@ -274,8 +283,8 @@ export default function Nuance() {
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Réalisations</Eyebrow>
-              <h2 className="mt-4 font-newsreader text-[clamp(2.1rem,5vw,3.4rem)]">Le travail d'<em className="italic text-cognac">Elodie</em></h2>
-              <p className="mt-4 text-[1.05rem] text-encre-doux">Des couleurs faites au salon, photographiées telles quelles, sans retouche. C'est le meilleur argument qu'on puisse donner.</p>
+              <h2 className={cn(TITLE, 'mt-3 text-[clamp(2.8rem,6vw,4.4rem)]')}>Le travail d'<span className="text-terracotta">Elodie</span></h2>
+              <p className={cn(LEAD, 'mt-3 text-[1.12rem] text-encre-doux')}>Des couleurs faites au salon, photographiées telles quelles, sans retouche. C'est le meilleur argument qu'on puisse donner.</p>
             </SectionReveal>
             <SectionReveal>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -285,7 +294,7 @@ export default function Nuance() {
                       src={`${P}${g.src}`} alt={g.alt} loading="lazy"
                       className={cn('h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105', i === 0 ? 'aspect-[3/3.4]' : 'aspect-[3/4]')}
                     />
-                    <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-encre/80 to-transparent px-4 pb-3 pt-6 text-sm text-creme">{g.cap}</figcaption>
+                    <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-encre/80 to-transparent px-4 pb-3 pt-6 font-newsreader text-sm italic text-creme">{g.cap}</figcaption>
                   </figure>
                 ))}
               </div>
@@ -302,8 +311,8 @@ export default function Nuance() {
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Tarifs</Eyebrow>
-              <h2 className="mt-4 font-newsreader text-[clamp(2.1rem,5vw,3.4rem)]">La carte <em className="italic text-cognac">complète</em></h2>
-              <p className="mt-4 text-[1.05rem] text-encre-doux">Toutes les prestations du salon, avec leur durée. Exactement la grille que vous retrouverez au moment de réserver sur Planity.</p>
+              <h2 className={cn(TITLE, 'mt-3 text-[clamp(2.8rem,6vw,4.4rem)]')}>La carte <span className="text-terracotta">complète</span></h2>
+              <p className={cn(LEAD, 'mt-3 text-[1.12rem] text-encre-doux')}>Toutes les prestations du salon, avec leur durée. Exactement la grille que vous retrouverez au moment de réserver sur Planity.</p>
             </SectionReveal>
             <SectionReveal>
               <div className={cn('rounded-[32px] border border-encre/10 bg-creme p-6 sm:p-10', SHADOW_SOFT)}>
@@ -325,7 +334,7 @@ export default function Nuance() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-8 text-sm italic text-encre-doux">Tarifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
+                <p className={cn(LEAD, 'mt-8 text-sm text-encre-doux')}>Tarifs relevés sur Planity. Le prix définitif est confirmé en salon après diagnostic.</p>
               </div>
             </SectionReveal>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -340,9 +349,9 @@ export default function Nuance() {
           <div className="mx-auto mb-12 max-w-[1180px] px-6 text-center">
             <SectionReveal>
               <Eyebrow center>Avis clients</Eyebrow>
-              <div className="mt-4 font-newsreader text-[clamp(3rem,7vw,4.4rem)] leading-none text-cognac">{SALON.rating}<sub className="align-super text-[0.3em] text-encre-doux">/5</sub></div>
+              <div className="mt-3 font-hand text-[clamp(3.6rem,8vw,5.4rem)] font-bold leading-none text-cognac">{SALON.rating}<sub className="align-super text-[0.3em] text-encre-doux">/5</sub></div>
               <div className="tracking-[3px] text-terracotta" aria-hidden="true">★★★★★</div>
-              <p className="mt-2 text-encre-doux">{SALON.reviews} avis vérifiés sur Planity</p>
+              <p className={cn(LEAD, 'mt-2 text-encre-doux')}>{SALON.reviews} avis vérifiés sur Planity</p>
             </SectionReveal>
           </div>
           <InfiniteMovingCards
@@ -358,8 +367,8 @@ export default function Nuance() {
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Infos pratiques</Eyebrow>
-              <h2 className="mt-4 font-newsreader text-[clamp(2.1rem,5vw,3.4rem)]">Venir au <em className="italic text-cognac">salon</em></h2>
-              <p className="mt-4 text-[1.05rem] text-encre-doux">Avenue des Marronniers, à deux pas des thermes. Stationnement facile devant le salon.</p>
+              <h2 className={cn(TITLE, 'mt-3 text-[clamp(2.8rem,6vw,4.4rem)]')}>Venir au <span className="text-terracotta">salon</span></h2>
+              <p className={cn(LEAD, 'mt-3 text-[1.12rem] text-encre-doux')}>Avenue des Marronniers, à deux pas des thermes. Stationnement facile devant le salon.</p>
             </SectionReveal>
             <div className="grid gap-6 md:grid-cols-[1fr_1.1fr]">
               <SectionReveal className="flex">
@@ -371,10 +380,10 @@ export default function Nuance() {
                     { ic: <CalendarDays size={20} />, h: 'Réservation', body: 'En ligne 24h/24 via Planity' },
                   ].map((row, i, arr) => (
                     <div key={row.h} className={cn('flex gap-4 py-4', i === 0 && 'pt-0', i < arr.length - 1 && 'border-b border-sable')}>
-                      <span className="grid h-10 w-10 flex-none place-items-center rounded-xl bg-sable text-cognac">{row.ic}</span>
+                      <span className={cn('grid h-10 w-10 flex-none place-items-center rounded-xl text-cognac', i % 2 ? 'bg-rose-soft' : 'bg-sable')}>{row.ic}</span>
                       <div>
-                        <h4 className="font-newsreader text-lg">{row.h}</h4>
-                        <p className="text-[0.93rem] text-encre-doux">{row.body}</p>
+                        <h4 className="font-hand text-xl font-semibold leading-none">{row.h}</h4>
+                        <p className="mt-1 text-[0.93rem] text-encre-doux">{row.body}</p>
                       </div>
                     </div>
                   ))}
@@ -394,7 +403,7 @@ export default function Nuance() {
                     src={`https://maps.google.com/maps?q=${SALON.coords}&t=&z=18&ie=UTF8&iwloc=&output=embed`}
                   />
                   <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-baseline gap-x-4 gap-y-1 bg-gradient-to-t from-lin/95 to-transparent p-5">
-                    <span className="font-newsreader text-[1.05rem]">{SALON.name} — {SALON.city}</span>
+                    <span className="font-hand text-2xl font-semibold">{SALON.name} — {SALON.city}</span>
                     <a href={SALON.mapsLink} target="_blank" rel="noopener" className="text-sm font-medium text-cognac">Ouvrir dans Google Maps →</a>
                   </div>
                 </div>
@@ -406,14 +415,17 @@ export default function Nuance() {
         {/* BANDE CTA */}
         <section className="mx-auto max-w-[1180px] px-6 pb-16">
           <SectionReveal>
-            <div className="rounded-[32px] bg-cognac px-6 py-14 text-center text-creme md:px-14">
-              <h2 className="font-newsreader text-[clamp(1.9rem,4.5vw,3rem)] text-creme">Offrez à vos cheveux<br />le temps qu'ils <em className="italic text-terracotta-light">méritent</em></h2>
-              <p className="mx-auto mt-4 max-w-xl text-creme/80">Elodie vous accueille du mardi au samedi, au cœur de {SALON.city}. Réservez en quelques clics, à toute heure.</p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <a href={SALON.booking} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-creme px-7 py-3 text-sm font-medium text-cognac transition-all hover:-translate-y-0.5 hover:bg-terracotta-light hover:text-encre">
-                  <CalendarDays size={16} /> Prendre rendez-vous
-                </a>
-                <a href={SALON.phoneHref} className="inline-flex items-center gap-2 rounded-full border border-creme/45 px-6 py-3 text-sm font-medium text-creme transition-all hover:-translate-y-0.5 hover:border-creme">{SALON.phone}</a>
+            <div className="relative overflow-hidden rounded-[32px] bg-cognac px-6 py-14 text-center text-creme md:px-14">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-rose/25 blur-[90px]" />
+              <div className="relative">
+                <h2 className={cn(TITLE, 'text-[clamp(2.5rem,5.5vw,3.9rem)] text-creme')}>Offrez à vos cheveux<br />le temps qu'ils <span className="text-rose">méritent</span></h2>
+                <p className={cn(LEAD, 'mx-auto mt-3 max-w-xl text-[1.1rem] text-creme/85')}>Elodie vous accueille du mardi au samedi, au cœur de {SALON.city}. Réservez en quelques clics, à toute heure.</p>
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
+                  <a href={SALON.booking} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-creme px-7 py-3 text-sm font-medium text-cognac transition-all hover:-translate-y-0.5 hover:bg-rose hover:text-encre">
+                    <CalendarDays size={16} /> Prendre rendez-vous
+                  </a>
+                  <a href={SALON.phoneHref} className="inline-flex items-center gap-2 rounded-full border border-creme/45 px-6 py-3 text-sm font-medium text-creme transition-all hover:-translate-y-0.5 hover:border-creme">{SALON.phone}</a>
+                </div>
               </div>
             </div>
           </SectionReveal>
@@ -425,11 +437,11 @@ export default function Nuance() {
         <div className="mx-auto max-w-[1180px]">
           <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
             <div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-newsreader text-xl">{SALON.name}</span>
-                <span className="mt-1 text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-terracotta">Coiffure · {SALON.city}</span>
+              <div className="flex flex-col leading-none">
+                <span className="font-hand text-2xl font-bold leading-none">{SALON.name}</span>
+                <span className="mt-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-terracotta">Coiffure · {SALON.city}</span>
               </div>
-              <p className="mt-4 max-w-xs text-sm text-encre-doux">Un salon familial où l'on prend le temps. Coupe, couleur, balayage et soins, pour toute la famille.</p>
+              <p className={cn(LEAD, 'mt-4 max-w-xs text-sm text-encre-doux')}>Un salon familial où l'on prend le temps. Coupe, couleur, balayage et soins, pour toute la famille.</p>
             </div>
             <div>
               <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-encre-doux">Le salon</h4>
