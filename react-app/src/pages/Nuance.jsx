@@ -69,7 +69,7 @@ function Ghost({ href, anchor, tel, children, className = '' }) {
   return (
     <a
       {...props}
-      className={cn('inline-flex items-center justify-center gap-2 rounded-full border border-encre/20 px-6 py-3 text-sm font-medium text-encre transition-all hover:-translate-y-0.5 hover:border-terracotta hover:text-cognac', className)}
+      className={cn('inline-flex items-center justify-center gap-2 rounded-full border border-rose bg-rose-soft px-6 py-3 text-sm font-medium text-rose-deep transition-all hover:-translate-y-0.5 hover:bg-rose hover:text-encre', className)}
     >
       {children}
     </a>
@@ -121,7 +121,7 @@ export default function Nuance() {
             ))}
           </nav>
           <div className="flex items-center gap-2.5">
-            <a href={SALON.phoneHref} className="hidden rounded-full border border-encre/15 px-4 py-2 text-sm font-medium text-encre transition-colors hover:border-terracotta hover:text-cognac sm:inline-flex">{SALON.phone}</a>
+            <a href={SALON.phoneHref} className="hidden rounded-full border border-rose bg-rose-soft px-4 py-2 text-sm font-medium text-rose-deep transition-colors hover:bg-rose hover:text-encre sm:inline-flex">{SALON.phone}</a>
             <Reserve className="!hidden !px-5 !py-2.5 sm:!inline-flex">Réserver</Reserve>
             <button className="grid h-11 w-11 place-items-center rounded-xl border border-encre/15 bg-creme text-encre lg:hidden" onClick={() => setOpen(true)} aria-label="Ouvrir le menu">
               <Menu size={20} />
@@ -149,7 +149,7 @@ export default function Nuance() {
         <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-32">
           {/* Halos rose poudré + terracotta */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-            <div className="absolute -right-24 top-16 h-[38vw] w-[38vw] rounded-full bg-rose/35 blur-[130px]" />
+            <div className="absolute -right-24 top-16 h-[40vw] w-[40vw] rounded-full bg-rose/55 blur-[120px]" />
             <div className="absolute -left-20 bottom-0 h-[30vw] w-[30vw] rounded-full bg-terracotta/12 blur-[120px]" />
           </div>
           <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 md:grid-cols-[1.05fr_.95fr]">
