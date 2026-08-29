@@ -149,13 +149,13 @@ export default function Nuance() {
         <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-32">
           {/* Halos rose poudré + terracotta */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-            <div className="absolute -right-24 top-16 h-[40vw] w-[40vw] rounded-full bg-rose/55 blur-[120px]" />
-            <div className="absolute -left-20 bottom-0 h-[30vw] w-[30vw] rounded-full bg-terracotta/12 blur-[120px]" />
+            <div className="absolute -right-24 top-10 h-[44vw] w-[44vw] rounded-full bg-rose/70 blur-[110px]" />
+            <div className="absolute left-[30%] bottom-4 h-[26vw] w-[26vw] rounded-full bg-rose/40 blur-[120px]" />
           </div>
           <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-10 md:grid-cols-[1.05fr_.95fr]">
             <div>
               <SectionReveal>
-                <span className="inline-flex items-center gap-2 rounded-full border border-encre/10 bg-creme px-4 py-2 text-sm">
+                <span className="inline-flex items-center gap-2 rounded-full border border-rose bg-rose-soft px-4 py-2 text-sm">
                   <span className="tracking-widest text-terracotta" aria-hidden="true">★★★★★</span> {SALON.rating}/5 · {SALON.reviews} avis vérifiés
                 </span>
               </SectionReveal>
@@ -204,7 +204,7 @@ export default function Nuance() {
         </section>
 
         {/* STATS */}
-        <section className="border-y border-sable bg-creme/60">
+        <section className="border-y border-rose/40 bg-rose-soft/70">
           <div className="mx-auto grid max-w-[1180px] grid-cols-2 gap-8 px-6 py-12 text-center md:grid-cols-4">
             {STATS.map((s, i) => (
               <SectionReveal key={s.label} delay={i * 0.08}>
@@ -270,7 +270,7 @@ export default function Nuance() {
                     <div className={cn('mb-4 grid h-12 w-12 place-items-center rounded-2xl text-xl', i % 2 ? 'bg-rose-soft' : 'bg-sable')} aria-hidden="true">{s.ic}</div>
                     <h3 className="font-hand text-[1.85rem] font-semibold leading-none">{s.t}</h3>
                     <p className={cn(LEAD, 'mt-2 text-[0.98rem] text-encre-doux')}>{s.d}</p>
-                    <span className="mt-5 inline-block rounded-full bg-sable px-4 py-1.5 text-sm font-medium text-cognac">{s.tag}</span>
+                    <span className="mt-5 inline-block rounded-full bg-rose-soft px-4 py-1.5 text-sm font-medium text-rose-deep">{s.tag}</span>
                   </div>
                 </StaggerItem>
               ))}
