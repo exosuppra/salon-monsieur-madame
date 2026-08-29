@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Clock, CalendarDays, Menu, X, ArrowLeft } from 'lucide-react'
+import { MapPin, Phone, Clock, CalendarDays, Menu, X } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { SALON, STATS, PRICING, REVIEWS } from '../data'
 import SmoothScroll from '../components/SmoothScroll'
@@ -462,11 +462,11 @@ export default function Nuance() {
           </div>
           <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-sable pt-6 text-sm text-encre-doux">
             <span>© 2026 {SALON.name} — {SALON.city}</span>
-            <Link to="/" className="inline-flex items-center gap-2 text-cognac"><ArrowLeft size={14} /> Retour aux maquettes</Link>
+            <span>Mardi au samedi · 9h – 18h</span>
           </div>
           <div className="mt-4 text-center text-xs text-encre-doux/80">
             Site développé par{' '}
-            <a href="https://logiqia.fr" target="_blank" rel="noopener" className="font-medium text-cognac underline-offset-4 hover:underline">Logiq IA</a>
+            <a href="https://logiq-ia.fr" target="_blank" rel="noopener" className="font-medium text-cognac underline-offset-4 hover:underline">Logiq IA</a>
           </div>
         </div>
       </footer>
