@@ -88,7 +88,7 @@ export const PRICING = [
   {
     group: 'Les forfaits femmes — Brushing',
     rows: [
-      { n: 'Shampoing + brushing — cheveux courts', d: '20 min', p: '28 €' },
+      { n: 'Shampoing + brushing — cheveux courts', d: '20 min', p: '32 €' },
       { n: 'Shampoing + brushing — cheveux mi-longs', d: '30 min', p: '34 €' },
       { n: 'Shampoing + brushing — cheveux longs', d: '45 min', p: '40 €' },
     ],
@@ -130,7 +130,7 @@ export const PRICING = [
   {
     group: 'Balayage · Ombré hair · Mèches',
     rows: [
-      { n: 'Balayage + shampoing brushing — cheveux courts', d: '2h30', p: '76 €', from: true },
+      { n: 'Balayage + shampoing brushing — cheveux courts', d: '2h30', p: '90 €', from: true },
       { n: 'Balayage + shampoing brushing — cheveux mi-longs', d: '3h', p: '95 €', from: true },
       { n: 'Balayage + shampoing brushing — cheveux longs', d: '3h30', p: '114 €', from: true },
       { n: 'Balayage + shampoing coupe brushing — cheveux courts', d: '2h30', p: '90 €', from: true },
