@@ -13,11 +13,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HashRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        {/* Nuance = site final = page d'accueil */}
+        <Route path="/" element={<Nuance />} />
+        <Route path="/nuance" element={<Nuance />} />
         <Route path="/signature" element={<Signature />} />
         <Route path="/eclat" element={<Eclat />} />
-        <Route path="/nuance" element={<Nuance />} />
-        <Route path="*" element={<Landing />} />
+        <Route path="/maquettes" element={<Landing />} />
+        <Route path="*" element={<Nuance />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>,
