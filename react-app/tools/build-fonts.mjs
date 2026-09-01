@@ -23,10 +23,15 @@ const UNICODES = [
 
 // Une entrée par fichier .woff2 produit.
 //   pin      : axes figés (réduit fortement le poids)
-//   features : `calt` est indispensable à Caveat (alternances manuscrites)
+//   features : fonctionnalités typographiques conservées
+//   display  : `swap` par défaut (voir la note sur l'italique de Newsreader)
 const FONTS = [
+  // `calt` (les alternances manuscrites de Caveat) pèse 29 Ko à lui seul, pour
+  // une différence invisible à l'œil sur ce texte — comparaison faite au rendu.
+  // Caveat porte le titre h1, l'élément que Google chronomètre : c'est le
+  // fichier le plus critique du site, chaque kilo-octet y compte.
   { family: 'Caveat', file: 'caveat-normal', style: 'normal', weight: '600 700',
-    query: 'family=Caveat:wght@600..700', pin: { wght: '600:700' }, features: 'kern,liga,calt' },
+    query: 'family=Caveat:wght@600..700', pin: { wght: '600:700' }, features: 'kern,liga' },
 
   { family: 'Karla', file: 'karla-normal', style: 'normal', weight: '400 700',
     query: 'family=Karla:wght@400..700', pin: {}, features: 'kern,liga' },
@@ -37,8 +42,18 @@ const FONTS = [
   { family: 'Newsreader', file: 'newsreader-500-normal', style: 'normal', weight: '500',
     query: 'family=Newsreader:opsz,wght@6..72,500', pin: { opsz: '16', wght: '500' }, features: 'kern,liga' },
 
+  // `optional` plutôt que `swap`. Si la police n'est pas prête très vite, le
+  // navigateur conserve le repli pour toute la visite au lieu de remplacer le
+  // texte en cours de route.
+  //
+  // C'est le seul moyen sûr d'éliminer le dernier « saut » de mise en page :
+  // même avec des métriques calibrées au plus près (86,5 % contre 87,1 % visés),
+  // il suffit qu'un mot bascule à la ligne suivante pour décaler tout le bloc
+  // en dessous — ce qui se produisait sur environ une visite sur trois.
+  // La police étant préchargée, elle est utilisée dans l'immense majorité des cas.
   { family: 'Newsreader', file: 'newsreader-400-italic', style: 'italic', weight: '400',
-    query: 'family=Newsreader:ital,opsz,wght@1,6..72,400', pin: { opsz: '16' }, features: 'kern,liga' },
+    query: 'family=Newsreader:ital,opsz,wght@1,6..72,400', pin: { opsz: '16' },
+    features: 'kern,liga', display: 'optional' },
 ]
 
 const py = (...args) => execFileSync('python', ['-m', ...args], { stdio: 'pipe' })
@@ -80,7 +95,7 @@ for (const f of FONTS) {
     `--layout-features=${f.features}`, '--desubroutinize', `--output-file=${out}`)
 
   css += `@font-face{font-family:'${f.family}';font-style:${f.style};font-weight:${f.weight};`
-       + `font-display:swap;src:url('/fonts/${f.file}.woff2') format('woff2');}\n`
+       + `font-display:${f.display || 'swap'};src:url('/fonts/${f.file}.woff2') format('woff2');}\n`
   console.log(`${f.file.padEnd(24)} ${kb(raw).toFixed(1).padStart(6)} KB -> ${kb(out).toFixed(1).padStart(6)} KB`)
 
   // Police de repli aux mêmes métriques que la police définitive.
