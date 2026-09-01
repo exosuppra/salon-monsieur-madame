@@ -172,7 +172,13 @@ export default function Nuance() {
                   <Reserve />
                   <Ghost anchor="#prestations">Découvrir le salon</Ghost>
                 </div>
-                <p className="mt-6 text-xs uppercase tracking-[0.16em] text-encre-doux/75">Réservation en ligne 24h/24 via Planity · {SALON.phone}</p>
+                {/* Le numéro ne doit jamais être coupé en fin de ligne : c'est mauvais
+                    à lire, et cela faisait varier le nombre de lignes selon la police
+                    chargée, décalant le bloc au-dessus (CLS). */}
+                <p className="mt-6 text-xs uppercase tracking-[0.16em] text-encre-doux/75">
+                  Réservation en ligne 24h/24 via Planity ·{' '}
+                  <span className="whitespace-nowrap">{SALON.phone}</span>
+                </p>
               </SectionReveal>
             </div>
 
