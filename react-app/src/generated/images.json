@@ -12,23 +12,23 @@
       1040
     ],
     "avif": {
-      "320": "photos/opt/realisation-balayage-blond-320.avif",
-      "420": "photos/opt/realisation-balayage-blond-420.avif",
-      "540": "photos/opt/realisation-balayage-blond-540.avif",
-      "680": "photos/opt/realisation-balayage-blond-680.avif",
-      "840": "photos/opt/realisation-balayage-blond-840.avif",
-      "1040": "photos/opt/realisation-balayage-blond-1040.avif"
+      "320": "photos/opt/realisation-balayage-blond-cff4f4b9.avif",
+      "420": "photos/opt/realisation-balayage-blond-411d274c.avif",
+      "540": "photos/opt/realisation-balayage-blond-f71f7237.avif",
+      "680": "photos/opt/realisation-balayage-blond-e5d05ddc.avif",
+      "840": "photos/opt/realisation-balayage-blond-5a00a903.avif",
+      "1040": "photos/opt/realisation-balayage-blond-1e3e96a1.avif"
     },
     "webp": {
-      "320": "photos/opt/realisation-balayage-blond-320.webp",
-      "420": "photos/opt/realisation-balayage-blond-420.webp",
-      "540": "photos/opt/realisation-balayage-blond-540.webp",
-      "680": "photos/opt/realisation-balayage-blond-680.webp",
-      "840": "photos/opt/realisation-balayage-blond-840.webp",
-      "1040": "photos/opt/realisation-balayage-blond-1040.webp"
+      "320": "photos/opt/realisation-balayage-blond-1cda0f44.webp",
+      "420": "photos/opt/realisation-balayage-blond-e90456c5.webp",
+      "540": "photos/opt/realisation-balayage-blond-6f9072b8.webp",
+      "680": "photos/opt/realisation-balayage-blond-58587479.webp",
+      "840": "photos/opt/realisation-balayage-blond-be540d52.webp",
+      "1040": "photos/opt/realisation-balayage-blond-4bb6d950.webp"
     },
-    "fallback": "photos/opt/realisation-balayage-blond-1040.jpg",
-    "fallbackWidth": 1040
+    "fallback": "photos/opt/realisation-balayage-blond-ec3b8d3b.jpg",
+    "fallbackWidth": 680
   },
   "realisation-brushing-ondule.jpg": {
     "width": 1050,
@@ -43,23 +43,23 @@
       1040
     ],
     "avif": {
-      "320": "photos/opt/realisation-brushing-ondule-320.avif",
-      "420": "photos/opt/realisation-brushing-ondule-420.avif",
-      "540": "photos/opt/realisation-brushing-ondule-540.avif",
-      "680": "photos/opt/realisation-brushing-ondule-680.avif",
-      "840": "photos/opt/realisation-brushing-ondule-840.avif",
-      "1040": "photos/opt/realisation-brushing-ondule-1040.avif"
+      "320": "photos/opt/realisation-brushing-ondule-34fa3546.avif",
+      "420": "photos/opt/realisation-brushing-ondule-ed343474.avif",
+      "540": "photos/opt/realisation-brushing-ondule-ca5476d8.avif",
+      "680": "photos/opt/realisation-brushing-ondule-636302d6.avif",
+      "840": "photos/opt/realisation-brushing-ondule-d5577bdb.avif",
+      "1040": "photos/opt/realisation-brushing-ondule-2479981d.avif"
     },
     "webp": {
-      "320": "photos/opt/realisation-brushing-ondule-320.webp",
-      "420": "photos/opt/realisation-brushing-ondule-420.webp",
-      "540": "photos/opt/realisation-brushing-ondule-540.webp",
-      "680": "photos/opt/realisation-brushing-ondule-680.webp",
-      "840": "photos/opt/realisation-brushing-ondule-840.webp",
-      "1040": "photos/opt/realisation-brushing-ondule-1040.webp"
+      "320": "photos/opt/realisation-brushing-ondule-413eda32.webp",
+      "420": "photos/opt/realisation-brushing-ondule-3dc5ec72.webp",
+      "540": "photos/opt/realisation-brushing-ondule-c052fd5c.webp",
+      "680": "photos/opt/realisation-brushing-ondule-efdeda98.webp",
+      "840": "photos/opt/realisation-brushing-ondule-6a48b7e5.webp",
+      "1040": "photos/opt/realisation-brushing-ondule-7c8f5dd7.webp"
     },
-    "fallback": "photos/opt/realisation-brushing-ondule-1040.jpg",
-    "fallbackWidth": 1040
+    "fallback": "photos/opt/realisation-brushing-ondule-60d219d9.jpg",
+    "fallbackWidth": 680
   },
   "realisation-carre-blond.jpg": {
     "width": 1050,
@@ -74,23 +74,23 @@
       1040
     ],
     "avif": {
-      "320": "photos/opt/realisation-carre-blond-320.avif",
-      "420": "photos/opt/realisation-carre-blond-420.avif",
-      "540": "photos/opt/realisation-carre-blond-540.avif",
-      "680": "photos/opt/realisation-carre-blond-680.avif",
-      "840": "photos/opt/realisation-carre-blond-840.avif",
-      "1040": "photos/opt/realisation-carre-blond-1040.avif"
+      "320": "photos/opt/realisation-carre-blond-4136681f.avif",
+      "420": "photos/opt/realisation-carre-blond-75e444a1.avif",
+      "540": "photos/opt/realisation-carre-blond-37a22a95.avif",
+      "680": "photos/opt/realisation-carre-blond-7c105606.avif",
+      "840": "photos/opt/realisation-carre-blond-634cdc0a.avif",
+      "1040": "photos/opt/realisation-carre-blond-87a4cad9.avif"
     },
     "webp": {
-      "320": "photos/opt/realisation-carre-blond-320.webp",
-      "420": "photos/opt/realisation-carre-blond-420.webp",
-      "540": "photos/opt/realisation-carre-blond-540.webp",
-      "680": "photos/opt/realisation-carre-blond-680.webp",
-      "840": "photos/opt/realisation-carre-blond-840.webp",
-      "1040": "photos/opt/realisation-carre-blond-1040.webp"
+      "320": "photos/opt/realisation-carre-blond-378c6ca7.webp",
+      "420": "photos/opt/realisation-carre-blond-c5e399e9.webp",
+      "540": "photos/opt/realisation-carre-blond-a8a0742f.webp",
+      "680": "photos/opt/realisation-carre-blond-5d2e78a4.webp",
+      "840": "photos/opt/realisation-carre-blond-1865e325.webp",
+      "1040": "photos/opt/realisation-carre-blond-834b674d.webp"
     },
-    "fallback": "photos/opt/realisation-carre-blond-1040.jpg",
-    "fallbackWidth": 1040
+    "fallback": "photos/opt/realisation-carre-blond-d55ed5c6.jpg",
+    "fallbackWidth": 680
   },
   "realisation-cheveux-longs.jpg": {
     "width": 1050,
@@ -105,23 +105,23 @@
       1040
     ],
     "avif": {
-      "320": "photos/opt/realisation-cheveux-longs-320.avif",
-      "420": "photos/opt/realisation-cheveux-longs-420.avif",
-      "540": "photos/opt/realisation-cheveux-longs-540.avif",
-      "680": "photos/opt/realisation-cheveux-longs-680.avif",
-      "840": "photos/opt/realisation-cheveux-longs-840.avif",
-      "1040": "photos/opt/realisation-cheveux-longs-1040.avif"
+      "320": "photos/opt/realisation-cheveux-longs-5ab283cf.avif",
+      "420": "photos/opt/realisation-cheveux-longs-6365152b.avif",
+      "540": "photos/opt/realisation-cheveux-longs-db93d694.avif",
+      "680": "photos/opt/realisation-cheveux-longs-1f37292e.avif",
+      "840": "photos/opt/realisation-cheveux-longs-8adadd42.avif",
+      "1040": "photos/opt/realisation-cheveux-longs-3187075f.avif"
     },
     "webp": {
-      "320": "photos/opt/realisation-cheveux-longs-320.webp",
-      "420": "photos/opt/realisation-cheveux-longs-420.webp",
-      "540": "photos/opt/realisation-cheveux-longs-540.webp",
-      "680": "photos/opt/realisation-cheveux-longs-680.webp",
-      "840": "photos/opt/realisation-cheveux-longs-840.webp",
-      "1040": "photos/opt/realisation-cheveux-longs-1040.webp"
+      "320": "photos/opt/realisation-cheveux-longs-e34782bb.webp",
+      "420": "photos/opt/realisation-cheveux-longs-c8bab42e.webp",
+      "540": "photos/opt/realisation-cheveux-longs-2e16b82a.webp",
+      "680": "photos/opt/realisation-cheveux-longs-9bd90e5f.webp",
+      "840": "photos/opt/realisation-cheveux-longs-4593d2cd.webp",
+      "1040": "photos/opt/realisation-cheveux-longs-d469b447.webp"
     },
-    "fallback": "photos/opt/realisation-cheveux-longs-1040.jpg",
-    "fallbackWidth": 1040
+    "fallback": "photos/opt/realisation-cheveux-longs-431a9cfb.jpg",
+    "fallbackWidth": 680
   },
   "realisation-contraste-racines.jpg": {
     "width": 1050,
@@ -136,23 +136,23 @@
       1040
     ],
     "avif": {
-      "320": "photos/opt/realisation-contraste-racines-320.avif",
-      "420": "photos/opt/realisation-contraste-racines-420.avif",
-      "540": "photos/opt/realisation-contraste-racines-540.avif",
-      "680": "photos/opt/realisation-contraste-racines-680.avif",
-      "840": "photos/opt/realisation-contraste-racines-840.avif",
-      "1040": "photos/opt/realisation-contraste-racines-1040.avif"
+      "320": "photos/opt/realisation-contraste-racines-15f5281a.avif",
+      "420": "photos/opt/realisation-contraste-racines-cee484f7.avif",
+      "540": "photos/opt/realisation-contraste-racines-114d22d3.avif",
+      "680": "photos/opt/realisation-contraste-racines-89e16ba5.avif",
+      "840": "photos/opt/realisation-contraste-racines-4787ea32.avif",
+      "1040": "photos/opt/realisation-contraste-racines-0ad2a963.avif"
     },
     "webp": {
-      "320": "photos/opt/realisation-contraste-racines-320.webp",
-      "420": "photos/opt/realisation-contraste-racines-420.webp",
-      "540": "photos/opt/realisation-contraste-racines-540.webp",
-      "680": "photos/opt/realisation-contraste-racines-680.webp",
-      "840": "photos/opt/realisation-contraste-racines-840.webp",
-      "1040": "photos/opt/realisation-contraste-racines-1040.webp"
+      "320": "photos/opt/realisation-contraste-racines-868be080.webp",
+      "420": "photos/opt/realisation-contraste-racines-d7032d3b.webp",
+      "540": "photos/opt/realisation-contraste-racines-68f3e057.webp",
+      "680": "photos/opt/realisation-contraste-racines-7ec158cf.webp",
+      "840": "photos/opt/realisation-contraste-racines-c905935f.webp",
+      "1040": "photos/opt/realisation-contraste-racines-a75ec07c.webp"
     },
-    "fallback": "photos/opt/realisation-contraste-racines-1040.jpg",
-    "fallbackWidth": 1040
+    "fallback": "photos/opt/realisation-contraste-racines-9ea6c28b.jpg",
+    "fallbackWidth": 680
   },
   "salon-terrasse.jpg": {
     "width": 1800,
@@ -169,26 +169,26 @@
       1400
     ],
     "avif": {
-      "320": "photos/opt/salon-terrasse-320.avif",
-      "420": "photos/opt/salon-terrasse-420.avif",
-      "540": "photos/opt/salon-terrasse-540.avif",
-      "680": "photos/opt/salon-terrasse-680.avif",
-      "840": "photos/opt/salon-terrasse-840.avif",
-      "1040": "photos/opt/salon-terrasse-1040.avif",
-      "1280": "photos/opt/salon-terrasse-1280.avif",
-      "1400": "photos/opt/salon-terrasse-1400.avif"
+      "320": "photos/opt/salon-terrasse-cb2e26c9.avif",
+      "420": "photos/opt/salon-terrasse-f6b8249b.avif",
+      "540": "photos/opt/salon-terrasse-cfcfcaf4.avif",
+      "680": "photos/opt/salon-terrasse-cf5ba4d7.avif",
+      "840": "photos/opt/salon-terrasse-a08d12be.avif",
+      "1040": "photos/opt/salon-terrasse-b5308eac.avif",
+      "1280": "photos/opt/salon-terrasse-b128dff8.avif",
+      "1400": "photos/opt/salon-terrasse-fde5279b.avif"
     },
     "webp": {
-      "320": "photos/opt/salon-terrasse-320.webp",
-      "420": "photos/opt/salon-terrasse-420.webp",
-      "540": "photos/opt/salon-terrasse-540.webp",
-      "680": "photos/opt/salon-terrasse-680.webp",
-      "840": "photos/opt/salon-terrasse-840.webp",
-      "1040": "photos/opt/salon-terrasse-1040.webp",
-      "1280": "photos/opt/salon-terrasse-1280.webp",
-      "1400": "photos/opt/salon-terrasse-1400.webp"
+      "320": "photos/opt/salon-terrasse-83a552d6.webp",
+      "420": "photos/opt/salon-terrasse-93d4107c.webp",
+      "540": "photos/opt/salon-terrasse-650fd7d3.webp",
+      "680": "photos/opt/salon-terrasse-8c90f038.webp",
+      "840": "photos/opt/salon-terrasse-085d4565.webp",
+      "1040": "photos/opt/salon-terrasse-8a5520d2.webp",
+      "1280": "photos/opt/salon-terrasse-a8368ca9.webp",
+      "1400": "photos/opt/salon-terrasse-1f24a76f.webp"
     },
-    "fallback": "photos/opt/salon-terrasse-1400.jpg",
-    "fallbackWidth": 1400
+    "fallback": "photos/opt/salon-terrasse-1b8b83aa.jpg",
+    "fallbackWidth": 680
   }
 }

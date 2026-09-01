@@ -8,6 +8,7 @@
  */
 import fs from 'fs'
 import path from 'path'
+import crypto from 'crypto'
 import { execFileSync } from 'child_process'
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
@@ -72,6 +73,7 @@ fs.rmSync(OUT, { recursive: true, force: true })
 fs.mkdirSync(TMP, { recursive: true })
 
 const fallbackDone = new Set()
+const fileNames = {}   // nom logique -> nom de fichier avec empreinte
 let css = '/* Polices auto-hébergées. Généré par tools/build-fonts.mjs — ne pas éditer à la main. */\n'
 let before = 0
 
@@ -90,13 +92,25 @@ for (const f of FONTS) {
     input = pinned
   }
 
-  const out = path.join(OUT, `${f.file}.woff2`)
+  // Le nom du fichier porte une empreinte de son contenu, comme le fait Vite
+  // pour le JavaScript et le CSS. Sans cela, une police modifiée garderait le
+  // même nom : mise en cache un an chez Cloudflare et dans les navigateurs, la
+  // nouvelle version ne serait jamais servie. Avec l'empreinte, toute
+  // modification produit une nouvelle adresse — et le cache long reste correct.
+  const tmpOut = path.join(TMP, `${f.file}.woff2`)
   py('fontTools.subset', input, `--unicodes=${UNICODES}`, '--flavor=woff2',
-    `--layout-features=${f.features}`, '--desubroutinize', `--output-file=${out}`)
+    `--layout-features=${f.features}`, '--desubroutinize', `--output-file=${tmpOut}`)
+
+  const bytes = fs.readFileSync(tmpOut)
+  const hash = crypto.createHash('sha256').update(bytes).digest('hex').slice(0, 8)
+  const name = `${f.file}-${hash}.woff2`
+  const out = path.join(OUT, name)
+  fs.writeFileSync(out, bytes)
+  fileNames[f.file] = name
 
   css += `@font-face{font-family:'${f.family}';font-style:${f.style};font-weight:${f.weight};`
-       + `font-display:${f.display || 'swap'};src:url('/fonts/${f.file}.woff2') format('woff2');}\n`
-  console.log(`${f.file.padEnd(24)} ${kb(raw).toFixed(1).padStart(6)} KB -> ${kb(out).toFixed(1).padStart(6)} KB`)
+       + `font-display:${f.display || 'swap'};src:url('/fonts/${name}') format('woff2');}\n`
+  console.log(`${name.padEnd(34)} ${kb(raw).toFixed(1).padStart(6)} KB -> ${kb(out).toFixed(1).padStart(6)} KB`)
 
   // Police de repli aux mêmes métriques que la police définitive.
   // Sans cela, le texte change de largeur au moment du remplacement et la mise
@@ -137,7 +151,7 @@ const faces = css
   .map((l) => '      ' + l.replace(/url\('\/fonts\//g, "url('%BASE_URL%fonts/"))
 
 const injected = [
-  ...PRELOAD.map((f) => `    <link rel="preload" href="%BASE_URL%fonts/${f}.woff2" as="font" type="font/woff2" crossorigin />`),
+  ...PRELOAD.map((f) => `    <link rel="preload" href="%BASE_URL%fonts/${fileNames[f]}" as="font" type="font/woff2" crossorigin />`),
   '    <style>',
   ...faces,
   '    </style>',

@@ -8,6 +8,7 @@
  */
 import fs from 'fs'
 import path from 'path'
+import crypto from 'crypto'
 import sharp from 'sharp'
 
 const SRC = 'public/photos'
@@ -39,30 +40,37 @@ for (const file of sources) {
 
   const entry = { width: meta.width, height: meta.height, ratio: +(meta.width / meta.height).toFixed(4), widths, avif: {}, webp: {}, fallback: '' }
 
+  // Les fichiers portent une empreinte de leur contenu : servis avec un cache
+  // d'un an, ils doivent changer d'adresse quand la photo change — sinon la
+  // nouvelle version ne serait jamais distribuee.
+  const emit = async (buffer, ext) => {
+    const hash = crypto.createHash('sha256').update(buffer).digest('hex').slice(0, 8)
+    const name = `${base}-${hash}.${ext}`
+    fs.writeFileSync(path.join(OUT, name), buffer)
+    after += buffer.length
+    return `photos/opt/${name}`
+  }
+
   for (const w of widths) {
     const pipe = sharp(full).resize({ width: w, withoutEnlargement: true })
-    const avif = path.join(OUT, `${base}-${w}.avif`)
-    const webp = path.join(OUT, `${base}-${w}.webp`)
-    await pipe.clone().avif({ quality: 55, effort: 6 }).toFile(avif)
-    await pipe.clone().webp({ quality: 74, effort: 6 }).toFile(webp)
-    entry.avif[w] = `photos/opt/${base}-${w}.avif`
-    entry.webp[w] = `photos/opt/${base}-${w}.webp`
-    after += fs.statSync(avif).size + fs.statSync(webp).size
+    entry.avif[w] = await emit(await pipe.clone().avif({ quality: 55, effort: 6 }).toBuffer(), 'avif')
+    entry.webp[w] = await emit(await pipe.clone().webp({ quality: 74, effort: 6 }).toBuffer(), 'webp')
   }
 
   // Repli JPEG pour les très vieux navigateurs, à une largeur intermédiaire.
-  const fbWidth = widths.includes(760) ? 760 : widths[widths.length - 1]
-  const fb = path.join(OUT, `${base}-${fbWidth}.jpg`)
-  await sharp(full).resize({ width: fbWidth, withoutEnlargement: true }).jpeg({ quality: 78, mozjpeg: true }).toFile(fb)
-  entry.fallback = `photos/opt/${base}-${fbWidth}.jpg`
+  const fbWidth = widths.includes(680) ? 680 : widths[widths.length - 1]
+  entry.fallback = await emit(
+    await sharp(full).resize({ width: fbWidth, withoutEnlargement: true }).jpeg({ quality: 78, mozjpeg: true }).toBuffer(),
+    'jpg',
+  )
   entry.fallbackWidth = fbWidth
-  after += fs.statSync(fb).size
 
   manifest[file] = entry
   const largest = Math.max(...widths)
+  const largestFile = path.join(OUT, path.basename(entry.avif[largest]))
   console.log(
     `${file.padEnd(36)} ${(fs.statSync(full).size / 1024).toFixed(0).padStart(4)} KB` +
-    ` -> AVIF ${largest}px ${(fs.statSync(path.join(OUT, `${base}-${largest}.avif`)).size / 1024).toFixed(0).padStart(3)} KB`,
+    ` -> AVIF ${largest}px ${(fs.statSync(largestFile).size / 1024).toFixed(0).padStart(3)} KB`,
   )
 }
 

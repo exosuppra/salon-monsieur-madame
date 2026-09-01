@@ -1,14 +1,21 @@
 # Cloudflare Pages — politique de cache.
-# Les fichiers d'assets portent une empreinte dans leur nom (index-XXXX.js) :
-# ils peuvent être mis en cache définitivement.
+#
+# Tous les fichiers ci-dessous portent une empreinte de leur contenu dans leur
+# nom (index-a1b2c3.js, caveat-normal-d286ea98.woff2, salon-terrasse-4f2e.avif).
+# Une modification produit donc une nouvelle adresse : le cache d'un an est sûr,
+# et une mise à jour est distribuée immédiatement.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Photos et polices : noms stables, mais contenu qui ne change qu'au redéploiement.
-# Un an de cache avec revalidation en arrière-plan.
-/photos/*
-  Cache-Control: public, max-age=31536000, stale-while-revalidate=86400
-
 /fonts/*
-  Cache-Control: public, max-age=31536000, stale-while-revalidate=86400
+  Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
+
+/photos/opt/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Les photos d'origine n'ont pas d'empreinte : elles servent aux aperçus des
+# réseaux sociaux et aux données structurées, où l'adresse doit rester stable.
+# Cache court, avec revalidation en arrière-plan.
+/photos/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
