@@ -1,0 +1,194 @@
+{
+  "realisation-balayage-blond.jpg": {
+    "width": 1125,
+    "height": 1500,
+    "ratio": 0.75,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040
+    ],
+    "avif": {
+      "320": "photos/opt/realisation-balayage-blond-320.avif",
+      "420": "photos/opt/realisation-balayage-blond-420.avif",
+      "540": "photos/opt/realisation-balayage-blond-540.avif",
+      "680": "photos/opt/realisation-balayage-blond-680.avif",
+      "840": "photos/opt/realisation-balayage-blond-840.avif",
+      "1040": "photos/opt/realisation-balayage-blond-1040.avif"
+    },
+    "webp": {
+      "320": "photos/opt/realisation-balayage-blond-320.webp",
+      "420": "photos/opt/realisation-balayage-blond-420.webp",
+      "540": "photos/opt/realisation-balayage-blond-540.webp",
+      "680": "photos/opt/realisation-balayage-blond-680.webp",
+      "840": "photos/opt/realisation-balayage-blond-840.webp",
+      "1040": "photos/opt/realisation-balayage-blond-1040.webp"
+    },
+    "fallback": "photos/opt/realisation-balayage-blond-1040.jpg",
+    "fallbackWidth": 1040
+  },
+  "realisation-brushing-ondule.jpg": {
+    "width": 1050,
+    "height": 1400,
+    "ratio": 0.75,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040
+    ],
+    "avif": {
+      "320": "photos/opt/realisation-brushing-ondule-320.avif",
+      "420": "photos/opt/realisation-brushing-ondule-420.avif",
+      "540": "photos/opt/realisation-brushing-ondule-540.avif",
+      "680": "photos/opt/realisation-brushing-ondule-680.avif",
+      "840": "photos/opt/realisation-brushing-ondule-840.avif",
+      "1040": "photos/opt/realisation-brushing-ondule-1040.avif"
+    },
+    "webp": {
+      "320": "photos/opt/realisation-brushing-ondule-320.webp",
+      "420": "photos/opt/realisation-brushing-ondule-420.webp",
+      "540": "photos/opt/realisation-brushing-ondule-540.webp",
+      "680": "photos/opt/realisation-brushing-ondule-680.webp",
+      "840": "photos/opt/realisation-brushing-ondule-840.webp",
+      "1040": "photos/opt/realisation-brushing-ondule-1040.webp"
+    },
+    "fallback": "photos/opt/realisation-brushing-ondule-1040.jpg",
+    "fallbackWidth": 1040
+  },
+  "realisation-carre-blond.jpg": {
+    "width": 1050,
+    "height": 1400,
+    "ratio": 0.75,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040
+    ],
+    "avif": {
+      "320": "photos/opt/realisation-carre-blond-320.avif",
+      "420": "photos/opt/realisation-carre-blond-420.avif",
+      "540": "photos/opt/realisation-carre-blond-540.avif",
+      "680": "photos/opt/realisation-carre-blond-680.avif",
+      "840": "photos/opt/realisation-carre-blond-840.avif",
+      "1040": "photos/opt/realisation-carre-blond-1040.avif"
+    },
+    "webp": {
+      "320": "photos/opt/realisation-carre-blond-320.webp",
+      "420": "photos/opt/realisation-carre-blond-420.webp",
+      "540": "photos/opt/realisation-carre-blond-540.webp",
+      "680": "photos/opt/realisation-carre-blond-680.webp",
+      "840": "photos/opt/realisation-carre-blond-840.webp",
+      "1040": "photos/opt/realisation-carre-blond-1040.webp"
+    },
+    "fallback": "photos/opt/realisation-carre-blond-1040.jpg",
+    "fallbackWidth": 1040
+  },
+  "realisation-cheveux-longs.jpg": {
+    "width": 1050,
+    "height": 1400,
+    "ratio": 0.75,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040
+    ],
+    "avif": {
+      "320": "photos/opt/realisation-cheveux-longs-320.avif",
+      "420": "photos/opt/realisation-cheveux-longs-420.avif",
+      "540": "photos/opt/realisation-cheveux-longs-540.avif",
+      "680": "photos/opt/realisation-cheveux-longs-680.avif",
+      "840": "photos/opt/realisation-cheveux-longs-840.avif",
+      "1040": "photos/opt/realisation-cheveux-longs-1040.avif"
+    },
+    "webp": {
+      "320": "photos/opt/realisation-cheveux-longs-320.webp",
+      "420": "photos/opt/realisation-cheveux-longs-420.webp",
+      "540": "photos/opt/realisation-cheveux-longs-540.webp",
+      "680": "photos/opt/realisation-cheveux-longs-680.webp",
+      "840": "photos/opt/realisation-cheveux-longs-840.webp",
+      "1040": "photos/opt/realisation-cheveux-longs-1040.webp"
+    },
+    "fallback": "photos/opt/realisation-cheveux-longs-1040.jpg",
+    "fallbackWidth": 1040
+  },
+  "realisation-contraste-racines.jpg": {
+    "width": 1050,
+    "height": 1400,
+    "ratio": 0.75,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040
+    ],
+    "avif": {
+      "320": "photos/opt/realisation-contraste-racines-320.avif",
+      "420": "photos/opt/realisation-contraste-racines-420.avif",
+      "540": "photos/opt/realisation-contraste-racines-540.avif",
+      "680": "photos/opt/realisation-contraste-racines-680.avif",
+      "840": "photos/opt/realisation-contraste-racines-840.avif",
+      "1040": "photos/opt/realisation-contraste-racines-1040.avif"
+    },
+    "webp": {
+      "320": "photos/opt/realisation-contraste-racines-320.webp",
+      "420": "photos/opt/realisation-contraste-racines-420.webp",
+      "540": "photos/opt/realisation-contraste-racines-540.webp",
+      "680": "photos/opt/realisation-contraste-racines-680.webp",
+      "840": "photos/opt/realisation-contraste-racines-840.webp",
+      "1040": "photos/opt/realisation-contraste-racines-1040.webp"
+    },
+    "fallback": "photos/opt/realisation-contraste-racines-1040.jpg",
+    "fallbackWidth": 1040
+  },
+  "salon-terrasse.jpg": {
+    "width": 1800,
+    "height": 1350,
+    "ratio": 1.3333,
+    "widths": [
+      320,
+      420,
+      540,
+      680,
+      840,
+      1040,
+      1280,
+      1400
+    ],
+    "avif": {
+      "320": "photos/opt/salon-terrasse-320.avif",
+      "420": "photos/opt/salon-terrasse-420.avif",
+      "540": "photos/opt/salon-terrasse-540.avif",
+      "680": "photos/opt/salon-terrasse-680.avif",
+      "840": "photos/opt/salon-terrasse-840.avif",
+      "1040": "photos/opt/salon-terrasse-1040.avif",
+      "1280": "photos/opt/salon-terrasse-1280.avif",
+      "1400": "photos/opt/salon-terrasse-1400.avif"
+    },
+    "webp": {
+      "320": "photos/opt/salon-terrasse-320.webp",
+      "420": "photos/opt/salon-terrasse-420.webp",
+      "540": "photos/opt/salon-terrasse-540.webp",
+      "680": "photos/opt/salon-terrasse-680.webp",
+      "840": "photos/opt/salon-terrasse-840.webp",
+      "1040": "photos/opt/salon-terrasse-1040.webp",
+      "1280": "photos/opt/salon-terrasse-1280.webp",
+      "1400": "photos/opt/salon-terrasse-1400.webp"
+    },
+    "fallback": "photos/opt/salon-terrasse-1400.jpg",
+    "fallbackWidth": 1400
+  }
+}

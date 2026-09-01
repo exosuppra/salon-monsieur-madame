@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-import { useInView } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import useInView from '../../lib/useInView'
 
 // Compteur animé (Magic UI - Number Ticker)
 export default function NumberTicker({ value, decimals = 0, suffix = '', prefix = '', className = '' }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const [ref, inView] = useInView({ once: true, margin: '-60px' })
   const [display, setDisplay] = useState(0)
 
   useEffect(() => {

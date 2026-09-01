@@ -8,9 +8,12 @@ export default {
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         playfair: ['"Playfair Display"', 'Georgia', 'serif'],
         fraunces: ['"Fraunces"', 'Georgia', 'serif'],
-        newsreader: ['"Newsreader"', 'Georgia', 'serif'],
-        karla: ['"Karla"', 'system-ui', 'sans-serif'],
-        hand: ['"Caveat"', '"Newsreader"', 'cursive'],
+        // Les « … Fallback » sont des polices système recalibrées (voir
+        // tools/build-fonts.mjs) : elles occupent exactement la même place que
+        // la police définitive, donc la page ne bouge pas quand celle-ci arrive.
+        newsreader: ['"Newsreader"', '"Newsreader Fallback"', 'Georgia', 'serif'],
+        karla: ['"Karla"', '"Karla Fallback"', 'system-ui', 'sans-serif'],
+        hand: ['"Caveat"', '"Caveat Fallback"', 'cursive'],
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
         jost: ['"Jost"', 'system-ui', 'sans-serif'],
       },
@@ -33,9 +36,12 @@ export default {
         cognac: '#8A4B2A',
         terracotta: '#C0714E',
         'terracotta-light': '#D89272',
+        // Variante assombrie pour le texte et les boutons : garantit 4,5:1 (WCAG AA)
+        // sur les fonds clairs du site (lin, crème, rose-soft).
+        'terracotta-deep': '#9E5231',
         rose: '#E3B3BE',
         'rose-soft': '#F5E2E6',
-        'rose-deep': '#B27585',
+        'rose-deep': '#8E4E5E',
         olive: '#77835D',
         encre: '#332A21',
         'encre-doux': '#6B5D4E',

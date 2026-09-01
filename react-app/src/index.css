@@ -23,6 +23,59 @@ body { margin: 0; }
 /* Keyframe spin (référencé en inline-style par ShimmerButton) */
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* --- Rendu différé du contenu hors écran ---
+   Le navigateur ignore la mise en page et le dessin des sections situées hors
+   de l'écran tant qu'on ne les approche pas. Le contenu reste bien présent dans
+   la page (Google le lit, la recherche Ctrl+F le trouve) : seul le travail
+   d'affichage est reporté. C'est ce qui permet au haut de page de s'afficher
+   sans attendre le calcul des ~900 éléments du reste du site.
+   `contain-intrinsic-size: auto <h>` réserve une hauteur estimée puis mémorise
+   la vraie hauteur une fois la section affichée : la barre de défilement ne
+   saute pas. */
+.defer-paint {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* --- Révélation au scroll, sans JavaScript ---
+   L'animation est pilotée par la position de l'élément dans la page
+   (`animation-timeline: view()`), pas par un observateur en JavaScript.
+
+   Point essentiel : la règle est enfermée dans un @supports. Sur un navigateur
+   qui ne gère pas ces animations, la déclaration entière est ignorée et le
+   contenu s'affiche simplement, sans animation. Il n'existe donc aucun cas de
+   figure où un bloc pourrait rester invisible.
+
+   Un élément déjà à l'écran au chargement est au-delà de sa plage d'animation :
+   il est affiché immédiatement, sans transition. C'est ce qui permet au grand
+   titre de s'afficher sans délai. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal-on-scroll {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry var(--reveal-offset, 0%) cover 24%;
+    }
+  }
+}
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(var(--reveal-y, 32px)); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Le haut de page n'est jamais animé : il est vu dès l'ouverture, il n'y a donc
+   rien à « révéler ». L'animer le rendrait partiellement transparent tant que
+   le visiteur n'a pas fait défiler — et retarderait l'affichage du grand titre,
+   l'élément que Google chronomètre. */
+main > section:first-of-type .reveal-on-scroll { animation: none; }
+
+/* Petite entrée de la pastille « 20 ans de métier » du haut de page. */
+@keyframes badge-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.badge-in { animation: badge-in 0.7s ease-out 0.5s both; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   html { scroll-behavior: auto; }

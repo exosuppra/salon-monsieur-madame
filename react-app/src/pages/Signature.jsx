@@ -13,6 +13,7 @@ import NumberTicker from '../components/ui/NumberTicker'
 import ShimmerButton from '../components/ui/ShimmerButton'
 import AnimatedGradientText from '../components/ui/AnimatedGradientText'
 import SectionReveal, { StaggerGroup, StaggerItem } from '../components/ui/SectionReveal'
+import useLegacyFonts from '../lib/useLegacyFonts'
 
 const ICONS = { Scissors, Sparkles: SparklesIcon, User, Droplet }
 
@@ -38,6 +39,7 @@ function Reserve({ className = '', children = 'Prendre rendez-vous' }) {
 }
 
 export default function Signature() {
+  useLegacyFonts()
   const [open, setOpen] = useState(false)
   return (
     <div className="min-h-screen bg-ink font-sans text-[#F5F3EF] selection:bg-champagne/30">

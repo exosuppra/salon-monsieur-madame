@@ -9,6 +9,7 @@ import ThreeDCard from '../components/ui/ThreeDCard'
 import InfiniteMovingCards from '../components/ui/InfiniteMovingCards'
 import NumberTicker from '../components/ui/NumberTicker'
 import SectionReveal, { StaggerGroup, StaggerItem } from '../components/ui/SectionReveal'
+import useLegacyFonts from '../lib/useLegacyFonts'
 
 const ICONS = { Scissors, Sparkles: SparklesIcon, User, Droplet }
 
@@ -39,6 +40,7 @@ function Reserve({ className = '', children = 'Prendre rendez-vous', dark = fals
 }
 
 export default function Eclat() {
+  useLegacyFonts()
   const [open, setOpen] = useState(false)
   return (
     <div className="min-h-screen bg-ivoire font-jost text-charbon selection:bg-or/30">

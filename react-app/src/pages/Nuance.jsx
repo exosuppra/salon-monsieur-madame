@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { MapPin, Phone, Clock, CalendarDays, Menu, X } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { SALON, STATS, PRICING, REVIEWS } from '../data'
@@ -8,9 +7,8 @@ import SmoothScroll from '../components/SmoothScroll'
 import InfiniteMovingCards from '../components/ui/InfiniteMovingCards'
 import NumberTicker from '../components/ui/NumberTicker'
 import SectionReveal, { StaggerGroup, StaggerItem } from '../components/ui/SectionReveal'
-
-// Base des assets (respecte le base Vite /salon-monsieur-madame/app/)
-const P = import.meta.env.BASE_URL + 'photos/'
+import Photo from '../components/Photo'
+import MapEmbed from '../components/MapEmbed'
 
 const NAV = [
   ['#salon', 'Le salon'],
@@ -53,7 +51,7 @@ function Reserve({ children = 'Prendre rendez-vous', className = '' }) {
       href={SALON.booking}
       target="_blank"
       rel="noopener"
-      className={cn('inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-7 py-3 text-sm font-medium text-creme transition-all hover:-translate-y-0.5 hover:bg-cognac', SHADOW_SOFT, className)}
+      className={cn('inline-flex items-center justify-center gap-2 rounded-full bg-terracotta-deep px-7 py-3 text-sm font-medium text-creme transition-all hover:-translate-y-0.5 hover:bg-cognac', SHADOW_SOFT, className)}
     >
       <CalendarDays size={16} /> {children}
     </a>
@@ -78,7 +76,7 @@ function Ghost({ href, anchor, tel, children, className = '' }) {
 
 function Eyebrow({ children, center = false }) {
   return (
-    <span className={cn('inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.26em] text-terracotta', center && 'justify-center')}>
+    <span className={cn('inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.26em] text-terracotta-deep', center && 'justify-center')}>
       <span className="h-px w-7 bg-gradient-to-r from-terracotta to-rose" /> {children}
     </span>
   )
@@ -110,7 +108,7 @@ export default function Nuance() {
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-8 px-6">
           <Link to="/nuance" className="flex flex-col leading-none">
             <span className="font-hand text-[1.7rem] font-bold leading-none">{SALON.name}</span>
-            <span className="mt-1 text-[0.56rem] font-semibold uppercase tracking-[0.32em] text-terracotta">Gréoux-les-Bains</span>
+            <span className="mt-1 text-[0.56rem] font-semibold uppercase tracking-[0.32em] text-terracotta-deep">Gréoux-les-Bains</span>
           </Link>
           <nav className="hidden items-center gap-8 lg:flex">
             {NAV.map(([href, label]) => (
@@ -156,7 +154,7 @@ export default function Nuance() {
             <div>
               <SectionReveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-rose bg-rose-soft px-4 py-2 text-sm">
-                  <span className="tracking-widest text-terracotta" aria-hidden="true">★★★★★</span> {SALON.rating}/5 · {SALON.reviews} avis vérifiés
+                  <span className="tracking-widest text-terracotta-deep" aria-hidden="true">★★★★★</span> {SALON.rating}/5 · {SALON.reviews} avis vérifiés
                 </span>
               </SectionReveal>
               <SectionReveal delay={0.08}>
@@ -181,23 +179,27 @@ export default function Nuance() {
             {/* Photos réelles du salon */}
             <SectionReveal delay={0.15}>
               <div className="relative aspect-[4/4.6]">
-                <div
-                  role="img" aria-label="Balayage blond réalisé au salon"
-                  className={cn('absolute inset-[0_0_18%_22%] overflow-hidden rounded-[32px] bg-sable bg-cover bg-center', SHADOW)}
-                  style={{ backgroundImage: `url('${P}realisation-balayage-blond.jpg')` }}
+                <Photo
+                  src="realisation-balayage-blond.jpg"
+                  alt="Balayage blond réalisé au salon"
+                  sizes="(min-width: 1180px) 355px, (min-width: 768px) 31vw, 76vw"
+                  priority
+                  className={cn('absolute inset-[0_0_18%_22%] block overflow-hidden rounded-[32px] bg-sable', SHADOW)}
+                  imgClassName="h-full w-full object-cover"
+                />
+                <Photo
+                  src="realisation-contraste-racines.jpg"
+                  alt="Coloration contrastée avec racines fondues"
+                  sizes="(min-width: 1180px) 168px, (min-width: 768px) 15vw, 44vw"
+                  className={cn('absolute bottom-0 left-0 block aspect-[1/1.15] w-[46%] overflow-hidden rounded-[32px] border-[6px] border-lin bg-sable', SHADOW)}
+                  imgClassName="h-full w-full object-cover"
                 />
                 <div
-                  role="img" aria-label="Coloration contrastée avec racines fondues"
-                  className={cn('absolute bottom-0 left-0 aspect-[1/1.15] w-[46%] overflow-hidden rounded-[32px] border-[6px] border-lin bg-sable bg-cover bg-center', SHADOW)}
-                  style={{ backgroundImage: `url('${P}realisation-contraste-racines.jpg')` }}
-                />
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}
-                  className={cn('absolute right-[6%] top-[8%] rounded-[20px] bg-creme px-[1.15rem] py-[0.7rem] text-center ring-1 ring-rose/50', SHADOW_SOFT)}
+                  className={cn('badge-in absolute right-[6%] top-[8%] rounded-[20px] bg-creme px-[1.15rem] py-[0.7rem] text-center ring-1 ring-rose/50', SHADOW_SOFT)}
                 >
                   <div className="font-hand text-[2.4rem] font-bold leading-none text-cognac">20</div>
                   <div className="text-[0.62rem] uppercase tracking-[0.18em] text-encre-doux">ans de métier</div>
-                </motion.div>
+                </div>
               </div>
             </SectionReveal>
           </div>
@@ -218,17 +220,20 @@ export default function Nuance() {
         </section>
 
         {/* LE SALON */}
-        <section id="salon" className="scroll-mt-24 px-6 py-24 md:py-32">
+        <section id="salon" className="defer-paint scroll-mt-24 px-6 py-24 md:py-32">
           <div className="mx-auto grid max-w-[1180px] items-center gap-10 md:grid-cols-[.95fr_1.05fr]">
             <SectionReveal>
-              <div
-                role="img" aria-label="La terrasse devant le salon Madame Monsieur"
-                className={cn('relative aspect-[4/3] overflow-hidden rounded-[32px] bg-sable bg-cover bg-center', SHADOW)}
-                style={{ backgroundImage: `url('${P}salon-terrasse.jpg')` }}
-              >
+              <div className={cn('relative aspect-[4/3] overflow-hidden rounded-[32px] bg-sable', SHADOW)}>
+                <Photo
+                  src="salon-terrasse.jpg"
+                  alt="La terrasse devant le salon Madame Monsieur"
+                  sizes="(min-width: 1180px) 530px, (min-width: 768px) 45vw, calc(100vw - 3rem)"
+                  className="absolute inset-0 block"
+                  imgClassName="h-full w-full object-cover"
+                />
                 <div className="absolute bottom-5 left-5 rounded-[20px] bg-creme/95 px-5 py-2.5 backdrop-blur">
                   <div className="font-hand text-2xl font-bold leading-none">Elodie</div>
-                  <div className="mt-1 text-[0.66rem] uppercase tracking-[0.16em] text-terracotta">Coiffeuse · 20 ans d'expérience</div>
+                  <div className="mt-1 text-[0.66rem] uppercase tracking-[0.16em] text-terracotta-deep">Coiffeuse · 20 ans d'expérience</div>
                 </div>
               </div>
             </SectionReveal>
@@ -256,7 +261,7 @@ export default function Nuance() {
         </section>
 
         {/* PRESTATIONS */}
-        <section id="prestations" className="scroll-mt-24 border-y border-sable bg-creme/50 px-6 py-24 md:py-32">
+        <section id="prestations" className="defer-paint scroll-mt-24 border-y border-sable bg-creme/50 px-6 py-24 md:py-32">
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Prestations</Eyebrow>
@@ -279,7 +284,7 @@ export default function Nuance() {
         </section>
 
         {/* RÉALISATIONS */}
-        <section id="realisations" className="scroll-mt-24 px-6 py-24 md:py-32">
+        <section id="realisations" className="defer-paint scroll-mt-24 px-6 py-24 md:py-32">
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Réalisations</Eyebrow>
@@ -290,9 +295,12 @@ export default function Nuance() {
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 {GALLERY.map((g, i) => (
                   <figure key={g.src} className={cn('group relative overflow-hidden rounded-[28px] bg-sable', SHADOW_SOFT, i === 0 && 'col-span-2 row-span-2')}>
-                    <img
-                      src={`${P}${g.src}`} alt={g.alt} loading="lazy"
-                      className={cn('h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105', i === 0 ? 'aspect-[3/3.4]' : 'aspect-[3/4]')}
+                    <Photo
+                      src={g.src}
+                      alt={g.alt}
+                      sizes={i === 0 ? '(min-width: 1180px) 570px, (min-width: 768px) 46vw, calc(100vw - 3rem)' : '(min-width: 1180px) 275px, (min-width: 768px) 23vw, calc(50vw - 2rem)'}
+                      className={cn('block w-full', i === 0 ? 'h-full min-h-full' : 'aspect-[3/4]')}
+                      imgClassName="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
                     <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-encre/80 to-transparent px-4 pb-3 pt-6 font-newsreader text-sm italic text-creme">{g.cap}</figcaption>
                   </figure>
@@ -307,7 +315,7 @@ export default function Nuance() {
         </section>
 
         {/* TARIFS */}
-        <section id="tarifs" className="scroll-mt-24 border-y border-sable bg-creme/50 px-6 py-24 md:py-32">
+        <section id="tarifs" className="defer-paint scroll-mt-24 border-y border-sable bg-creme/50 px-6 py-24 md:py-32">
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Tarifs</Eyebrow>
@@ -325,7 +333,7 @@ export default function Nuance() {
                           <li key={r.n} className="flex items-baseline justify-between gap-4 border-b border-dashed border-encre/15 py-2.5 last:border-none">
                             <span className="text-[0.93rem] leading-snug text-encre">
                               {r.n}
-                              {r.d && <small className="mt-0.5 block text-[0.74rem] tracking-wide text-encre-doux/85">{r.d}</small>}
+                              {r.d && <small className="mt-0.5 block text-[0.74rem] tracking-wide text-encre-doux">{r.d}</small>}
                             </span>
                             <span className="whitespace-nowrap font-newsreader font-medium text-cognac">{r.from ? 'dès ' : ''}{r.p}</span>
                           </li>
@@ -345,25 +353,25 @@ export default function Nuance() {
         </section>
 
         {/* AVIS (défilement) */}
-        <section id="avis" className="scroll-mt-24 py-24 md:py-32">
+        <section id="avis" className="defer-paint scroll-mt-24 py-24 md:py-32">
           <div className="mx-auto mb-12 max-w-[1180px] px-6 text-center">
             <SectionReveal>
               <Eyebrow center>Avis clients</Eyebrow>
               <div className="mt-3 font-hand text-[clamp(3.6rem,8vw,5.4rem)] font-bold leading-none text-cognac">{SALON.rating}<sub className="align-super text-[0.3em] text-encre-doux">/5</sub></div>
-              <div className="tracking-[3px] text-terracotta" aria-hidden="true">★★★★★</div>
+              <div className="tracking-[3px] text-terracotta-deep" aria-hidden="true">★★★★★</div>
               <p className={cn(LEAD, 'mt-2 text-encre-doux')}>{SALON.reviews} avis vérifiés sur Planity</p>
             </SectionReveal>
           </div>
           <InfiniteMovingCards
             items={REVIEWS}
             speed="slow"
-            starClass="text-terracotta"
+            starClass="text-terracotta-deep"
             card={cn('border border-encre/10 bg-creme text-encre', SHADOW_SOFT)}
           />
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="scroll-mt-24 px-6 py-24 md:py-32">
+        <section id="contact" className="defer-paint scroll-mt-24 px-6 py-24 md:py-32">
           <div className="mx-auto max-w-[1180px]">
             <SectionReveal className="mb-12 max-w-2xl">
               <Eyebrow>Infos pratiques</Eyebrow>
@@ -376,13 +384,13 @@ export default function Nuance() {
                   {[
                     { ic: <MapPin size={20} />, h: 'Adresse', body: <>Av. des Marronniers<br />04800 {SALON.city}</> },
                     { ic: <Phone size={20} />, h: 'Téléphone', body: <a href={SALON.phoneHref} className="font-medium text-cognac hover:underline">{SALON.phone}</a> },
-                    { ic: <Clock size={20} />, h: 'Horaires', body: <>Mardi – Samedi : 9h00 – 18h00<br /><span className="italic opacity-65">Dimanche &amp; Lundi : fermé</span></> },
+                    { ic: <Clock size={20} />, h: 'Horaires', body: <>Mardi – Samedi : 9h00 – 18h00<br /><span className="italic text-encre-doux">Dimanche &amp; Lundi : fermé</span></> },
                     { ic: <CalendarDays size={20} />, h: 'Réservation', body: 'En ligne 24h/24 via Planity' },
                   ].map((row, i, arr) => (
                     <div key={row.h} className={cn('flex gap-4 py-4', i === 0 && 'pt-0', i < arr.length - 1 && 'border-b border-sable')}>
                       <span className={cn('grid h-10 w-10 flex-none place-items-center rounded-xl text-cognac', i % 2 ? 'bg-rose-soft' : 'bg-sable')}>{row.ic}</span>
                       <div>
-                        <h4 className="font-hand text-xl font-semibold leading-none">{row.h}</h4>
+                        <h3 className="font-hand text-xl font-semibold leading-none">{row.h}</h3>
                         <p className="mt-1 text-[0.93rem] text-encre-doux">{row.body}</p>
                       </div>
                     </div>
@@ -395,12 +403,9 @@ export default function Nuance() {
               </SectionReveal>
               <SectionReveal delay={0.1} className="flex">
                 <div className={cn('relative min-h-[380px] w-full overflow-hidden rounded-[32px] border border-encre/10 bg-sable', SHADOW_SOFT)}>
-                  <iframe
+                  <MapEmbed
+                    coords={SALON.coords}
                     title="Localisation du salon Madame Monsieur à Gréoux-les-Bains"
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full"
-                    style={{ border: 0, filter: 'saturate(.85) sepia(.08)' }}
-                    src={`https://maps.google.com/maps?q=${SALON.coords}&t=&z=18&ie=UTF8&iwloc=&output=embed`}
                   />
                   <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-baseline gap-x-4 gap-y-1 bg-gradient-to-t from-lin/95 to-transparent p-5">
                     <span className="font-hand text-2xl font-semibold">{SALON.name} — {SALON.city}</span>
@@ -439,12 +444,12 @@ export default function Nuance() {
             <div>
               <div className="flex flex-col leading-none">
                 <span className="font-hand text-2xl font-bold leading-none">{SALON.name}</span>
-                <span className="mt-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-terracotta">Coiffure · {SALON.city}</span>
+                <span className="mt-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-terracotta-deep">Coiffure · {SALON.city}</span>
               </div>
               <p className={cn(LEAD, 'mt-4 max-w-xs text-sm text-encre-doux')}>Un salon familial où l'on prend le temps. Coupe, couleur, balayage et soins, pour toute la famille.</p>
             </div>
             <div>
-              <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-encre-doux">Le salon</h4>
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-encre-doux">Le salon</h3>
               <ul className="grid gap-2.5 text-sm text-encre-doux">
                 {NAV.map(([href, label]) => (
                   <li key={href}><a href={href} data-anchor={href} className="transition-colors hover:text-cognac">{label}</a></li>
@@ -452,7 +457,7 @@ export default function Nuance() {
               </ul>
             </div>
             <div>
-              <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-encre-doux">Nous joindre</h4>
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-encre-doux">Nous joindre</h3>
               <ul className="grid gap-2.5 text-sm text-encre-doux">
                 <li><a href={SALON.phoneHref} className="hover:text-cognac">{SALON.phone}</a></li>
                 <li><a href={SALON.mapsLink} target="_blank" rel="noopener" className="hover:text-cognac">Av. des Marronniers</a></li>
@@ -464,7 +469,7 @@ export default function Nuance() {
             <span>© 2026 {SALON.name} — {SALON.city}</span>
             <span>Mardi au samedi · 9h – 18h</span>
           </div>
-          <div className="mt-4 text-center text-xs text-encre-doux/80">
+          <div className="mt-4 text-center text-xs text-encre-doux">
             Site développé par{' '}
             <a href="https://logiq-ia.fr" target="_blank" rel="noopener" className="font-medium text-cognac underline-offset-4 hover:underline">Logiq IA</a>
           </div>

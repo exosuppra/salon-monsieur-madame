@@ -5,6 +5,7 @@ import { SALON } from '../data'
 import { Spotlight } from '../components/ui/Spotlight'
 import Sparkles from '../components/ui/Sparkles'
 import AnimatedGradientText from '../components/ui/AnimatedGradientText'
+import useLegacyFonts from '../lib/useLegacyFonts'
 
 const CARDS = [
   {
@@ -25,6 +26,7 @@ const CARDS = [
 ]
 
 export default function Landing() {
+  useLegacyFonts()
   return (
     <div className="relative min-h-screen overflow-hidden bg-ink font-sans text-[#F5F3EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">

@@ -28,7 +28,7 @@ export default function InfiniteMovingCards({ items, speed = 'slow', card = '', 
             <span className="text-xs opacity-70">{String(it.rating).replace('.', ',')}/5</span>
           </div>
           <p className="text-[0.98rem] leading-relaxed opacity-90">“{it.text}”</p>
-          <div className="mt-5 flex items-center justify-between gap-3 text-xs opacity-60">
+          <div className="mt-5 flex items-center justify-between gap-3 text-xs opacity-75">
             <span>Avis vérifié · Planity</span>
             <span>{it.date}</span>
           </div>

@@ -1,43 +1,43 @@
-import { motion } from 'framer-motion'
+import { cn } from '../../lib/utils'
 
-// Révélation au scroll (Framer Motion whileInView)
-export default function SectionReveal({ children, className = '', delay = 0, y = 32, as = 'div' }) {
-  const M = motion[as] || motion.div
+/**
+ * Révélation au scroll, 100 % en CSS (voir `.reveal-on-scroll` dans index.css).
+ *
+ * Aucun JavaScript n'intervient : l'animation est pilotée par la position de
+ * l'élément dans la page (`animation-timeline: view()`). Conséquences :
+ *
+ * - Le contenu est visible par défaut. Sur un navigateur qui ne gère pas les
+ *   animations liées au défilement, tout s'affiche normalement, sans animation.
+ *   Il n'existe aucun cas où un bloc peut rester invisible.
+ * - Le haut de page n'est jamais masqué : un élément déjà à l'écran est
+ *   au-delà de sa plage d'animation, donc affiché d'emblée. Le grand titre
+ *   (l'élément mesuré par Google pour le LCP) apparaît immédiatement.
+ * - Zéro coût sur le fil principal : plus d'IntersectionObserver, plus de
+ *   classes ajoutées après coup.
+ *
+ * `delay` est conservé pour ne pas toucher aux appels existants ; il décale
+ * légèrement le début de l'animation.
+ */
+export default function SectionReveal({ children, className = '', delay = 0, y = 32, as: Tag = 'div' }) {
   return (
-    <M
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.8, delay, ease: [0.19, 1, 0.22, 1] }}
+    <Tag
+      className={cn('reveal-on-scroll', className)}
+      style={{ '--reveal-y': `${y}px`, '--reveal-offset': `${Math.round(delay * 40)}%` }}
     >
       {children}
-    </M>
+    </Tag>
   )
 }
 
-// Conteneur avec stagger pour enfants <SectionRevealItem>
-export function StaggerGroup({ children, className = '', stagger = 0.1 }) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: stagger } } }}
-    >
-      {children}
-    </motion.div>
-  )
+/** Conteneur dont les enfants <StaggerItem> apparaissent en léger décalage. */
+export function StaggerGroup({ children, className = '' }) {
+  return <div className={className}>{children}</div>
 }
 
 export function StaggerItem({ children, className = '', y = 28 }) {
   return (
-    <motion.div
-      className={className}
-      variants={{ hidden: { opacity: 0, y }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.19, 1, 0.22, 1] } } }}
-    >
+    <div className={cn('reveal-on-scroll', className)} style={{ '--reveal-y': `${y}px` }}>
       {children}
-    </motion.div>
+    </div>
   )
 }

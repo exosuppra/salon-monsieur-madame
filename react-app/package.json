@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node tools/inline-css.mjs",
+    "preview": "vite preview",
+    "build:assets": "node tools/build-fonts.mjs && node tools/build-images.mjs",
+    "publish": "node tools/publish.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -22,7 +24,11 @@
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.4",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.10"
+  },
+  "allowScripts": {
+    "sharp@0.35.4": true
   }
 }
