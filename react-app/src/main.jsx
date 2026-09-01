@@ -1,32 +1,33 @@
-import React, { Suspense, lazy } from 'react'
-import ReactDOM from 'react-dom/client'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { StrictMode } from 'react'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
 import './index.css'
-import Nuance from './pages/Nuance.jsx'
-import ScrollToTop from './components/ScrollToTop.jsx'
+import App from './App.jsx'
 
-// Nuance est le site final : il reste dans le paquet principal.
-// Les anciennes maquettes ne sont téléchargées que si on visite leur adresse,
-// ce qui allège d'autant le chargement de la page d'accueil.
-const Signature = lazy(() => import('./pages/Signature.jsx'))
-const Eclat = lazy(() => import('./pages/Eclat.jsx'))
-const Landing = lazy(() => import('./pages/Landing.jsx'))
+const container = document.getElementById('root')
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const tree = (
+  <StrictMode>
     <HashRouter>
-      <ScrollToTop />
-      <Suspense fallback={<div className="min-h-screen bg-lin" />}>
-        <Routes>
-          {/* Nuance = site final = page d'accueil */}
-          <Route path="/" element={<Nuance />} />
-          <Route path="/nuance" element={<Nuance />} />
-          <Route path="/signature" element={<Signature />} />
-          <Route path="/eclat" element={<Eclat />} />
-          <Route path="/maquettes" element={<Landing />} />
-          <Route path="*" element={<Nuance />} />
-        </Routes>
-      </Suspense>
+      <App />
     </HashRouter>
-  </React.StrictMode>,
+  </StrictMode>
 )
+
+// Le HTML de la page d'accueil est prérendu à la compilation (voir
+// tools/prerender.mjs) : on l'« hydrate » plutôt que de le reconstruire, ce qui
+// évite de tout réafficher.
+//
+// Le prérendu ne concerne que la page d'accueil. Sur les adresses des anciennes
+// maquettes (#/eclat, #/signature…), le contenu attendu est différent : on
+// repart d'un rendu complet, sinon React signalerait une incohérence.
+const hash = window.location.hash.replace(/^#/, '')
+const isHome = hash === '' || hash === '/' || hash === '/nuance'
+const prerendered = container.hasChildNodes()
+
+if (isHome && prerendered) {
+  hydrateRoot(container, tree)
+} else {
+  container.innerHTML = ''
+  createRoot(container).render(tree)
+}

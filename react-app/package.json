@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node tools/inline-css.mjs",
+    "build": "vite build && node tools/prerender.mjs && node tools/inline-css.mjs",
     "preview": "vite preview",
     "build:assets": "node tools/build-fonts.mjs && node tools/build-images.mjs",
     "publish": "node tools/publish.mjs"
