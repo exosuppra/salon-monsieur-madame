@@ -12,9 +12,19 @@ import sys
 
 from fontTools.ttLib import TTFont
 
-# Lettres les plus fréquentes en français : donne une largeur moyenne bien plus
-# représentative d'un texte réel que le xAvgCharWidth déclaré dans la police.
-SAMPLE = 'etaisnrulodcpmvqfbghjxyzw '
+# Extraits réels du site. La largeur moyenne est calculée sur ce texte plutôt que
+# sur une liste de lettres : la fréquence des caractères, les majuscules, les
+# accents, les espaces et la ponctuation comptent, et l'écart est loin d'être
+# négligeable. Sur l'italique de Newsreader, la méthode « liste de lettres »
+# donnait 90,5 % là où le navigateur mesure 87,1 % — soit un décalage suffisant
+# pour que le paragraphe d'accroche change de hauteur et fasse sauter la page.
+SAMPLE = (
+    'Coupe, couleur et balayage à Gréoux-les-Bains. Vingt ans de métier, '
+    'une pièce chaleureuse en bois et cuir, et une seule idée en tête : '
+    'que vos cheveux vous ressemblent. Des couleurs faites au salon, '
+    'photographiées telles quelles, sans retouche. Toutes les prestations '
+    'du salon, avec leur durée. Un salon où l’on prend le temps.'
+)
 
 # Police de repli de référence, présente sur Windows, macOS et Android
 # (où elle est aliasée vers Roboto).
