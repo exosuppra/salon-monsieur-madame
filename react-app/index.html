@@ -107,5 +107,11 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Mesure d'audience Cloudflare Web Analytics (sans cookie).
+         Installé ici plutôt qu'injecté par Cloudflare : l'injection automatique
+         était réglée pour exclure les visiteurs européens, soit presque toute
+         la clientèle. Dans Cloudflare, le site doit rester sur
+         « Enable with JS Snippet installation », sinon chaque visite compte double. -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "878b4b9fc18d4690b471cbb1f6c91aad"}'></script>
   </body>
 </html>
